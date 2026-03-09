@@ -1,0 +1,16 @@
+[package]
+name = "sdl-main-wrapper"
+version = "0.1.5"
+edition = "2024"
+description = "Wrapper over SDL callbacks"
+repository = "https://github.com/achusbyr/sdl-sys-rs"
+license = "Zlib"
+
+[features]
+default = []
+args = ["std"]
+std = ["alloc"]
+alloc = []
+
+[dependencies]
+sdl-sys-bindgen = { path = "../sdl-sys-bindgen", version = "0.1" }

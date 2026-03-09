@@ -1,0 +1,21 @@
+[package]
+name = "sdl-image-sys"
+version = "0.1.1+3.5.0-75e4861abe15a77c3142cbd09c667ebc6e66132d"
+edition = "2024"
+description = "Alternative bindings for SDL3_image using bindgen"
+repository = "https://github.com/achusbyr/sdl-sys-rs"
+license = "Zlib"
+links = "SDL3_image"
+
+[features]
+default = []
+build-from-source = ["sdl-sys-bindgen/build-from-source"]
+link-static = ["sdl-sys-bindgen/link-static"]
+use-pkg-config = ["sdl-sys-bindgen/use-pkg-config"]
+use-vcpkg = ["sdl-sys-bindgen/use-vcpkg"]
+
+[dependencies]
+sdl-sys-bindgen = { path = "../sdl-sys-bindgen", version = "0.1" }
+
+[build-dependencies]
+sdl-build-helper = { path = "../sdl-build-helper", version = "0.1", default-features = false }
