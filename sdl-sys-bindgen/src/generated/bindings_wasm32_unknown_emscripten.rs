@@ -12493,7 +12493,7 @@ const _: () = {
     ["Offset of field: SDL_GPUBufferCreateInfo::props"]
         [::core::mem::offset_of!(SDL_GPUBufferCreateInfo, props) - 8usize];
 };
-#[doc = " A structure specifying the parameters of a transfer buffer.\n\n **Available Since:** This struct is available since SDL 3.2.0.\n\n **See Also:** SDL_CreateGPUTransferBuffer\n"]
+#[doc = " A structure specifying the parameters of a transfer buffer.\n\n **Available Since:** This struct is available since SDL 3.2.0.\n\n **See Also:** SDL_GPUTransferBufferUsage\n **See Also:** SDL_CreateGPUTransferBuffer\n"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone, Hash)]
 pub struct SDL_GPUTransferBufferCreateInfo {

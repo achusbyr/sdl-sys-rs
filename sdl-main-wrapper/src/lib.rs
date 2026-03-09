@@ -30,6 +30,12 @@ pub trait SdlApp: Sized + Send {
     /// is handed to SDL. It will be passed back to `iterate`, `event`, and `quit`.
     #[cfg(feature = "args")]
     fn init(args: &[CString]) -> Result<Self, Self::Error>;
+    /// Called once at startup. Return `Ok(Self)` to continue, or `Err` to terminate.
+    ///
+    /// # Memory Management
+    ///
+    /// The returned `Self` instance is moved onto the heap and its ownership
+    /// is handed to SDL. It will be passed back to `iterate`, `event`, and `quit`.
     #[cfg(not(feature = "args"))]
     fn init() -> Result<Self, Self::Error>;
 
@@ -182,11 +188,9 @@ pub fn run_app<A: SdlApp>() -> i32 {
 
 fn log_error(msg: *const c_char) {
     unsafe {
-        let c_msg = core::ffi::CStr::from_ptr(msg);
-
         SDL_LogError(
             SDL_LogCategory::SDL_LOG_CATEGORY_APPLICATION.0 as c_int,
-            c_msg.as_ptr(),
+            msg,
         );
     }
 }

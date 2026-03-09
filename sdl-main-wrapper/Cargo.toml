@@ -1,13 +1,13 @@
 [package]
 name = "sdl-main-wrapper"
-version = "0.1.5"
+version = "0.1.6"
 edition = "2024"
-description = "Wrapper over SDL callbacks"
+description = "Wrapper over SDL's callback-based app loop"
 repository = "https://github.com/achusbyr/sdl-sys-rs"
 license = "Zlib"
 
 [features]
-default = []
+default = ["alloc"]
 args = ["std"]
 std = ["alloc"]
 alloc = []

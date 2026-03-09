@@ -30,15 +30,18 @@ The `-sys` crates (`sdl-sys-bindgen`, `sdl-image-sys`, `sdl-mixer-sys`, `sdl-ttf
 If no features are enabled, the build script attempts a default discovery for a dynamically linked system installation of the library.
 
 The `sdl-main-wrapper` crate has the following features:
-- **`std`** (enabled by default): Enables standard library support.
-- **`alloc`**: Enables `alloc` support without `std`.
+- **`args`**: Enables command-line argument support, enables `std` feature.
+- **`std`**: Enables standard library support, enables `alloc` feature.
+- **`alloc`** (enabled by default): Enables using the `alloc` crate.
+
+`sdl-main-wrapper` can be used without any features enabled, but you won't be able to access command line arguments via `init()` and when returning an `Err` from `init()`, the error won't be formatted.
 
 ## Getting Started
 
 ### Prerequisites
 
 - **Rust** (edition 2024)
-- **SDL3** shared libraries installed system-wide (or reachable via `LD_LIBRARY_PATH`)
+- **SDL** shared libraries installed system-wide (or reachable via `LD_LIBRARY_PATH`)
 - **Clang** (required by bindgen)
 
 ### Clone with Submodules
@@ -58,7 +61,7 @@ git submodule update --init --recursive
 
 > [!Warning]
 > When cross compiling to Apple platforms, you will need to get the appropriate SDK and set the `SDKROOT` environment variable to point to it.
-> Additionally, when generating bindings for emscripten, make sure you have emsdk installed and the `EMSDK` environment variable is set.
+> Additionally, when generating bindings for Emscripten, make sure you have emsdk installed and the `EMSDK` environment variable is set.
 
 Only needed if you update the SDL submodules or want to add a new target:
 
@@ -82,13 +85,11 @@ cargo build
 
 ## Emscripten Notes
 
-Prefer using main callbacks (e.g., `sdl-main-wrapper`) over a blocking loop. Also, Emscripten will link to SDL_main rather than Rust's `fn main()`, so whatever you do in your `main()` function, it should look similar to:
+Prefer using main callbacks (e.g., `sdl-main-wrapper`) over a blocking loop. Also, Emscripten will link to SDL_main rather than Rust's `fn main()`, so whatever you would have done in your `main()` function, it should look similar to:
 ```rust
-#![no_main]
-
 // Implementation...
 
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub unsafe extern "C" fn SDL_main(argc: c_int, argv: *mut *mut c_char) -> c_int {
   run_app::<MyApp>()
 }
