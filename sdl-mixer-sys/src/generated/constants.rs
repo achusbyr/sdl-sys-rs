@@ -150,6 +150,12 @@ pub const MIX_PROP_PLAY_START_MILLISECOND_NUMBER: Property = Property {
     ty: PropertyType::Number,
     doc: "",
 };
+pub const MIX_PROP_PLAY_START_ORDER_NUMBER: Property = Property {
+    name: "MIX_PROP_PLAY_START_ORDER_NUMBER",
+    value: "SDL_mixer.play.start_order",
+    ty: PropertyType::Number,
+    doc: "",
+};
 pub const MIX_PROP_PLAY_LOOP_START_FRAME_NUMBER: Property = Property {
     name: "MIX_PROP_PLAY_LOOP_START_FRAME_NUMBER",
     value: "SDL_mixer.play.loop_start_frame",

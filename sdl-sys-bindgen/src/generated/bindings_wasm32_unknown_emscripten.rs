@@ -1896,7 +1896,7 @@ unsafe extern "C" {
     pub fn SDL_strrev(str_: *mut core::ffi::c_char) -> *mut core::ffi::c_char;
 }
 unsafe extern "C" {
-    #[doc = " Convert a string to uppercase.\n\n **WARNING**: Regardless of system locale, this will only convert ASCII\n values 'A' through 'Z' to uppercase.\n\n This function operates on a null-terminated string of bytes--even if it is\n malformed UTF-8!--and converts ASCII characters 'a' through 'z' to their\n uppercase equivalents in-place, returning the original `str` pointer.\n\n **Parameter:** str the string to convert in-place. Can not be NULL.\n **Returns:** the `str` pointer passed into this function.\n\n **Thread Safety:** It is safe to call this function from any thread.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_strlwr\n"]
+    #[doc = " Convert a string to uppercase.\n\n **WARNING**: Regardless of system locale, this will only convert ASCII\n values 'a' through 'z' to uppercase.\n\n This function operates on a null-terminated string of bytes--even if it is\n malformed UTF-8!--and converts ASCII characters 'a' through 'z' to their\n uppercase equivalents in-place, returning the original `str` pointer.\n\n **Parameter:** str the string to convert in-place. Can not be NULL.\n **Returns:** the `str` pointer passed into this function.\n\n **Thread Safety:** It is safe to call this function from any thread.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_strlwr\n"]
     pub fn SDL_strupr(str_: *mut core::ffi::c_char) -> *mut core::ffi::c_char;
 }
 unsafe extern "C" {
