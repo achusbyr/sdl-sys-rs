@@ -48,15 +48,6 @@ pub const CRATES: &[SysCrateConfig] = &[
         prop_prefix: "TTF_PROP_",
         allowlist_file: Some(".*SDL3_ttf.*"),
     },
-    SysCrateConfig {
-        lib_name: "SDL3_gfx",
-        include_dirs: &["submodules/SDL/include", "submodules/SDL3_gfx/include"],
-        headers: &["submodules/SDL3_gfx/include/SDL3_gfx/SDL3_gfxPrimitives.h"],
-        out_dir: "sdl3-gfx-sys/src/generated",
-        hint_prefix: "SDL3",
-        prop_prefix: "SDL3",
-        allowlist_file: Some(".*SDL3_gfx.*"),
-    },
 ];
 
 pub const TARGETS: &[&str] = &[

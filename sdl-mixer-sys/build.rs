@@ -7,6 +7,5 @@ fn main() {
         .with_repo_url("https://github.com/libsdl-org/SDL_mixer")
         .requires_base_sdl3(true)
         .with_cmake_option("SDLMIXER_SAMPLES", "OFF")
-        .with_cmake_option("SDLMIXER_VENDORED", "ON")
         .build();
 }

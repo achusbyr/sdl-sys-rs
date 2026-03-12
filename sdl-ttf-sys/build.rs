@@ -7,6 +7,5 @@ fn main() {
         .with_repo_url("https://github.com/libsdl-org/SDL_ttf")
         .requires_base_sdl3(true)
         .with_cmake_option("SDLTTF_SAMPLES", "OFF")
-        .with_cmake_option("SDLTTF_VENDORED", "ON")
         .build();
 }

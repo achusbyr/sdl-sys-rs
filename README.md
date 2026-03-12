@@ -93,6 +93,11 @@ Prefer using main callbacks (e.g., `sdl-main-wrapper`) over a blocking loop. Als
 pub unsafe extern "C" fn SDL_main(argc: c_int, argv: *mut *mut c_char) -> c_int {
   run_app::<MyApp>()
 }
+
+fn main() {
+  // We can have both SDL_main() and main() to support both platforms that either use SDL_main or support main().
+  run_app::<MyApp>()
+}
 ```
 
 ### Compiling & Linking

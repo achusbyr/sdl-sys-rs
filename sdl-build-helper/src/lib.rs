@@ -133,6 +133,17 @@ impl SdlBuilder {
             cfg.define(k, v);
         }
 
+        let link_name_upper = self.link_name.to_uppercase().replace("-", "_");
+        let cmake_override_var = format!("{}_CMAKE_OVERRIDE", link_name_upper);
+        if let Ok(overrides) = env::var(&cmake_override_var) {
+            for part in overrides.split_whitespace() {
+                let part = part.strip_prefix("-D").unwrap_or(part);
+                if let Some((k, v)) = part.split_once('=') {
+                    cfg.define(k, v);
+                }
+            }
+        }
+
         // If this is a satellite library, hook it up to the base SDL3 we just built
         if self.requires_base_sdl3 {
             let sdl3_cmake_dir = env::var("DEP_SDL3_CMAKE_DIR").unwrap_or_else(|_| {

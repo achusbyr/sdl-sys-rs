@@ -8,5 +8,4 @@ members = [
     "sdl-mixer-sys",
     "sdl-ttf-sys",
     "sdl-main-wrapper",
-    "sdl3-gfx-sys",
 ]

@@ -1,6 +1,6 @@
 [package]
 name = "sdl-main-wrapper"
-version = "0.1.6"
+version = "0.1.0"
 edition = "2024"
 description = "Wrapper over SDL's callback-based app loop"
 repository = "https://github.com/achusbyr/sdl-sys-rs"
