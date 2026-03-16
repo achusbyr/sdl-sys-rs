@@ -10,19 +10,19 @@ Rust FFI bindings for **SDL3** and its satellite libraries (SDL3_image, SDL3_mix
 | `sdl-image-sys` | Raw FFI bindings for SDL3_image |
 | `sdl-mixer-sys` | Raw FFI bindings for SDL3_mixer |
 | `sdl-ttf-sys` | Raw FFI bindings for SDL3_ttf |
-| `sdl3-gfx-sys` | Raw FFI bindings for SDL3_gfx |
 | `sdl-main-wrapper` | Idiomatic Rust wrapper for SDL's callback-based app loop |
 | `sdl-bindgen` | Binding generator (developer tool, not published) |
 | `sdl-build-helper` | Shared build script logic for `-sys` crates |
 
 ## Cargo Features
 
-The `-sys` crates (`sdl-sys-bindgen`, `sdl-image-sys`, `sdl-mixer-sys`, `sdl-ttf-sys`, `sdl3-gfx-sys`) share a common set of Cargo features to control how the C libraries are found and linked:
+The `-sys` crates (`sdl-sys-bindgen`, `sdl-image-sys`, `sdl-mixer-sys`, `sdl-ttf-sys`) share a common set of Cargo features to control how the C libraries are found and linked:
 
 - **`build-from-source`**: Downloads and builds the C library from source using CMake and Git.
-  - You can override the default repository and branch using environment variables:
+  - You can override some settings using environment variables:
     - `<LIB_NAME_CAPITALIZED>_REPOSITORY_OVERRIDE` (e.g., `SDL3_REPOSITORY_OVERRIDE`) overrides the Git repository URL.
     - `<LIB_NAME_CAPITALIZED>_BRANCH_OVERRIDE` (e.g., `SDL3_BRANCH_OVERRIDE`) overrides the Git branch or commit to checkout.
+    - `<LIB_NAME_CAPITALIZED>_CMAKE_OVERRIDE` (e.g., `SDL3_CMAKE_OVERRIDE`) overrides the CMake flags passed.
 - **`link-static`**: Links the C library statically.
 - **`use-pkg-config`**: Uses `pkg-config` to discover the library on the system.
 - **`use-vcpkg`**: Uses `vcpkg` to discover the library.

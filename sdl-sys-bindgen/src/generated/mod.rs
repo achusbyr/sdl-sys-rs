@@ -20,10 +20,5 @@ mod bindings_wasm32_unknown_emscripten;
 #[cfg(all(target_os = "emscripten", target_arch = "wasm32"))]
 pub use bindings_wasm32_unknown_emscripten::*;
 
-#[cfg(not(any(
-    all(target_os = "linux", target_arch = "x86_64"),
-    all(target_os = "windows", target_arch = "x86_64"),
-    all(target_os = "macos", target_arch = "aarch64"),
-    all(target_os = "emscripten", target_arch = "wasm32")
-)))]
+#[cfg(not(any(all(target_os = "linux", target_arch = "x86_64"), all(target_os = "windows", target_arch = "x86_64"), all(target_os = "macos", target_arch = "aarch64"), all(target_os = "emscripten", target_arch = "wasm32"))))]
 compile_error!("Unsupported target: run sdl-bindgen to generate bindings for this platform");

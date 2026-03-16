@@ -1718,7 +1718,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn strchr(_Str: *const core::ffi::c_char, _Val: core::ffi::c_int)
-    -> *mut core::ffi::c_char;
+        -> *mut core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn _stricmp(
@@ -1872,7 +1872,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn strrchr(_Str: *const core::ffi::c_char, _Ch: core::ffi::c_int)
-    -> *mut core::ffi::c_char;
+        -> *mut core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn _strrev(_Str: *mut core::ffi::c_char) -> *mut core::ffi::c_char;
@@ -1907,7 +1907,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn _strupr_l(_String: *mut core::ffi::c_char, _Locale: _locale_t)
-    -> *mut core::ffi::c_char;
+        -> *mut core::ffi::c_char;
 }
 unsafe extern "C" {
     pub fn strxfrm(
@@ -2869,7 +2869,7 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     pub fn _wrename(_OldFilename: *const wchar_t, _NewFilename: *const wchar_t)
-    -> core::ffi::c_int;
+        -> core::ffi::c_int;
 }
 unsafe extern "C" {
     pub fn _wmktemp(_TemplateName: *mut wchar_t) -> *mut wchar_t;
@@ -4599,7 +4599,7 @@ unsafe extern "C" {
     ) -> *const core::ffi::c_char;
 }
 unsafe extern "C" {
-    #[doc = " Get all variables in the environment.\n\n **Parameter:** env the environment to query.\n **Returns:** a NULL terminated array of pointers to environment variables in\n          the form \"variable=value\" or NULL on failure; call SDL_GetError()\n          for more information. This is a single allocation that should be\n          freed with SDL_free() when it is no longer needed.\n\n **Thread Safety:** It is safe to call this function from any thread.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_GetEnvironment\n **See Also:** SDL_CreateEnvironment\n **See Also:** SDL_GetEnvironmentVariables\n **See Also:** SDL_SetEnvironmentVariable\n **See Also:** SDL_UnsetEnvironmentVariable\n"]
+    #[doc = " Get all variables in the environment.\n\n **Parameter:** env the environment to query.\n **Returns:** a NULL terminated array of pointers to environment variables in\n          the form \"variable=value\" or NULL on failure; call SDL_GetError()\n          for more information. This is a single allocation that should be\n          freed with SDL_free() when it is no longer needed.\n\n **Thread Safety:** It is safe to call this function from any thread.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_GetEnvironment\n **See Also:** SDL_CreateEnvironment\n **See Also:** SDL_GetEnvironmentVariable\n **See Also:** SDL_SetEnvironmentVariable\n **See Also:** SDL_UnsetEnvironmentVariable\n"]
     pub fn SDL_GetEnvironmentVariables(env: *mut SDL_Environment) -> *mut *mut core::ffi::c_char;
 }
 unsafe extern "C" {
@@ -5120,7 +5120,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Convert a single Unicode codepoint to UTF-8.\n\n The buffer pointed to by `dst` must be at least 4 bytes long, as this\n function may generate between 1 and 4 bytes of output.\n\n This function returns the first byte _after_ the newly-written UTF-8\n sequence, which is useful for encoding multiple codepoints in a loop, or\n knowing where to write a NULL-terminator character to end the string (in\n either case, plan to have a buffer of _more_ than 4 bytes!).\n\n If `codepoint` is an invalid value (outside the Unicode range, or a UTF-16\n surrogate value, etc), this will use U+FFFD (REPLACEMENT CHARACTER) for the\n codepoint instead, and not set an error.\n\n If `dst` is NULL, this returns NULL immediately without writing to the\n pointer and without setting an error.\n\n **Parameter:** codepoint a Unicode codepoint to convert to UTF-8.\n **Parameter:** dst the location to write the encoded UTF-8. Must point to at least\n            4 bytes!\n **Returns:** the first byte past the newly-written UTF-8 sequence.\n\n **Thread Safety:** It is safe to call this function from any thread.\n\n **Available Since:** This function is available since SDL 3.2.0.\n"]
     pub fn SDL_UCS4ToUTF8(codepoint: Uint32, dst: *mut core::ffi::c_char)
-    -> *mut core::ffi::c_char;
+        -> *mut core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = " This works exactly like sscanf() but doesn't require access to a C runtime.\n\n Scan a string, matching a format string, converting each '%' item and\n storing it to pointers provided through variable arguments.\n\n **Parameter:** text the string to scan. Must not be NULL.\n **Parameter:** fmt a printf-style format string. Must not be NULL.\n **Parameter:** ... a list of pointers to values to be filled in with scanned items.\n **Returns:** the number of items that matched the format string.\n\n **Thread Safety:** It is safe to call this function from any thread.\n\n **Available Since:** This function is available since SDL 3.2.0.\n"]
@@ -8461,7 +8461,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Add an alternate version of a surface.\n\n This function adds an alternate version of this surface, usually used for\n content with high DPI representations like cursors or icons. The size,\n format, and content do not need to match the original surface, and these\n alternate versions will not be updated when the original surface changes.\n\n This function adds a reference to the alternate version, so you should call\n SDL_DestroySurface() on the image after this call.\n\n **Parameter:** surface the SDL_Surface structure to update.\n **Parameter:** image a pointer to an alternate SDL_Surface to associate with this\n              surface.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Thread Safety:** This function can be called on different threads with\n               different surfaces.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_RemoveSurfaceAlternateImages\n **See Also:** SDL_GetSurfaceImages\n **See Also:** SDL_SurfaceHasAlternateImages\n"]
     pub fn SDL_AddSurfaceAlternateImage(surface: *mut SDL_Surface, image: *mut SDL_Surface)
-    -> bool;
+        -> bool;
 }
 unsafe extern "C" {
     #[doc = " Return whether a surface has alternate versions available.\n\n **Parameter:** surface the SDL_Surface structure to query.\n **Returns:** true if alternate versions are available or false otherwise.\n\n **Thread Safety:** It is safe to call this function from any thread.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_AddSurfaceAlternateImage\n **See Also:** SDL_RemoveSurfaceAlternateImages\n **See Also:** SDL_GetSurfaceImages\n"]
@@ -8505,7 +8505,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Save a surface to a seekable SDL data stream in BMP format.\n\n Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the\n BMP directly. Other RGB formats with 8-bit or higher get converted to a\n 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit\n surface before they are saved. YUV and paletted 1-bit and 4-bit formats are\n not supported.\n\n **Parameter:** surface the SDL_Surface structure containing the image to be saved.\n **Parameter:** dst a data stream to save to.\n **Parameter:** closeio if true, calls SDL_CloseIO() on `dst` before returning, even\n                in the case of an error.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Thread Safety:** This function can be called on different threads with\n               different surfaces.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_LoadBMP_IO\n **See Also:** SDL_SaveBMP\n"]
     pub fn SDL_SaveBMP_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
-    -> bool;
+        -> bool;
 }
 unsafe extern "C" {
     #[doc = " Save a surface to a file in BMP format.\n\n Surfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the\n BMP directly. Other RGB formats with 8-bit or higher get converted to a\n 24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit\n surface before they are saved. YUV and paletted 1-bit and 4-bit formats are\n not supported.\n\n **Parameter:** surface the SDL_Surface structure containing the image to be saved.\n **Parameter:** file a file to save to.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Thread Safety:** This function can be called on different threads with\n               different surfaces.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_LoadBMP\n **See Also:** SDL_SaveBMP_IO\n"]
@@ -8522,7 +8522,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Save a surface to a seekable SDL data stream in PNG format.\n\n **Parameter:** surface the SDL_Surface structure containing the image to be saved.\n **Parameter:** dst a data stream to save to.\n **Parameter:** closeio if true, calls SDL_CloseIO() on `dst` before returning, even\n                in the case of an error.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Thread Safety:** This function can be called on different threads with\n               different surfaces.\n\n **Available Since:** This function is available since SDL 3.4.0.\n\n **See Also:** SDL_LoadPNG_IO\n **See Also:** SDL_SavePNG\n"]
     pub fn SDL_SavePNG_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
-    -> bool;
+        -> bool;
 }
 unsafe extern "C" {
     #[doc = " Save a surface to a file in PNG format.\n\n **Parameter:** surface the SDL_Surface structure containing the image to be saved.\n **Parameter:** file a file to save to.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Thread Safety:** This function can be called on different threads with\n               different surfaces.\n\n **Available Since:** This function is available since SDL 3.4.0.\n\n **See Also:** SDL_LoadPNG\n **See Also:** SDL_SavePNG_IO\n"]
@@ -8681,7 +8681,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Perform a fast fill of a rectangle with a specific color.\n\n `color` should be a pixel of the format used by the surface, and can be\n generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an\n alpha component then the destination is simply filled with that alpha\n information, no blending takes place.\n\n If there is a clip rectangle set on the destination (set via\n SDL_SetSurfaceClipRect()), then this function will fill based on the\n intersection of the clip rectangle and `rect`.\n\n **Parameter:** dst the SDL_Surface structure that is the drawing target.\n **Parameter:** rect the SDL_Rect structure representing the rectangle to fill, or\n             NULL to fill the entire surface.\n **Parameter:** color the color to fill with.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Thread Safety:** This function can be called on different threads with\n               different surfaces.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_FillSurfaceRects\n"]
     pub fn SDL_FillSurfaceRect(dst: *mut SDL_Surface, rect: *const SDL_Rect, color: Uint32)
-    -> bool;
+        -> bool;
 }
 unsafe extern "C" {
     #[doc = " Perform a fast fill of a set of rectangles with a specific color.\n\n `color` should be a pixel of the format used by the surface, and can be\n generated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an\n alpha component then the destination is simply filled with that alpha\n information, no blending takes place.\n\n If there is a clip rectangle set on the destination (set via\n SDL_SetSurfaceClipRect()), then this function will fill based on the\n intersection of the clip rectangle and `rect`.\n\n **Parameter:** dst the SDL_Surface structure that is the drawing target.\n **Parameter:** rects an array of SDL_Rects representing the rectangles to fill.\n **Parameter:** count the number of rectangles in the array.\n **Parameter:** color the color to fill with.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Thread Safety:** This function can be called on different threads with\n               different surfaces.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_FillSurfaceRect\n"]
@@ -9685,7 +9685,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Get VSync for the window surface.\n\n **Parameter:** window the window to query.\n **Parameter:** vsync an int filled with the current vertical refresh sync interval.\n              See SDL_SetWindowSurfaceVSync() for the meaning of the value.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Thread Safety:** This function should only be called on the main thread.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_SetWindowSurfaceVSync\n"]
     pub fn SDL_GetWindowSurfaceVSync(window: *mut SDL_Window, vsync: *mut core::ffi::c_int)
-    -> bool;
+        -> bool;
 }
 unsafe extern "C" {
     #[doc = " Copy the window surface to the screen.\n\n This is the function you use to reflect any changes to the surface on the\n screen.\n\n This function is equivalent to the SDL 1.2 API SDL_Flip().\n\n **Parameter:** window the window to update.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Thread Safety:** This function should only be called on the main thread.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_GetWindowSurface\n **See Also:** SDL_UpdateWindowSurfaceRects\n"]
@@ -9960,7 +9960,7 @@ pub type SDL_DialogFileCallback = ::core::option::Option<
     ),
 >;
 unsafe extern "C" {
-    #[doc = " Displays a dialog that lets the user select a file on their filesystem.\n\n This is an asynchronous function; it will return immediately, and the\n result will be passed to the callback.\n\n The callback will be invoked with a null-terminated list of files the user\n chose. The list will be empty if the user canceled the dialog, and it will\n be NULL if an error occurred.\n\n Note that the callback may be called from a different thread than the one\n the function was invoked on.\n\n Depending on the platform, the user may be allowed to input paths that\n don't yet exist.\n\n On Linux, dialogs may require XDG Portals, which requires DBus, which\n requires an event-handling loop. Apps that do not use SDL to handle events\n should add a call to SDL_PumpEvents in their main loop.\n\n **Parameter:** callback a function pointer to be invoked when the user selects a\n                 file and accepts, or cancels the dialog, or an error\n                 occurs.\n **Parameter:** userdata an optional pointer to pass extra data to the callback when\n                 it will be invoked.\n **Parameter:** window the window that the dialog should be modal for, may be NULL.\n               Not all platforms support this option.\n **Parameter:** filters a list of filters, may be NULL. See the\n                [`SDL_DialogFileFilter`](SDL_DialogFileFilter#code-examples)\n                documentation for examples]. Not all platforms support this\n                option, and platforms that do support it may allow the user\n                to ignore the filters. If non-NULL, it must remain valid at\n                least until the callback is invoked.\n **Parameter:** nfilters the number of filters. Ignored if filters is NULL.\n **Parameter:** default_location the default folder or file to start the dialog at,\n                         may be NULL. Not all platforms support this option.\n **Parameter:** allow_many if non-zero, the user will be allowed to select multiple\n                   entries. Not all platforms support this option.\n\n **Thread Safety:** This function should be called only from the main thread. The\n               callback may be invoked from the same thread or from a\n               different one, depending on the OS's constraints.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_DialogFileCallback\n **See Also:** SDL_DialogFileFilter\n **See Also:** SDL_ShowSaveFileDialog\n **See Also:** SDL_ShowOpenFolderDialog\n **See Also:** SDL_ShowFileDialogWithProperties\n"]
+    #[doc = " Displays a dialog that lets the user select a file on their filesystem.\n\n This is an asynchronous function; it will return immediately, and the\n result will be passed to the callback.\n\n The callback will be invoked with a null-terminated list of files the user\n chose. The list will be empty if the user canceled the dialog, and it will\n be NULL if an error occurred.\n\n Note that the callback may be called from a different thread than the one\n the function was invoked on.\n\n Depending on the platform, the user may be allowed to input paths that\n don't yet exist.\n\n On Linux, dialogs may require XDG Portals, which requires DBus, which\n requires an event-handling loop. Apps that do not use SDL to handle events\n should add a call to SDL_PumpEvents in their main loop.\n\n **Parameter:** callback a function pointer to be invoked when the user selects a\n                 file and accepts, or cancels the dialog, or an error\n                 occurs.\n **Parameter:** userdata an optional pointer to pass extra data to the callback when\n                 it will be invoked.\n **Parameter:** window the window that the dialog should be modal for, may be NULL.\n               Not all platforms support this option.\n **Parameter:** filters a list of filters, may be NULL. Not all platforms support\n                this option, and platforms that do support it may allow the\n                user to ignore the filters. If non-NULL, it must remain\n                valid at least until the callback is invoked.\n **Parameter:** nfilters the number of filters. Ignored if filters is NULL.\n **Parameter:** default_location the default folder or file to start the dialog at,\n                         may be NULL. Not all platforms support this option.\n **Parameter:** allow_many if non-zero, the user will be allowed to select multiple\n                   entries. Not all platforms support this option.\n\n **Thread Safety:** This function should be called only from the main thread. The\n               callback may be invoked from the same thread or from a\n               different one, depending on the OS's constraints.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_DialogFileCallback\n **See Also:** SDL_DialogFileFilter\n **See Also:** SDL_ShowSaveFileDialog\n **See Also:** SDL_ShowOpenFolderDialog\n **See Also:** SDL_ShowFileDialogWithProperties\n"]
     pub fn SDL_ShowOpenFileDialog(
         callback: SDL_DialogFileCallback,
         userdata: *mut core::ffi::c_void,
@@ -17314,7 +17314,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Claims a window, creating a swapchain structure for it.\n\n This must be called before SDL_AcquireGPUSwapchainTexture is called using\n the window. You should only call this function from the thread that created\n the window.\n\n The swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and\n SDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain\n parameters, you must call SDL_SetGPUSwapchainParameters after claiming the\n window.\n\n **Parameter:** device a GPU context.\n **Parameter:** window an SDL_Window.\n **Returns:** true on success, or false on failure; call SDL_GetError() for more\n          information.\n\n **Thread Safety:** This function should only be called from the thread that\n               created the window.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_WaitAndAcquireGPUSwapchainTexture\n **See Also:** SDL_ReleaseWindowFromGPUDevice\n **See Also:** SDL_WindowSupportsGPUPresentMode\n **See Also:** SDL_WindowSupportsGPUSwapchainComposition\n"]
     pub fn SDL_ClaimWindowForGPUDevice(device: *mut SDL_GPUDevice, window: *mut SDL_Window)
-    -> bool;
+        -> bool;
 }
 unsafe extern "C" {
     #[doc = " Unclaims a window, destroying its swapchain structure.\n\n **Parameter:** device a GPU context.\n **Parameter:** window an SDL_Window that has been claimed.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_ClaimWindowForGPUDevice\n"]
@@ -19857,7 +19857,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Remove a file or an empty directory in a writable storage container.\n\n **Parameter:** storage a storage container.\n **Parameter:** path the path to remove from the filesystem.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_StorageReady\n"]
     pub fn SDL_RemoveStoragePath(storage: *mut SDL_Storage, path: *const core::ffi::c_char)
-    -> bool;
+        -> bool;
 }
 unsafe extern "C" {
     #[doc = " Rename a file or directory in a writable storage container.\n\n **Parameter:** storage a storage container.\n **Parameter:** oldpath the old path.\n **Parameter:** newpath the new path.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Available Since:** This function is available since SDL 3.2.0.\n\n **See Also:** SDL_StorageReady\n"]

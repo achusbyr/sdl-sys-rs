@@ -1,6 +1,6 @@
 [package]
 name = "sdl-sys-bindgen"
-version = "0.1.0+3.5.0-c45be94938bdbdacbce4b1011ebe6df6be515c11"
+version = "0.1.0+3.5.0-32cf5fe93dc035fa7351a21e60c989e1567eb705"
 edition = "2024"
 description = "Alternative bindings for SDL using bindgen"
 repository = "https://github.com/achusbyr/sdl-sys-rs"

@@ -546,7 +546,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Save an SDL_Surface into BMP image data, via an SDL_IOStream.\n\n If you just want to save to a filename, you can use IMG_SaveBMP() instead.\n\n If `closeio` is true, `dst` will be closed before returning, whether this\n function succeeds or not.\n\n **Parameter:** surface the SDL surface to save.\n **Parameter:** dst the SDL_IOStream to save the image data to.\n **Parameter:** closeio true to close/free the SDL_IOStream before returning, false\n                to leave it open.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Available Since:** This function is available since SDL_image 3.4.0.\n\n **See Also:** IMG_SaveBMP\n"]
     pub fn IMG_SaveBMP_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
-    -> bool;
+        -> bool;
 }
 unsafe extern "C" {
     #[doc = " Save an SDL_Surface into a CUR image file.\n\n If the file already exists, it will be overwritten.\n\n **Parameter:** surface the SDL surface to save.\n **Parameter:** file path on the filesystem to write new file to.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Available Since:** This function is available since SDL_image 3.4.0.\n\n **See Also:** IMG_SaveCUR_IO\n"]
@@ -555,7 +555,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Save an SDL_Surface into CUR image data, via an SDL_IOStream.\n\n If you just want to save to a filename, you can use IMG_SaveCUR() instead.\n\n If `closeio` is true, `dst` will be closed before returning, whether this\n function succeeds or not.\n\n **Parameter:** surface the SDL surface to save.\n **Parameter:** dst the SDL_IOStream to save the image data to.\n **Parameter:** closeio true to close/free the SDL_IOStream before returning, false\n                to leave it open.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Available Since:** This function is available since SDL_image 3.4.0.\n\n **See Also:** IMG_SaveCUR\n"]
     pub fn IMG_SaveCUR_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
-    -> bool;
+        -> bool;
 }
 unsafe extern "C" {
     #[doc = " Save an SDL_Surface into a GIF image file.\n\n If the file already exists, it will be overwritten.\n\n **Parameter:** surface the SDL surface to save.\n **Parameter:** file path on the filesystem to write new file to.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Available Since:** This function is available since SDL_image 3.4.0.\n\n **See Also:** IMG_SaveGIF_IO\n"]
@@ -564,7 +564,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Save an SDL_Surface into GIF image data, via an SDL_IOStream.\n\n If you just want to save to a filename, you can use IMG_SaveGIF() instead.\n\n If `closeio` is true, `dst` will be closed before returning, whether this\n function succeeds or not.\n\n **Parameter:** surface the SDL surface to save.\n **Parameter:** dst the SDL_IOStream to save the image data to.\n **Parameter:** closeio true to close/free the SDL_IOStream before returning, false\n                to leave it open.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Available Since:** This function is available since SDL_image 3.4.0.\n\n **See Also:** IMG_SaveGIF\n"]
     pub fn IMG_SaveGIF_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
-    -> bool;
+        -> bool;
 }
 unsafe extern "C" {
     #[doc = " Save an SDL_Surface into a ICO image file.\n\n If the file already exists, it will be overwritten.\n\n **Parameter:** surface the SDL surface to save.\n **Parameter:** file path on the filesystem to write new file to.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Available Since:** This function is available since SDL_image 3.4.0.\n\n **See Also:** IMG_SaveICO_IO\n"]
@@ -573,7 +573,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Save an SDL_Surface into ICO image data, via an SDL_IOStream.\n\n If you just want to save to a filename, you can use IMG_SaveICO() instead.\n\n If `closeio` is true, `dst` will be closed before returning, whether this\n function succeeds or not.\n\n **Parameter:** surface the SDL surface to save.\n **Parameter:** dst the SDL_IOStream to save the image data to.\n **Parameter:** closeio true to close/free the SDL_IOStream before returning, false\n                to leave it open.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Available Since:** This function is available since SDL_image 3.4.0.\n\n **See Also:** IMG_SaveICO\n"]
     pub fn IMG_SaveICO_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
-    -> bool;
+        -> bool;
 }
 unsafe extern "C" {
     #[doc = " Save an SDL_Surface into a JPEG image file.\n\n If the file already exists, it will be overwritten.\n\n **Parameter:** surface the SDL surface to save.\n **Parameter:** file path on the filesystem to write new file to.\n **Parameter:** quality [0; 33] is Lowest quality, [34; 66] is Middle quality, [67;\n                100] is Highest quality.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Available Since:** This function is available since SDL_image 3.0.0.\n\n **See Also:** IMG_SaveJPG_IO\n"]
@@ -599,7 +599,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Save an SDL_Surface into PNG image data, via an SDL_IOStream.\n\n If you just want to save to a filename, you can use IMG_SavePNG() instead.\n\n If `closeio` is true, `dst` will be closed before returning, whether this\n function succeeds or not.\n\n **Parameter:** surface the SDL surface to save.\n **Parameter:** dst the SDL_IOStream to save the image data to.\n **Parameter:** closeio true to close/free the SDL_IOStream before returning, false\n                to leave it open.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Available Since:** This function is available since SDL_image 3.0.0.\n\n **See Also:** IMG_SavePNG\n"]
     pub fn IMG_SavePNG_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
-    -> bool;
+        -> bool;
 }
 unsafe extern "C" {
     #[doc = " Save an SDL_Surface into a TGA image file.\n\n If the file already exists, it will be overwritten.\n\n **Parameter:** surface the SDL surface to save.\n **Parameter:** file path on the filesystem to write new file to.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Available Since:** This function is available since SDL_image 3.4.0.\n\n **See Also:** IMG_SaveTGA_IO\n"]
@@ -608,7 +608,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = " Save an SDL_Surface into TGA image data, via an SDL_IOStream.\n\n If you just want to save to a filename, you can use IMG_SaveTGA() instead.\n\n If `closeio` is true, `dst` will be closed before returning, whether this\n function succeeds or not.\n\n **Parameter:** surface the SDL surface to save.\n **Parameter:** dst the SDL_IOStream to save the image data to.\n **Parameter:** closeio true to close/free the SDL_IOStream before returning, false\n                to leave it open.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Available Since:** This function is available since SDL_image 3.4.0.\n\n **See Also:** IMG_SaveTGA\n"]
     pub fn IMG_SaveTGA_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
-    -> bool;
+        -> bool;
 }
 unsafe extern "C" {
     #[doc = " Save an SDL_Surface into a WEBP image file.\n\n If the file already exists, it will be overwritten.\n\n **Parameter:** surface the SDL surface to save.\n **Parameter:** file path on the filesystem to write the new file to.\n **Parameter:** quality between 0 and 100. For lossy, 0 gives the smallest size and\n                100 the largest. For lossless, this parameter is the amount\n                of effort put into the compression: 0 is the fastest but\n                gives larger files compared to the slowest, but best, 100.\n **Returns:** true on success or false on failure; call SDL_GetError() for more\n          information.\n\n **Available Since:** This function is available since SDL_image 3.4.0.\n\n **See Also:** IMG_SaveWEBP_IO\n"]
