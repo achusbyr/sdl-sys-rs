@@ -1,27 +1,21 @@
-mod callbacks;
-mod config;
-mod constants;
-mod fs_utils;
-mod target;
-
+use crate::bindgen::config::{CRATES, SysCrateConfig};
+use crate::bindgen::fs_utils::{copy_headers_to_crate, rewrite_inlines_includes};
+use crate::bindgen::target::parse_target_triple;
+use crate::bindgen::{callbacks, constants};
 use std::env;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use config::{CRATES, SysCrateConfig, TARGETS};
-use fs_utils::{copy_headers_to_crate, rewrite_inlines_includes};
-use target::parse_target_triple;
-
-fn main() {
+pub fn begin(targets: &[&str], read_sdkroot_env: bool) {
     let manifest_dir =
-        env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR not set; run via `cargo run`");
+        env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR not set; run via `cargo`");
     let root_dir = PathBuf::from(manifest_dir)
         .parent()
         .expect("CARGO_MANIFEST_DIR has no parent")
         .to_path_buf();
 
     for config in CRATES {
-        if let Err(e) = generate_crate_bindings(config, &root_dir) {
+        if let Err(e) = generate_crate_bindings(targets, read_sdkroot_env, config, &root_dir) {
             eprintln!(
                 "Error: Failed to generate bindings for {}: {}",
                 config.lib_name, e
@@ -31,7 +25,12 @@ fn main() {
     }
 }
 
-fn generate_crate_bindings(config: &SysCrateConfig, root_dir: &Path) -> Result<(), String> {
+fn generate_crate_bindings(
+    targets: &[&str],
+    read_sdkroot_env: bool,
+    config: &SysCrateConfig,
+    root_dir: &Path,
+) -> Result<(), String> {
     println!("Generating bindings for {}...", config.lib_name);
 
     let out_path = root_dir.join(config.out_dir);
@@ -45,7 +44,7 @@ fn generate_crate_bindings(config: &SysCrateConfig, root_dir: &Path) -> Result<(
     // Prepare portable headers in the sys-crate
     copy_headers_to_crate(config, root_dir, &out_path);
 
-    for &target in TARGETS {
+    for &target in targets {
         println!("-> Target: {}", target);
 
         let safe_target = target.replace("-", "_");
@@ -98,6 +97,26 @@ fn generate_crate_bindings(config: &SysCrateConfig, root_dir: &Path) -> Result<(
         }
 
         // Generate bindings
+        if read_sdkroot_env {
+            if target.contains("darwin") {
+                unsafe {
+                    std::env::set_var(
+                        "SDKROOT",
+                        std::env::var("OSX_SDKROOT")
+                            .map_err(|e| format!("Failed to get OSX_SDKROOT: {e}"))?,
+                    )
+                };
+            } else if target.contains("ios") {
+                unsafe {
+                    std::env::set_var(
+                        "SDKROOT",
+                        std::env::var("IOS_SDKROOT")
+                            .map_err(|e| format!("Failed to get IOS_SDKROOT: {e}"))?,
+                    )
+                };
+            }
+        }
+
         let bindings = builder
             .generate()
             .unwrap_or_else(|e| panic!("Failed to generate bindings for {}: {e}", config.lib_name));
@@ -133,7 +152,7 @@ fn generate_crate_bindings(config: &SysCrateConfig, root_dir: &Path) -> Result<(
 
     // Add compile_error! fallback for unsupported targets
     mod_rs_content.push_str("#[cfg(not(any(");
-    for (i, &target) in TARGETS.iter().enumerate() {
+    for (i, &target) in targets.iter().enumerate() {
         let (cfg_os, cfg_arch) = parse_target_triple(target);
         if i > 0 {
             mod_rs_content.push_str(", ");

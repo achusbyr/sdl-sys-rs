@@ -1,8 +1,7 @@
+use crate::bindgen::config::SysCrateConfig;
 use std::fmt::Write;
 use std::fs;
 use std::path::{Path, PathBuf};
-
-use crate::config::SysCrateConfig;
 
 /// Internal helper to copy all headers from configured include directories into the sys-crate's `src/generated/include` folder.
 pub fn copy_headers_to_crate(config: &SysCrateConfig, root_dir: &Path, out_path: &Path) {

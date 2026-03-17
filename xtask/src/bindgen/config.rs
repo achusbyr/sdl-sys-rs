@@ -49,10 +49,3 @@ pub const CRATES: &[SysCrateConfig] = &[
         allowlist_file: Some(".*SDL3_ttf.*"),
     },
 ];
-
-pub const TARGETS: &[&str] = &[
-    "x86_64-unknown-linux-gnu",
-    "x86_64-pc-windows-gnu",
-    "aarch64-apple-darwin",
-    "wasm32-unknown-emscripten",
-];

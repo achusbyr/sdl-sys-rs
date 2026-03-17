@@ -1,10 +1,10 @@
 [package]
-name = "sdl-bindgen"
+name = "xtask"
 version = "0.1.0"
 edition = "2024"
-publish = false
 
 [dependencies]
+clap = { version = "*", features = ["derive"] }
 target-lexicon = "*"
 bindgen = "*"
 regex = "*"
