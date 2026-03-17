@@ -17,4 +17,4 @@ link-static = []
 sdl-sys-bindgen = { path = "../sdl-sys-bindgen", version = "0.1" }
 
 [build-dependencies]
-sdl-build-helper = { path = "../sdl-build-helper", version = "0.1", default-features = false }
+sdl-build-helper = { path = "../sdl-build-helper", version = "0.1" }

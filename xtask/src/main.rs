@@ -11,7 +11,7 @@ fn main() {
 pub const TARGETS: &[&str] = &[
     "x86_64-unknown-linux-gnu",
     "x86_64-pc-windows-gnu",
+    "wasm32-unknown-emscripten",
     "aarch64-apple-darwin",
     "aarch64-apple-ios",
-    "wasm32-unknown-emscripten",
 ];

@@ -1533,6 +1533,26 @@ pub const SDL_HINT_JOYSTICK_DEVICE: Hint = Hint {
     doc: "/**\n* A variable containing a comma separated list of devices to open as\n* joysticks.\n*\n* This variable is currently only used by the Linux joystick driver.\n*\n* \\since This hint is available since SDL 3.2.0.\n*/\n",
 };
 /**
+* A variable containing a list of drum style controllers.
+*
+* The format of the string is a comma separated list of USB VID/PID pairs in
+* hexadecimal form, e.g.
+*
+* `0xAAAA/0xBBBB,0xCCCC/0xDDDD`
+*
+* The variable can also take the form of "@file", in which case the named
+* file will be loaded and interpreted as the value of the variable.
+*
+* This hint can be set anytime.
+*
+* \since This hint is available since SDL 3.4.4.
+*/
+pub const SDL_HINT_JOYSTICK_DRUM_DEVICES: Hint = Hint {
+    name: "SDL_HINT_JOYSTICK_DRUM_DEVICES",
+    value: "SDL_JOYSTICK_DRUM_DEVICES",
+    doc: "/**\n* A variable containing a list of drum style controllers.\n*\n* The format of the string is a comma separated list of USB VID/PID pairs in\n* hexadecimal form, e.g.\n*\n* `0xAAAA/0xBBBB,0xCCCC/0xDDDD`\n*\n* The variable can also take the form of \"@file\", in which case the named\n* file will be loaded and interpreted as the value of the variable.\n*\n* This hint can be set anytime.\n*\n* \\since This hint is available since SDL 3.4.4.\n*/\n",
+};
+/**
 * A variable controlling whether enhanced reports should be used for
 * controllers when using the HIDAPI driver.
 *
@@ -1668,6 +1688,26 @@ pub const SDL_HINT_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED: Hint = Hint {
     name: "SDL_HINT_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED",
     value: "SDL_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED",
     doc: "/**\n* A variable containing a list of devices known not to have a GameCube form\n* factor.\n*\n* This will override SDL_HINT_JOYSTICK_GAMECUBE_DEVICES and the built in\n* device list.\n*\n* The format of the string is a comma separated list of USB VID/PID pairs in\n* hexadecimal form, e.g.\n*\n* `0xAAAA/0xBBBB,0xCCCC/0xDDDD`\n*\n* The variable can also take the form of \"@file\", in which case the named\n* file will be loaded and interpreted as the value of the variable.\n*\n* This hint can be set anytime.\n*\n* \\since This hint is available since SDL 3.2.0.\n*/\n",
+};
+/**
+* A variable containing a list of guitar style controllers.
+*
+* The format of the string is a comma separated list of USB VID/PID pairs in
+* hexadecimal form, e.g.
+*
+* `0xAAAA/0xBBBB,0xCCCC/0xDDDD`
+*
+* The variable can also take the form of "@file", in which case the named
+* file will be loaded and interpreted as the value of the variable.
+*
+* This hint can be set anytime.
+*
+* \since This hint is available since SDL 3.4.4.
+*/
+pub const SDL_HINT_JOYSTICK_GUITAR_DEVICES: Hint = Hint {
+    name: "SDL_HINT_JOYSTICK_GUITAR_DEVICES",
+    value: "SDL_JOYSTICK_GUITAR_DEVICES",
+    doc: "/**\n* A variable containing a list of guitar style controllers.\n*\n* The format of the string is a comma separated list of USB VID/PID pairs in\n* hexadecimal form, e.g.\n*\n* `0xAAAA/0xBBBB,0xCCCC/0xDDDD`\n*\n* The variable can also take the form of \"@file\", in which case the named\n* file will be loaded and interpreted as the value of the variable.\n*\n* This hint can be set anytime.\n*\n* \\since This hint is available since SDL 3.4.4.\n*/\n",
 };
 /**
 * A variable controlling whether the HIDAPI joystick drivers should be used.
