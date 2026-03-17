@@ -5,7 +5,7 @@ use sdl_build_helper::SdlBuilder;
 fn main() {
     SdlBuilder::new("SDL3_ttf", "sdl3_ttf", "../submodules/SDL_ttf")
         .with_repo_url("https://github.com/libsdl-org/SDL_ttf")
-        .requires_base_sdl3(true)
+        .requires_base_sdl(true)
         .with_cmake_option("SDLTTF_SAMPLES", "OFF")
         .build();
 }

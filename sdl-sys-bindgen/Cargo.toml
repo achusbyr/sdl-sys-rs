@@ -8,11 +8,10 @@ license = "Zlib"
 links = "SDL3"
 
 [features]
-default = []
 build-from-source = ["sdl-build-helper/build-from-source"]
-link-static = []
 use-pkg-config = ["sdl-build-helper/use-pkg-config"]
 use-vcpkg = ["sdl-build-helper/use-vcpkg"]
+link-static = []
 
 [build-dependencies]
 sdl-build-helper = { path = "../sdl-build-helper", version = "0.1", default-features = false }

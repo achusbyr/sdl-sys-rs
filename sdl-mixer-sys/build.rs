@@ -5,7 +5,7 @@ use sdl_build_helper::SdlBuilder;
 fn main() {
     SdlBuilder::new("SDL3_mixer", "sdl3_mixer", "../submodules/SDL_mixer")
         .with_repo_url("https://github.com/libsdl-org/SDL_mixer")
-        .requires_base_sdl3(true)
+        .requires_base_sdl(true)
         .with_cmake_option("SDLMIXER_SAMPLES", "OFF")
         .build();
 }

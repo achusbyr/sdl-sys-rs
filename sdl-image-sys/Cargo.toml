@@ -8,11 +8,10 @@ license = "Zlib"
 links = "SDL3_image"
 
 [features]
-default = []
-build-from-source = ["sdl-sys-bindgen/build-from-source"]
-link-static = ["sdl-sys-bindgen/link-static"]
-use-pkg-config = ["sdl-sys-bindgen/use-pkg-config"]
-use-vcpkg = ["sdl-sys-bindgen/use-vcpkg"]
+build-from-source = ["sdl-build-helper/build-from-source"]
+use-pkg-config = ["sdl-build-helper/use-pkg-config"]
+use-vcpkg = ["sdl-build-helper/use-vcpkg"]
+link-static = []
 
 [dependencies]
 sdl-sys-bindgen = { path = "../sdl-sys-bindgen", version = "0.1" }

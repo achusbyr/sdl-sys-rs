@@ -6,7 +6,7 @@ use sdl_build_helper::SdlBuilder;
 fn main() {
     SdlBuilder::new("SDL3_image", "sdl3_image", "../submodules/SDL_image")
         .with_repo_url("https://github.com/libsdl-org/SDL_image")
-        .requires_base_sdl3(true)
+        .requires_base_sdl(true)
         .with_cmake_option("SDLIMAGE_SAMPLES", "OFF")
         .build();
 }

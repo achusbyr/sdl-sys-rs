@@ -4,10 +4,8 @@ mod cli;
 use crate::bindgen::initiate;
 use clap::Parser;
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let cli = cli::Cli::parse();
-    initiate::begin(TARGETS, cli.read_sdkroot_env);
-    Ok(())
+fn main() {
+    initiate::begin(TARGETS, cli::Cli::parse().read_sdkroot_env);
 }
 
 pub const TARGETS: &[&str] = &[

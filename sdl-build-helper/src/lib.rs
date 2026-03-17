@@ -9,7 +9,7 @@ pub struct SdlBuilder {
     repo_url: Option<String>,
     include_dirs: Vec<PathBuf>,
     cmake_options: Vec<(String, String)>,
-    requires_base_sdl3: bool,
+    requires_base_sdl: bool,
 }
 
 impl SdlBuilder {
@@ -26,7 +26,7 @@ impl SdlBuilder {
             repo_url: None,
             include_dirs: vec![PathBuf::from("src/generated/include")],
             cmake_options: vec![],
-            requires_base_sdl3: false,
+            requires_base_sdl: false,
         }
     }
 
@@ -45,8 +45,8 @@ impl SdlBuilder {
         self
     }
 
-    pub fn requires_base_sdl3(mut self, req: bool) -> Self {
-        self.requires_base_sdl3 = req;
+    pub fn requires_base_sdl(mut self, req: bool) -> Self {
+        self.requires_base_sdl = req;
         self
     }
 
@@ -144,15 +144,11 @@ impl SdlBuilder {
             }
         }
 
-        // If this is a satellite library, hook it up to the base SDL3 we just built
-        if self.requires_base_sdl3 {
-            let sdl3_cmake_dir = env::var("DEP_SDL3_CMAKE_DIR").unwrap_or_else(|_| {
-                panic!(
-                    "DEP_SDL3_CMAKE_DIR not set. Ensure sdl-sys has `links = \"SDL3\"` in its Cargo.toml and `build-from-source` enabled!"
-                );
-            });
-            cfg.define("SDL3_DIR", sdl3_cmake_dir);
-        }
+        if self.requires_base_sdl
+            && let Ok(sdl_cmake_dir) = env::var("DEP_SDL3_CMAKE_DIR")
+        {
+            cfg.define("SDL3_DIR", sdl_cmake_dir);
+        } // Otherwise, the user is not building SDL from source, and will let CMake try to find a system installation
 
         let dst = cfg.build();
 
