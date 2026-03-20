@@ -23,6 +23,7 @@ The `-sys` crates (`sdl-sys-bindgen`, `sdl-image-sys`, `sdl-mixer-sys`, `sdl-ttf
     - `<LIB_NAME_CAPITALIZED>_REPOSITORY_OVERRIDE` (e.g., `SDL3_REPOSITORY_OVERRIDE`) overrides the Git repository URL.
     - `<LIB_NAME_CAPITALIZED>_BRANCH_OVERRIDE` (e.g., `SDL3_BRANCH_OVERRIDE`) overrides the Git branch or commit to checkout.
     - `<LIB_NAME_CAPITALIZED>_CMAKE_OVERRIDE` (e.g., `SDL3_CMAKE_OVERRIDE`) overrides the CMake flags passed.
+    - `<LIB_NAME_CAPITALIZED>_SOURCE_OVERRIDE` (e.g., `SDL3_SOURCE_OVERRIDE`) overrides the path to the source directory, bypassing the checkout.
 - **`link-static`**: Links the C library statically.
 - **`use-pkg-config`**: Uses `pkg-config` to discover the library on the system.
 - **`use-vcpkg`**: Uses `vcpkg` to discover the library.

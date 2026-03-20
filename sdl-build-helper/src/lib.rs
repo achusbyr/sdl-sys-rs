@@ -112,7 +112,12 @@ impl SdlBuilder {
 
     #[cfg(feature = "build-from-source")]
     fn build_cmake(&self, manifest_dir: &Path, link_static: bool) {
-        let mut source_path = if self.source_dir.is_absolute() {
+        let link_name_upper = self.link_name.to_uppercase().replace("-", "_");
+        let source_override_var = format!("{}_SOURCE_OVERRIDE", link_name_upper);
+
+        let mut source_path = if let Ok(override_path) = env::var(&source_override_var) {
+            PathBuf::from(override_path)
+        } else if self.source_dir.is_absolute() {
             self.source_dir.clone()
         } else {
             manifest_dir.join(&self.source_dir)

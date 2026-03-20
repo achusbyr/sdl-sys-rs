@@ -1,6 +1,6 @@
 [package]
 name = "sdl-build-helper"
-version = "0.1.1"
+version = "0.1.2"
 description = "Internal library for building and linking SDL in use with bindgen"
 repository = "https://github.com/achusbyr/sdl-sys-rs"
 license = "Zlib"
