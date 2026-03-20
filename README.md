@@ -140,17 +140,53 @@ static inline int32_t __isPlatformVersionAtLeast(uint32_t platform, uint32_t maj
 
 #endif
 ```
-However, this is not a good solution as it will cause the application to crash if it tries to use a feature that is not available on the target platform.
-You may want to review this Fish script:
+However, if the application tries to use a feature that is not available on the running platform's current version, an error might occur.
+This Fish script can be used as an utility to quickly get things running (make sure `fix.h` is available, along with clang, llvm, and lld):
 ```bash
 #!/usr/bin/fish
 
 set -x FIX_PATH $(pwd)/fix.h
 
-set -x SDKROOT /home/achusbyr/Downloads/iPhoneOS.sdk/
+set -x SDKROOT /path/to/iPhoneOS.sdk/
 set -x CLANG_TARGET "arm64-apple-ios15.0"
 
 set -x COMMON_FLAGS "--target=$CLANG_TARGET -isysroot $SDKROOT -fuse-ld=lld -miphoneos-version-min=15.0 -include $FIX_PATH"
+
+set -x CC_aarch64_apple_ios "clang"
+set -x CXX_aarch64_apple_ios "clang++"
+set -x CFLAGS_aarch64_apple_ios "$COMMON_FLAGS"
+set -x CXXFLAGS_aarch64_apple_ios "$COMMON_FLAGS"
+
+set -x CMAKE_C_FLAGS "$COMMON_FLAGS"
+set -x CMAKE_CXX_FLAGS "$COMMON_FLAGS"
+set -x OBJCFLAGS "$COMMON_FLAGS"
+set -x CMAKE_OBJC_FLAGS "$COMMON_FLAGS"
+
+set -x CMAKE_INSTALL_NAME_TOOL (which llvm-install-name-tool)
+set -x CMAKE_AR (which llvm-ar)
+set -x CMAKE_RANLIB (which llvm-ranlib)
+set -x CMAKE_STRIP (which llvm-strip)
+
+set -x CARGO_TARGET_AARCH64_APPLE_IOS_LINKER "clang"
+set -x CARGO_TARGET_AARCH64_APPLE_IOS_RUSTFLAGS \
+  "-C link-arg=--target=$CLANG_TARGET " \
+  "-C link-arg=-isysroot" "-C link-arg=$SDKROOT" \
+  "-C link-arg=-L$SDKROOT/usr/lib" \
+  "-C link-arg=-F$SDKROOT/System/Library/Frameworks" \
+  "-C link-arg=-fuse-ld=lld" \
+  "-C link-arg=-miphoneos-version-min=15.0"
+
+cargo build --target aarch64-apple-ios
+```
+Alternatively, if you have access to a build of Xcode, you can extract it and go to `Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/<version>/lib/darwin/`, where there will be a `libclang_rt.ios.a`. You won't need `fix.h` for this method.
+Put that file anywhere, then modify COMMON_FLAGS to point `-L` to the directory the file is in:
+```bash
+#!/usr/bin/fish
+
+set -x SDKROOT /path/to/iPhoneOS.sdk/
+set -x CLANG_TARGET "arm64-apple-ios15.0"
+
+set -x COMMON_FLAGS "--target=$CLANG_TARGET -isysroot $SDKROOT -fuse-ld=lld -miphoneos-version-min=15.0 -L<path_to_directory> -lclang_rt.ios"
 
 set -x CC_aarch64_apple_ios "clang"
 set -x CXX_aarch64_apple_ios "clang++"

@@ -1,6 +1,6 @@
 [package]
 name = "sdl-image-sys"
-version = "0.1.1+3.5.0-98ed433a6c27345ea4ac2c498ba50879d5f92778"
+version = "0.1.2+3.5.0-98ed433a6c27345ea4ac2c498ba50879d5f92778"
 edition = "2024"
 description = "Alternative bindings for SDL3_image using bindgen"
 repository = "https://github.com/achusbyr/sdl-sys-rs"

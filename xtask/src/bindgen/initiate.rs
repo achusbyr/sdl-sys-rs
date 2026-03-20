@@ -93,6 +93,7 @@ fn generate_crate_bindings(
         // Apply allowlist if specified
         if let Some(allowlist) = config.allowlist_file {
             builder = builder.allowlist_file(allowlist);
+            builder = builder.blocklist_file(".*SDL3[^_].*");
             builder = builder.raw_line("use sdl_sys_bindgen::*;");
         }
 
