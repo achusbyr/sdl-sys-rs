@@ -116,7 +116,8 @@ impl SdlBuilder {
         let source_override_var = format!("{}_SOURCE_OVERRIDE", link_name_upper);
 
         let mut source_path = if let Ok(override_path) = env::var(&source_override_var) {
-            PathBuf::from(override_path)
+            let path = PathBuf::from(override_path);
+            path.canonicalize().unwrap_or(path)
         } else if self.source_dir.is_absolute() {
             self.source_dir.clone()
         } else {
