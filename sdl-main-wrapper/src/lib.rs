@@ -96,7 +96,7 @@ pub fn run_app<A: SdlApp>() -> i32 {
                 #[cfg(feature = "alloc")]
                 let err_msg = format!("{:?}\0", e);
                 #[cfg(not(feature = "alloc"))]
-                let err_msg = "SDL app initialization failed\0";
+                let err_msg = c"SDL app initialization failed";
                 log_error(err_msg.as_ptr() as *const c_char);
                 SDL_AppResult::SDL_APP_FAILURE
             }
