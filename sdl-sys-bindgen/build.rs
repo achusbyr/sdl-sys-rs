@@ -7,5 +7,6 @@ fn main() {
         .with_repo_url("https://github.com/libsdl-org/SDL")
         .with_cmake_option("SDL_TESTS", "OFF")
         .with_cmake_option("SDL_EXAMPLES", "OFF")
-        .build();
+        .build()
+        .expect("Failed to build SDL3");
 }

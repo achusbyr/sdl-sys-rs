@@ -7,8 +7,11 @@ impl ParseCallbacks for SdlParseCallback {
     fn process_comment(&self, comment: &str) -> Option<String> {
         let mut out = String::new();
         let mut in_code_block = false;
+        let mut last_was_empty = false;
 
         for line in comment.lines() {
+            let line = line.trim();
+
             // Handle \code / \endcode blocks
             if line.contains("\\endcode") {
                 out.push_str("```\n");
@@ -16,6 +19,9 @@ impl ParseCallbacks for SdlParseCallback {
                 continue;
             }
             if line.contains("\\code") {
+                if !out.is_empty() && !last_was_empty {
+                    out.push('\n');
+                }
                 out.push_str("```c\n");
                 in_code_block = true;
                 continue;
@@ -24,6 +30,14 @@ impl ParseCallbacks for SdlParseCallback {
             if in_code_block {
                 out.push_str(line);
                 out.push('\n');
+                continue;
+            }
+
+            if line.is_empty() {
+                if !last_was_empty && !out.is_empty() {
+                    out.push('\n');
+                    last_was_empty = true;
+                }
                 continue;
             }
 
@@ -40,9 +54,23 @@ impl ParseCallbacks for SdlParseCallback {
                 .replace("\\warning", "> **Warning:**")
                 .replace("\\deprecated", "**Deprecated:**");
 
+            // Ensure spacing before major sections
+            if (cleaned.contains("**") || cleaned.contains(">"))
+                && !last_was_empty
+                && !out.is_empty()
+            {
+                out.push('\n');
+            }
+
             out.push_str(&cleaned);
             out.push('\n');
+            last_was_empty = false;
         }
-        Some(out)
+
+        if out.is_empty() {
+            None
+        } else {
+            Some(out.trim().to_string())
+        }
     }
 }

@@ -1,3 +1,11 @@
+//! # SDL Main Wrapper
+//!
+//! This crate provides a high-level, idiomatic Rust wrapper around SDL3's callback-based
+//! application loop (`SDL_EnterAppMainCallbacks`).
+//!
+//! It allows you to define your application state as a Rust struct implementing the [`SdlApp`]
+//! trait, handling the low-level FFI trampolines and memory management for you.
+
 #![no_std]
 
 #[cfg(feature = "alloc")]
@@ -5,74 +13,77 @@ extern crate alloc;
 #[cfg(feature = "std")]
 extern crate std;
 
-#[cfg(feature = "args")]
-use alloc::ffi::CString;
 #[cfg(feature = "alloc")]
 use alloc::format;
+#[cfg(feature = "args")]
+use alloc::{ffi::CString, vec::Vec};
+#[cfg(feature = "args")]
+use core::ffi::CStr;
 use core::ffi::{c_char, c_int, c_void};
 use sdl_sys_bindgen::*;
 
 /// Idiomatic Rust trait for SDL's callback-based application loop.
 ///
-/// # Thread Safety
-///
-/// `Send` is required because the app state is passed across the FFI boundary
-/// and SDL may invoke callbacks from a thread it manages internally.
+/// Implement this trait on your application state struct to hook into SDL's
+/// main loop.
 pub trait SdlApp: Sized + Send {
     /// Custom error type returned on initialization failure.
     type Error: core::fmt::Debug;
 
-    /// Called once at startup. Return `Ok(Self)` to continue, or `Err` to terminate.
+    /// Called once at startup to initialize the application state.
     ///
-    /// # Memory Management
-    ///
-    /// The returned `Self` instance is moved onto the heap and its ownership
-    /// is handed to SDL. It will be passed back to `iterate`, `event`, and `quit`.
+    /// * `args`: The command-line arguments passed to the application.
     #[cfg(feature = "args")]
     fn init(args: &[CString]) -> Result<Self, Self::Error>;
-    /// Called once at startup. Return `Ok(Self)` to continue, or `Err` to terminate.
-    ///
-    /// # Memory Management
-    ///
-    /// The returned `Self` instance is moved onto the heap and its ownership
-    /// is handed to SDL. It will be passed back to `iterate`, `event`, and `quit`.
+
+    /// Called once at startup to initialize the application state.
     #[cfg(not(feature = "args"))]
     fn init() -> Result<Self, Self::Error>;
 
-    /// Called repeatedly to process a single frame.
+    /// Called repeatedly by SDL to process a single frame.
+    ///
+    /// Return `SDL_AppResult::SDL_APP_CONTINUE` to keep running, or
+    /// other values to terminate.
     fn iterate(&mut self) -> SDL_AppResult;
 
-    /// Called when an event arrives.
+    /// Called by SDL whenever a new event is available.
     fn event(&mut self, event: &SDL_Event) -> SDL_AppResult;
 
-    /// Called before the app exits.
+    /// Called before the application terminates.
     ///
-    /// After this method returns, the app state is automatically dropped and freed.
+    /// The app state is automatically dropped after this method returns.
     fn quit(&mut self, result: SDL_AppResult);
 }
 
-/// Starts the SDL application loop.
+/// Starts the SDL application loop using the specified [`SdlApp`] implementation.
+///
+/// This function handles the setup of C trampolines and invokes `SDL_RunApp`.
+/// It will block until the application terminates.
 pub fn run_app<A: SdlApp>() -> i32 {
-    // 1. The Init Trampoline
+    // 1. The Init Trampoline: Moves Rust app state onto the C heap managed by SDL.
     extern "C" fn c_init<A: SdlApp>(
         appstate: *mut *mut c_void,
-        #[allow(unused_variables)] argc: c_int,
-        #[allow(unused_variables)] argv: *mut *mut c_char,
+        argc: c_int,
+        argv: *mut *mut c_char,
     ) -> SDL_AppResult {
         let init_result = {
             #[cfg(feature = "args")]
             {
                 let args = unsafe {
-                    let argc = argc as usize;
-                    std::vec::Vec::from_raw_parts(argv, argc, argc)
-                        .iter()
-                        .map(|arg| CString::from_raw(*arg))
-                        .collect::<std::vec::Vec<CString>>()
+                    if argv.is_null() || argc == 0 {
+                        Vec::new()
+                    } else {
+                        core::slice::from_raw_parts(argv, argc as usize)
+                            .iter()
+                            .map(|&ptr| CStr::from_ptr(ptr).to_owned())
+                            .collect::<Vec<CString>>()
+                    }
                 };
-                A::init(args.as_slice())
+                A::init(&args)
             }
             #[cfg(not(feature = "args"))]
             {
+                let _ = (argc, argv);
                 A::init()
             }
         };
@@ -80,6 +91,7 @@ pub fn run_app<A: SdlApp>() -> i32 {
         match init_result {
             Ok(app) => {
                 unsafe {
+                    // Allocate on the SDL heap to ensure consistency with c_quit's SDL_free.
                     let ptr = SDL_malloc(core::mem::size_of::<A>());
                     if ptr.is_null() {
                         log_error(SDL_GetError());
@@ -91,19 +103,19 @@ pub fn run_app<A: SdlApp>() -> i32 {
                 }
                 SDL_AppResult::SDL_APP_CONTINUE
             }
-            #[allow(unused_variables)]
             Err(e) => {
                 #[cfg(feature = "alloc")]
                 let err_msg = format!("{:?}\0", e);
                 #[cfg(not(feature = "alloc"))]
                 let err_msg = c"SDL app initialization failed";
+
                 log_error(err_msg.as_ptr() as *const c_char);
                 SDL_AppResult::SDL_APP_FAILURE
             }
         }
     }
 
-    // 2. The Iterate Trampoline
+    // 2. The Iterate Trampoline: Routes C calls back to A::iterate.
     extern "C" fn c_iter<A: SdlApp>(appstate: *mut c_void) -> SDL_AppResult {
         if appstate.is_null() {
             return SDL_AppResult::SDL_APP_FAILURE;
@@ -112,7 +124,7 @@ pub fn run_app<A: SdlApp>() -> i32 {
         app.iterate()
     }
 
-    // 3. The Event Trampoline
+    // 3. The Event Trampoline: Routes C calls back to A::event.
     extern "C" fn c_event<A: SdlApp>(
         appstate: *mut c_void,
         event: *mut SDL_Event,
@@ -124,7 +136,7 @@ pub fn run_app<A: SdlApp>() -> i32 {
         app.event(unsafe { &*event })
     }
 
-    // 4. The Quit Trampoline
+    // 4. The Quit Trampoline: Cleans up the Rust app state and frees the SDL heap pointer.
     extern "C" fn c_quit<A: SdlApp>(appstate: *mut c_void, result: SDL_AppResult) {
         if !appstate.is_null() {
             unsafe {
@@ -135,6 +147,7 @@ pub fn run_app<A: SdlApp>() -> i32 {
         }
     }
 
+    // Internal callback wrapper for SDL_RunApp.
     extern "C" fn enter_callbacks<A: SdlApp>(argc: c_int, argv: *mut *mut c_char) -> i32 {
         unsafe {
             SDL_EnterAppMainCallbacks(
@@ -149,43 +162,36 @@ pub fn run_app<A: SdlApp>() -> i32 {
     }
 
     unsafe {
-        #[cfg(feature = "args")]
-        let arg_count = std::env::args().count();
-        SDL_RunApp(
-            {
-                #[cfg(feature = "args")]
-                {
-                    arg_count as c_int
-                }
-                #[cfg(not(feature = "args"))]
-                {
-                    0
-                }
-            },
-            {
-                #[cfg(feature = "args")]
-                {
-                    let mut vec: std::vec::Vec<*mut c_char> =
-                        std::vec::Vec::with_capacity(arg_count);
-                    for arg in std::env::args() {
-                        let c_string = CString::new(arg);
-                        if let Ok(c_string) = c_string {
-                            vec.push(c_string.into_raw());
-                        }
-                    }
-                    vec.into_raw_parts().0
-                }
-                #[cfg(not(feature = "args"))]
-                {
-                    core::ptr::null_mut()
-                }
-            },
-            Some(enter_callbacks::<A>),
-            core::ptr::null_mut(), // reserved
-        )
+        #[cfg(all(feature = "std", feature = "args"))]
+        {
+            let args_collected: Vec<CString> = std::env::args()
+                .map(|s| CString::new(s).expect("Argument contained null byte"))
+                .collect();
+            let mut arg_ptrs: Vec<*mut c_char> = args_collected
+                .iter()
+                .map(|cs| cs.as_ptr() as *mut c_char)
+                .collect();
+
+            SDL_RunApp(
+                arg_ptrs.len() as c_int,
+                arg_ptrs.as_mut_ptr(),
+                Some(enter_callbacks::<A>),
+                core::ptr::null_mut(),
+            )
+        }
+        #[cfg(not(all(feature = "std", feature = "args")))]
+        {
+            SDL_RunApp(
+                0,
+                core::ptr::null_mut(),
+                Some(enter_callbacks::<A>),
+                core::ptr::null_mut(),
+            )
+        }
     }
 }
 
+#[inline]
 fn log_error(msg: *const c_char) {
     unsafe {
         SDL_LogError(

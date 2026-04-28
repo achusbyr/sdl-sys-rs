@@ -8,5 +8,6 @@ fn main() {
         .with_repo_url("https://github.com/libsdl-org/SDL_image")
         .requires_base_sdl(true)
         .with_cmake_option("SDLIMAGE_SAMPLES", "OFF")
-        .build();
+        .build()
+        .expect("Failed to build SDL3_image");
 }

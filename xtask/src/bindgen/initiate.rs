@@ -1,12 +1,16 @@
-use crate::bindgen::config::{CRATES, SysCrateConfig};
-use crate::bindgen::fs_utils::{copy_headers_to_crate, rewrite_inlines_includes};
-use crate::bindgen::target::parse_target_triple;
-use crate::bindgen::{callbacks, constants};
-use std::env;
-use std::fs;
-use std::path::{Path, PathBuf};
+use crate::bindgen::{
+    callbacks,
+    config::{CRATES, SysCrateConfig},
+    constants,
+    fs_utils::{copy_headers_to_crate, rewrite_inlines_includes},
+    target::parse_target_triple,
+};
+use std::{
+    env, fs,
+    path::{Path, PathBuf},
+};
 
-pub fn begin(targets: &[&str], read_sdkroot_env: bool) {
+pub fn begin(targets: &[&str], osx_sdk: Option<PathBuf>, ios_sdk: Option<PathBuf>) {
     let manifest_dir =
         env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR not set; run via `cargo`");
     let root_dir = PathBuf::from(manifest_dir)
@@ -15,7 +19,13 @@ pub fn begin(targets: &[&str], read_sdkroot_env: bool) {
         .to_path_buf();
 
     for config in CRATES {
-        if let Err(e) = generate_crate_bindings(targets, read_sdkroot_env, config, &root_dir) {
+        if let Err(e) = generate_crate_bindings(
+            targets,
+            osx_sdk.as_ref(),
+            ios_sdk.as_ref(),
+            config,
+            &root_dir,
+        ) {
             eprintln!(
                 "Error: Failed to generate bindings for {}: {}",
                 config.lib_name, e
@@ -27,7 +37,8 @@ pub fn begin(targets: &[&str], read_sdkroot_env: bool) {
 
 fn generate_crate_bindings(
     targets: &[&str],
-    read_sdkroot_env: bool,
+    osx_sdk: Option<&PathBuf>,
+    ios_sdk: Option<&PathBuf>,
     config: &SysCrateConfig,
     root_dir: &Path,
 ) -> Result<(), String> {
@@ -98,24 +109,14 @@ fn generate_crate_bindings(
         }
 
         // Generate bindings
-        if read_sdkroot_env {
-            if target.contains("darwin") {
-                unsafe {
-                    std::env::set_var(
-                        "SDKROOT",
-                        std::env::var("OSX_SDKROOT")
-                            .map_err(|e| format!("Failed to get OSX_SDKROOT: {e}"))?,
-                    )
-                };
-            } else if target.contains("ios") {
-                unsafe {
-                    std::env::set_var(
-                        "SDKROOT",
-                        std::env::var("IOS_SDKROOT")
-                            .map_err(|e| format!("Failed to get IOS_SDKROOT: {e}"))?,
-                    )
-                };
+        if target.contains("apple-darwin") {
+            if let Some(path) = osx_sdk {
+                unsafe { env::set_var("SDKROOT", path) };
             }
+        } else if target.contains("apple-ios")
+            && let Some(path) = ios_sdk
+        {
+            unsafe { env::set_var("SDKROOT", path) };
         }
 
         let bindings = builder

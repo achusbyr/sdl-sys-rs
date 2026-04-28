@@ -1,10 +1,12 @@
 [package]
 name = "sdl-build-helper"
-version = "0.1.3"
+version = "0.1.4"
 description = "Internal library for building and linking SDL in use with bindgen"
 repository = "https://github.com/achusbyr/sdl-sys-rs"
 license = "Zlib"
 edition = "2024"
+categories = ["development-tools::build-utils"]
+keywords = ["sdl", "sdl3", "build", "cmake", "bindgen"]
 
 [dependencies]
 pkg-config = { version = "0.3", optional = true }

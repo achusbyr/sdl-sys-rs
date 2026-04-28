@@ -402,6 +402,11 @@ extern "C" {
  * - "Movie" - Music or sound with dialog
  * - "Media" - Music or sound without dialog
  *
+ * Android's AAudio target supports this hint as of SDL 3.4.4. Android does
+ * not support the exact same options as WASAPI, but for portability, will
+ * attempt to map these same strings to the `aaudio_usage_t` constants. For
+ * example, "Movie" and "Media" will both map to `AAUDIO_USAGE_MEDIA`, etc.
+ *
  * If your application applies its own echo cancellation, gain control, and
  * noise reduction it should also set SDL_HINT_AUDIO_DEVICE_RAW_STREAM.
  *
@@ -718,6 +723,23 @@ extern "C" {
  * \since This hint is available since SDL 3.2.0.
  */
 #define SDL_HINT_DISPLAY_USABLE_BOUNDS "SDL_DISPLAY_USABLE_BOUNDS"
+
+/**
+ * A variable that enables a fast framebuffer path on DOS.
+ *
+ * When set to "1", SDL_UpdateWindowSurface() copies the system-RAM surface
+ * directly to VRAM and skips software cursor compositing and vsync.
+ *
+ * The variable can be set to the following values:
+ *
+ * - "0": Use the normal path with cursor compositing and vsync. (default)
+ * - "1": Use the fast direct-to-VRAM path when available.
+ *
+ * This hint must be set before the first call to SDL_GetWindowSurface().
+ *
+ * \since This hint is available since SDL 3.6.0.
+ */
+#define SDL_HINT_DOS_ALLOW_DIRECT_FRAMEBUFFER "SDL_DOS_ALLOW_DIRECT_FRAMEBUFFER"
 
 /**
  * Set the level of checking for invalid parameters passed to SDL functions.
@@ -1438,6 +1460,26 @@ extern "C" {
  * \since This hint is available since SDL 3.2.0.
  */
 #define SDL_HINT_JOYSTICK_GAMEINPUT "SDL_JOYSTICK_GAMEINPUT"
+
+/**
+ * A variable controlling whether GameInput should be used for handling GIP
+ * devices that require raw report processing, but aren't supported by HIDRAW,
+ * such as Xbox One Guitars.
+ *
+ * Note that this is only supported with GameInput 3 or newer.
+ *
+ * The variable can be set to the following values:
+ *
+ * - "0": GameInput is not used to handle raw GIP devices.
+ * - "1": GameInput is used.
+ *
+ * The default is "1" when using GameInput 3 or newer, and is "0" otherwise.
+ *
+ * This hint should be set before SDL is initialized.
+ *
+ * \since This hint is available since SDL 3.4.4.
+ */
+#define SDL_HINT_JOYSTICK_GAMEINPUT_RAW "SDL_JOYSTICK_GAMEINPUT_RAW"
 
 /**
  * A variable containing a list of devices known to have a GameCube form
@@ -2813,7 +2855,7 @@ extern "C" {
  *   (default)
  * - "1": Cursors will automatically match the display content scale (e.g. a
  *   2x sized cursor will be used when the window is on a monitor with 200%
- *   scale). This is currently implemented on Windows and Wayland.
+ *   scale). This is currently implemented on Windows.
  *
  * This hint needs to be set before creating cursors.
  *
@@ -3995,9 +4037,8 @@ extern "C" {
  * The variable can be set to the following values:
  *
  * - "aspect" - Video modes will be displayed scaled, in their proper aspect
- *   ratio, with black bars.
+ *   ratio, with black bars. (default)
  * - "stretch" - Video modes will be scaled to fill the entire display.
- *   (default)
  * - "none" - Video modes will be displayed as 1:1 with no scaling.
  *
  * This hint should be set before creating a window.

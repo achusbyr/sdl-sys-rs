@@ -1,11 +1,13 @@
 [package]
 name = "sdl-image-sys"
-version = "0.1.2+3.5.0-98ed433a6c27345ea4ac2c498ba50879d5f92778"
+version = "0.1.3+3.5.0-b5ae5e2336b510e77891d6a7292f852b4b38a7d0"
 edition = "2024"
 description = "Alternative bindings for SDL3_image using bindgen"
 repository = "https://github.com/achusbyr/sdl-sys-rs"
 license = "Zlib"
 links = "SDL3_image"
+categories = ["external-ffi-bindings"]
+keywords = ["sdl", "sdl3", "ffi", "bindings", "image"]
 
 [features]
 build-from-source = ["sdl-build-helper/build-from-source"]

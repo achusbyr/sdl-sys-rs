@@ -1,11 +1,13 @@
 [package]
 name = "sdl-mixer-sys"
-version = "0.1.2+3.3.0-d96049ce8873fb4d8fbaa5e36449cb6cf37227ad"
+version = "0.1.3+3.3.0-ea22a3085208b6c033e9efc7753d5c271a3fe44c"
 edition = "2024"
 description = "Alternative bindings for SDL3_mixer using bindgen"
 repository = "https://github.com/achusbyr/sdl-sys-rs"
 license = "Zlib"
 links = "SDL3_mixer"
+categories = ["external-ffi-bindings"]
+keywords = ["sdl", "sdl3", "ffi", "bindings", "mixer", "audio"]
 
 [features]
 build-from-source = ["sdl-build-helper/build-from-source"]

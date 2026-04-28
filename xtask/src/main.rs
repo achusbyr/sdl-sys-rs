@@ -5,7 +5,8 @@ use crate::bindgen::initiate;
 use clap::Parser;
 
 fn main() {
-    initiate::begin(TARGETS, cli::Cli::parse().read_sdkroot_env);
+    let cli = cli::Cli::parse();
+    initiate::begin(TARGETS, cli.osx_sdk, cli.ios_sdk);
 }
 
 pub const TARGETS: &[&str] = &[

@@ -1,7 +1,9 @@
 use regex::Regex;
-use std::fs;
-use std::io::Write;
-use std::path::{Path, PathBuf};
+use std::{
+    fs,
+    io::Write,
+    path::{Path, PathBuf},
+};
 
 /// Collect and sort all `.h` header file paths from a directory.
 fn sorted_header_paths(dir: &Path) -> Vec<PathBuf> {
