@@ -7,7 +7,7 @@ repository = "https://github.com/achusbyr/sdl-sys-rs"
 license = "Zlib"
 links = "SDL3_ttf"
 categories = ["external-ffi-bindings"]
-keywords = ["sdl", "sdl3", "ffi", "bindings", "ttf", "font"]
+keywords = ["sdl", "ffi", "ttf", "font"]
 
 [features]
 build-from-source = ["sdl-build-helper/build-from-source"]

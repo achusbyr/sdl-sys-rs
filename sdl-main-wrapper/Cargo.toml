@@ -6,7 +6,7 @@ description = "Wrapper over SDL's callback-based app loop"
 repository = "https://github.com/achusbyr/sdl-sys-rs"
 license = "Zlib"
 categories = ["api-bindings"]
-keywords = ["sdl", "sdl3", "wrapper", "main"]
+keywords = ["sdl", "wrapper"]
 
 [features]
 default = ["alloc"]

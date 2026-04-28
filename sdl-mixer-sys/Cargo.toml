@@ -7,7 +7,7 @@ repository = "https://github.com/achusbyr/sdl-sys-rs"
 license = "Zlib"
 links = "SDL3_mixer"
 categories = ["external-ffi-bindings"]
-keywords = ["sdl", "sdl3", "ffi", "bindings", "mixer", "audio"]
+keywords = ["sdl", "ffi", "mixer", "audio"]
 
 [features]
 build-from-source = ["sdl-build-helper/build-from-source"]
