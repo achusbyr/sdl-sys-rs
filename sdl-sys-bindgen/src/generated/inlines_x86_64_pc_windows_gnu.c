@@ -3,6 +3,10 @@
 
 // Static wrappers
 
+int _vcwprintf__extern(const wchar_t *_Format, va_list _ArgList) { return _vcwprintf(_Format, _ArgList); }
+int _vcwprintf_p__extern(const wchar_t *_Format, va_list _ArgList) { return _vcwprintf_p(_Format, _ArgList); }
+int _vcwprintf_l__extern(const wchar_t *_Format, _locale_t _Locale, va_list _ArgList) { return _vcwprintf_l(_Format, _Locale, _ArgList); }
+int _vcwprintf_p_l__extern(const wchar_t *_Format, _locale_t _Locale, va_list _ArgList) { return _vcwprintf_p_l(_Format, _Locale, _ArgList); }
 int _vfwscanf_l__extern(FILE *_File, const wchar_t *_Format, _locale_t _Locale, va_list _ArgList) { return _vfwscanf_l(_File, _Format, _Locale, _ArgList); }
 int _vwscanf_l__extern(const wchar_t *_Format, _locale_t _Locale, va_list _ArgList) { return _vwscanf_l(_Format, _Locale, _ArgList); }
 int _vsnwscanf_l__extern(const wchar_t *_Src, size_t _MaxCount, const wchar_t *_Format, _locale_t _Locale, va_list _ArgList) { return _vsnwscanf_l(_Src, _MaxCount, _Format, _Locale, _ArgList); }
@@ -22,7 +26,6 @@ int _vscwprintf_l__extern(const wchar_t *_Format, _locale_t _Locale, va_list _Ar
 int _vswprintf_c_l__extern(wchar_t *_DstBuf, size_t _MaxCount, const wchar_t *_Format, _locale_t _Locale, va_list _ArgList) { return _vswprintf_c_l(_DstBuf, _MaxCount, _Format, _Locale, _ArgList); }
 int __vswprintf_l__extern(wchar_t *_DstBuf, const wchar_t *_Format, _locale_t _Locale, va_list _ArgList) { return __vswprintf_l(_DstBuf, _Format, _Locale, _ArgList); }
 int _vswprintf_l__extern(wchar_t *_DstBuf, size_t _MaxCount, const wchar_t *_Format, _locale_t _Locale, va_list _ArgList) { return _vswprintf_l(_DstBuf, _MaxCount, _Format, _Locale, _ArgList); }
-int mbsinit__extern(const mbstate_t *_P) { return mbsinit(_P); }
 int _vfwscanf_s_l__extern(FILE *_File, const wchar_t *_Format, _locale_t _Locale, va_list _ArgList) { return _vfwscanf_s_l(_File, _Format, _Locale, _ArgList); }
 int vfwscanf_s__extern(FILE *_File, const wchar_t *_Format, va_list _ArgList) { return vfwscanf_s(_File, _Format, _ArgList); }
 int _vwscanf_s_l__extern(const wchar_t *_Format, _locale_t _Locale, va_list _ArgList) { return _vwscanf_s_l(_Format, _Locale, _ArgList); }

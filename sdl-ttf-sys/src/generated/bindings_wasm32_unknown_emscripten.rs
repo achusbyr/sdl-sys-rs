@@ -3,8 +3,8 @@
 use sdl_sys_bindgen::*;
 
 pub const SDL_TTF_MAJOR_VERSION: u32 = 3;
-pub const SDL_TTF_MINOR_VERSION: u32 = 3;
-pub const SDL_TTF_MICRO_VERSION: u32 = 0;
+pub const SDL_TTF_MINOR_VERSION: u32 = 2;
+pub const SDL_TTF_MICRO_VERSION: u32 = 2;
 pub const TTF_PROP_FONT_CREATE_FILENAME_STRING: &[u8; 29] = b"SDL_ttf.font.create.filename\0";
 pub const TTF_PROP_FONT_CREATE_IOSTREAM_POINTER: &[u8; 29] = b"SDL_ttf.font.create.iostream\0";
 pub const TTF_PROP_FONT_CREATE_IOSTREAM_OFFSET_NUMBER: &[u8; 36] =
@@ -15,8 +15,7 @@ pub const TTF_PROP_FONT_CREATE_SIZE_FLOAT: &[u8; 25] = b"SDL_ttf.font.create.siz
 pub const TTF_PROP_FONT_CREATE_FACE_NUMBER: &[u8; 25] = b"SDL_ttf.font.create.face\0";
 pub const TTF_PROP_FONT_CREATE_HORIZONTAL_DPI_NUMBER: &[u8; 25] = b"SDL_ttf.font.create.hdpi\0";
 pub const TTF_PROP_FONT_CREATE_VERTICAL_DPI_NUMBER: &[u8; 25] = b"SDL_ttf.font.create.vdpi\0";
-pub const TTF_PROP_FONT_CREATE_EXISTING_FONT_POINTER: &[u8; 34] =
-    b"SDL_ttf.font.create.existing_font\0";
+pub const TTF_PROP_FONT_CREATE_EXISTING_FONT: &[u8; 34] = b"SDL_ttf.font.create.existing_font\0";
 pub const TTF_PROP_FONT_OUTLINE_LINE_CAP_NUMBER: &[u8; 30] = b"SDL_ttf.font.outline.line_cap\0";
 pub const TTF_PROP_FONT_OUTLINE_LINE_JOIN_NUMBER: &[u8; 31] = b"SDL_ttf.font.outline.line_join\0";
 pub const TTF_PROP_FONT_OUTLINE_MITER_LIMIT_NUMBER: &[u8; 33] =
@@ -36,13 +35,12 @@ pub const TTF_FONT_WEIGHT_BOLD: u32 = 700;
 pub const TTF_FONT_WEIGHT_EXTRA_BOLD: u32 = 800;
 pub const TTF_FONT_WEIGHT_BLACK: u32 = 900;
 pub const TTF_FONT_WEIGHT_EXTRA_BLACK: u32 = 950;
-pub const TTF_PROP_RENDERER_TEXT_ENGINE_RENDERER_POINTER: &[u8; 45] =
+pub const TTF_PROP_RENDERER_TEXT_ENGINE_RENDERER: &[u8; 45] =
     b"SDL_ttf.renderer_text_engine.create.renderer\0";
-pub const TTF_PROP_RENDERER_TEXT_ENGINE_ATLAS_TEXTURE_SIZE_NUMBER: &[u8; 55] =
+pub const TTF_PROP_RENDERER_TEXT_ENGINE_ATLAS_TEXTURE_SIZE: &[u8; 55] =
     b"SDL_ttf.renderer_text_engine.create.atlas_texture_size\0";
-pub const TTF_PROP_GPU_TEXT_ENGINE_DEVICE_POINTER: &[u8; 38] =
-    b"SDL_ttf.gpu_text_engine.create.device\0";
-pub const TTF_PROP_GPU_TEXT_ENGINE_ATLAS_TEXTURE_SIZE_NUMBER: &[u8; 50] =
+pub const TTF_PROP_GPU_TEXT_ENGINE_DEVICE: &[u8; 38] = b"SDL_ttf.gpu_text_engine.create.device\0";
+pub const TTF_PROP_GPU_TEXT_ENGINE_ATLAS_TEXTURE_SIZE: &[u8; 50] =
     b"SDL_ttf.gpu_text_engine.create.atlas_texture_size\0";
 pub const TTF_SUBSTRING_DIRECTION_MASK: u32 = 255;
 pub const TTF_SUBSTRING_TEXT_START: u32 = 256;
@@ -83,11 +81,11 @@ unsafe extern "C" {
     pub fn TTF_OpenFont(file: *const core::ffi::c_char, ptsize: f32) -> *mut TTF_Font;
 }
 unsafe extern "C" {
-    #[doc = "Create a font from an SDL_IOStream, using a specified point size.\n\nSome .fon fonts will have several sizes embedded in the file, so the point\nsize becomes the index of choosing which size. If the value is too high,\nthe last indexed size will be the default.\n\nIf `closeio` is true, `src` will be automatically closed once the font is\nclosed. Otherwise you should keep `src` open until the font is closed.\n\nWhen done with the returned TTF_Font, use TTF_CloseFont() to dispose of it.\n\n**Parameter:** src an SDL_IOStream to provide a font file's data.\n\n**Parameter:** closeio true to close `src` when the font is closed, false to leave\nit open.\n\n**Parameter:** ptsize point size to use for the newly-opened font.\n\n**Returns:** a valid TTF_Font, or NULL on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL_ttf 3.0.0.\n\n**See Also:** TTF_CloseFont"]
+    #[doc = "Create a font from an SDL_IOStream, using a specified point size.\n\nSome .fon fonts will have several sizes embedded in the file, so the point\nsize becomes the index of choosing which size. If the value is too high,\nthe last indexed size will be the default.\n\nIf `closeio` is true, `src` will be automatically closed once the font is\nclosed. Otherwise you should close `src` yourself after closing the font.\n\nWhen done with the returned TTF_Font, use TTF_CloseFont() to dispose of it.\n\n**Parameter:** src an SDL_IOStream to provide a font file's data.\n\n**Parameter:** closeio true to close `src` when the font is closed, false to leave\nit open.\n\n**Parameter:** ptsize point size to use for the newly-opened font.\n\n**Returns:** a valid TTF_Font, or NULL on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL_ttf 3.0.0.\n\n**See Also:** TTF_CloseFont"]
     pub fn TTF_OpenFontIO(src: *mut SDL_IOStream, closeio: bool, ptsize: f32) -> *mut TTF_Font;
 }
 unsafe extern "C" {
-    #[doc = "Create a font with the specified properties.\n\nThese are the supported properties:\n\n- `TTF_PROP_FONT_CREATE_FILENAME_STRING`: the font file to open, if an\nSDL_IOStream isn't being used. This is required if\n`TTF_PROP_FONT_CREATE_IOSTREAM_POINTER` and\n`TTF_PROP_FONT_CREATE_EXISTING_FONT_POINTER` aren't set.\n- `TTF_PROP_FONT_CREATE_IOSTREAM_POINTER`: an SDL_IOStream containing the\nfont to be opened. This should not be closed until the font is closed.\nThis is required if `TTF_PROP_FONT_CREATE_FILENAME_STRING` and\n`TTF_PROP_FONT_CREATE_EXISTING_FONT_POINTER` aren't set.\n- `TTF_PROP_FONT_CREATE_IOSTREAM_OFFSET_NUMBER`: the offset in the iostream\nfor the beginning of the font, defaults to 0.\n- `TTF_PROP_FONT_CREATE_IOSTREAM_AUTOCLOSE_BOOLEAN`: true if closing the\nfont should also close the associated SDL_IOStream.\n- `TTF_PROP_FONT_CREATE_SIZE_FLOAT`: the point size of the font. Some .fon\nfonts will have several sizes embedded in the file, so the point size\nbecomes the index of choosing which size. If the value is too high, the\nlast indexed size will be the default.\n- `TTF_PROP_FONT_CREATE_FACE_NUMBER`: the face index of the font, if the\nfont contains multiple font faces.\n- `TTF_PROP_FONT_CREATE_HORIZONTAL_DPI_NUMBER`: the horizontal DPI to use\nfor font rendering, defaults to\n`TTF_PROP_FONT_CREATE_VERTICAL_DPI_NUMBER` if set, or 72 otherwise.\n- `TTF_PROP_FONT_CREATE_VERTICAL_DPI_NUMBER`: the vertical DPI to use for\nfont rendering, defaults to `TTF_PROP_FONT_CREATE_HORIZONTAL_DPI_NUMBER`\nif set, or 72 otherwise.\n- `TTF_PROP_FONT_CREATE_EXISTING_FONT_POINTER`: an optional TTF_Font that,\nif set, will be used as the font data source and the initial size and\nstyle of the new font.\n\n**Parameter:** props the properties to use.\n\n**Returns:** a valid TTF_Font, or NULL on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL_ttf 3.0.0.\n\n**See Also:** TTF_CloseFont"]
+    #[doc = "Create a font with the specified properties.\n\nThese are the supported properties:\n\n- `TTF_PROP_FONT_CREATE_FILENAME_STRING`: the font file to open, if an\nSDL_IOStream isn't being used. This is required if\n`TTF_PROP_FONT_CREATE_IOSTREAM_POINTER` and\n`TTF_PROP_FONT_CREATE_EXISTING_FONT` aren't set.\n- `TTF_PROP_FONT_CREATE_IOSTREAM_POINTER`: an SDL_IOStream containing the\nfont to be opened. This should not be closed until the font is closed.\nThis is required if `TTF_PROP_FONT_CREATE_FILENAME_STRING` and\n`TTF_PROP_FONT_CREATE_EXISTING_FONT` aren't set.\n- `TTF_PROP_FONT_CREATE_IOSTREAM_OFFSET_NUMBER`: the offset in the iostream\nfor the beginning of the font, defaults to 0.\n- `TTF_PROP_FONT_CREATE_IOSTREAM_AUTOCLOSE_BOOLEAN`: true if closing the\nfont should also close the associated SDL_IOStream.\n- `TTF_PROP_FONT_CREATE_SIZE_FLOAT`: the point size of the font. Some .fon\nfonts will have several sizes embedded in the file, so the point size\nbecomes the index of choosing which size. If the value is too high, the\nlast indexed size will be the default.\n- `TTF_PROP_FONT_CREATE_FACE_NUMBER`: the face index of the font, if the\nfont contains multiple font faces.\n- `TTF_PROP_FONT_CREATE_HORIZONTAL_DPI_NUMBER`: the horizontal DPI to use\nfor font rendering, defaults to\n`TTF_PROP_FONT_CREATE_VERTICAL_DPI_NUMBER` if set, or 72 otherwise.\n- `TTF_PROP_FONT_CREATE_VERTICAL_DPI_NUMBER`: the vertical DPI to use for\nfont rendering, defaults to `TTF_PROP_FONT_CREATE_HORIZONTAL_DPI_NUMBER`\nif set, or 72 otherwise.\n- `TTF_PROP_FONT_CREATE_EXISTING_FONT`: an optional TTF_Font that, if set,\nwill be used as the font data source and the initial size and style of\nthe new font.\n\n**Parameter:** props the properties to use.\n\n**Returns:** a valid TTF_Font, or NULL on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL_ttf 3.0.0.\n\n**See Also:** TTF_CloseFont"]
     pub fn TTF_OpenFontWithProperties(props: SDL_PropertiesID) -> *mut TTF_Font;
 }
 unsafe extern "C" {
@@ -195,7 +193,7 @@ unsafe extern "C" {
     pub fn TTF_GetFontSDF(font: *const TTF_Font) -> bool;
 }
 unsafe extern "C" {
-    #[doc = "Query a font's weight, in terms of the lightness/heaviness of the strokes.\n\n**Parameter:** font the font to query.\n\n**Returns:** the font's current weight.\n\n**Thread Safety:** This function should be called on the thread that created the\nfont.\n\n**Available Since:** This function is available since SDL_ttf 3.2.2."]
+    #[doc = "Query a font's weight, in terms of the lightness/heaviness of the strokes.\n\n**Parameter:** font the font to query.\n\n**Returns:** the font's current weight.\n\n**Thread Safety:** This function should be called on the thread that created the\nfont.\n\n**Available Since:** This function is available since SDL_ttf 3.4.0."]
     pub fn TTF_GetFontWeight(font: *const TTF_Font) -> core::ffi::c_int;
 }
 impl TTF_HorizontalAlignment {
@@ -282,14 +280,6 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = "Get the direction to be used for text shaping by a font.\n\nThis defaults to TTF_DIRECTION_INVALID if it hasn't been set.\n\n**Parameter:** font the font to query.\n\n**Returns:** the direction to be used for text shaping.\n\n**Thread Safety:** This function should be called on the thread that created the\nfont.\n\n**Available Since:** This function is available since SDL_ttf 3.0.0."]
     pub fn TTF_GetFontDirection(font: *mut TTF_Font) -> TTF_Direction;
-}
-unsafe extern "C" {
-    #[doc = "Set additional space in pixels to be applied between any two rendered\ncharacters.\n\nThe spacing value is applied uniformly after each character, in addition to\nthe normal glyph's advance.\n\nSpacing may be a negative value, in which case it will reduce the distance\ninstead.\n\nThis updates any TTF_Text objects using this font.\n\n**Parameter:** font the font to specify a direction for.\n\n**Parameter:** spacing the new additional glyph spacing for the font.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should be called on the thread that created the\nfont.\n\n**Available Since:** This function is available since SDL_ttf 3.4.0."]
-    pub fn TTF_SetFontCharSpacing(font: *mut TTF_Font, spacing: core::ffi::c_int) -> bool;
-}
-unsafe extern "C" {
-    #[doc = "Get the additional character spacing in pixels to be applied between any\ntwo rendered characters.\n\nThis defaults to 0 if it hasn't been set.\n\n**Parameter:** font the font to query.\n\n**Returns:** the character spacing in pixels.\n\n**Thread Safety:** This function should be called on the thread that created the\nfont.\n\n**Available Since:** This function is available since SDL_ttf 3.4.0."]
-    pub fn TTF_GetFontCharSpacing(font: *mut TTF_Font) -> core::ffi::c_int;
 }
 unsafe extern "C" {
     #[doc = "Convert from a 4 character string to a 32-bit tag.\n\n**Parameter:** string the 4 character string to convert.\n\n**Returns:** the 32-bit representation of the string.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL_ttf 3.0.0.\n\n**See Also:** TTF_TagToString"]
@@ -581,7 +571,7 @@ unsafe extern "C" {
     pub fn TTF_CreateRendererTextEngine(renderer: *mut SDL_Renderer) -> *mut TTF_TextEngine;
 }
 unsafe extern "C" {
-    #[doc = "Create a text engine for drawing text on an SDL renderer, with the\nspecified properties.\n\nThese are the supported properties:\n\n- `TTF_PROP_RENDERER_TEXT_ENGINE_RENDERER_POINTER`: the renderer to use for\ncreating textures and drawing text\n- `TTF_PROP_RENDERER_TEXT_ENGINE_ATLAS_TEXTURE_SIZE_NUMBER`: the size of\nthe texture atlas\n\n**Parameter:** props the properties to use.\n\n**Returns:** a TTF_TextEngine object or NULL on failure; call SDL_GetError()\nfor more information.\n\n**Thread Safety:** This function should be called on the thread that created the\nrenderer.\n\n**Available Since:** This function is available since SDL_ttf 3.0.0.\n\n**See Also:** TTF_CreateRendererTextEngine\n\n**See Also:** TTF_DestroyRendererTextEngine\n\n**See Also:** TTF_DrawRendererText"]
+    #[doc = "Create a text engine for drawing text on an SDL renderer, with the\nspecified properties.\n\nThese are the supported properties:\n\n- `TTF_PROP_RENDERER_TEXT_ENGINE_RENDERER`: the renderer to use for\ncreating textures and drawing text\n- `TTF_PROP_RENDERER_TEXT_ENGINE_ATLAS_TEXTURE_SIZE`: the size of the\ntexture atlas\n\n**Parameter:** props the properties to use.\n\n**Returns:** a TTF_TextEngine object or NULL on failure; call SDL_GetError()\nfor more information.\n\n**Thread Safety:** This function should be called on the thread that created the\nrenderer.\n\n**Available Since:** This function is available since SDL_ttf 3.0.0.\n\n**See Also:** TTF_CreateRendererTextEngine\n\n**See Also:** TTF_DestroyRendererTextEngine\n\n**See Also:** TTF_DrawRendererText"]
     pub fn TTF_CreateRendererTextEngineWithProperties(
         props: SDL_PropertiesID,
     ) -> *mut TTF_TextEngine;
@@ -599,7 +589,7 @@ unsafe extern "C" {
     pub fn TTF_CreateGPUTextEngine(device: *mut SDL_GPUDevice) -> *mut TTF_TextEngine;
 }
 unsafe extern "C" {
-    #[doc = "Create a text engine for drawing text with the SDL GPU API, with the\nspecified properties.\n\nThese are the supported properties:\n\n- `TTF_PROP_GPU_TEXT_ENGINE_DEVICE_POINTER`: the SDL_GPUDevice to use for\ncreating textures and drawing text.\n- `TTF_PROP_GPU_TEXT_ENGINE_ATLAS_TEXTURE_SIZE_NUMBER`: the size of the\ntexture atlas\n\n**Parameter:** props the properties to use.\n\n**Returns:** a TTF_TextEngine object or NULL on failure; call SDL_GetError()\nfor more information.\n\n**Thread Safety:** This function should be called on the thread that created the\ndevice.\n\n**Available Since:** This function is available since SDL_ttf 3.0.0.\n\n**See Also:** TTF_CreateGPUTextEngine\n\n**See Also:** TTF_DestroyGPUTextEngine\n\n**See Also:** TTF_GetGPUTextDrawData"]
+    #[doc = "Create a text engine for drawing text with the SDL GPU API, with the\nspecified properties.\n\nThese are the supported properties:\n\n- `TTF_PROP_GPU_TEXT_ENGINE_DEVICE`: the SDL_GPUDevice to use for creating\ntextures and drawing text.\n- `TTF_PROP_GPU_TEXT_ENGINE_ATLAS_TEXTURE_SIZE`: the size of the texture\natlas\n\n**Parameter:** props the properties to use.\n\n**Returns:** a TTF_TextEngine object or NULL on failure; call SDL_GetError()\nfor more information.\n\n**Thread Safety:** This function should be called on the thread that created the\ndevice.\n\n**Available Since:** This function is available since SDL_ttf 3.0.0.\n\n**See Also:** TTF_CreateGPUTextEngine\n\n**See Also:** TTF_DestroyGPUTextEngine\n\n**See Also:** TTF_GetGPUTextDrawData"]
     pub fn TTF_CreateGPUTextEngineWithProperties(props: SDL_PropertiesID) -> *mut TTF_TextEngine;
 }
 #[doc = "Draw sequence returned by TTF_GetGPUTextDrawData\n\n**Available Since:** This struct is available since SDL_ttf 3.0.0.\n\n**See Also:** TTF_GetGPUTextDrawData"]
@@ -760,7 +750,7 @@ unsafe extern "C" {
     ) -> bool;
 }
 unsafe extern "C" {
-    #[doc = "Set the position of a text object.\n\nThis can be used to position multiple text objects within a single wrapping\ntext area.\n\nThis function may cause the internal text representation to be rebuilt.\n\n**Parameter:** text the TTF_Text to modify.\n\n**Parameter:** x the x offset of the upper left corner of this text in pixels.\n\n**Parameter:** y the y offset of the upper left corner of this text in pixels.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should be called on the thread that created the\ntext.\n\n**Available Since:** This function is available since SDL_ttf 3.0.0.\n\n**See Also:** TTF_GetTextPosition"]
+    #[doc = "Set the position of a text object.\n\nThis can be used to position multiple text objects within a single wrapping\ntext area.\n\nThis function may cause the internal text representation to be rebuilt.\n\n**Parameter:** text the TTF_Text to modify.\n\n**Parameter:** x the x offset of the upper left corner of this text in pixels.\n\n**Parameter:** y the y offset of the upper left corner of this text in pixels.\n\n**Thread Safety:** This function should be called on the thread that created the\ntext.\n\n**Available Since:** This function is available since SDL_ttf 3.0.0.\n\n**See Also:** TTF_GetTextPosition"]
     pub fn TTF_SetTextPosition(
         text: *mut TTF_Text,
         x: core::ffi::c_int,
@@ -768,7 +758,7 @@ unsafe extern "C" {
     ) -> bool;
 }
 unsafe extern "C" {
-    #[doc = "Get the position of a text object.\n\n**Parameter:** text the TTF_Text to query.\n\n**Parameter:** x a pointer filled in with the x offset of the upper left corner of\nthis text in pixels, may be NULL.\n\n**Parameter:** y a pointer filled in with the y offset of the upper left corner of\nthis text in pixels, may be NULL.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should be called on the thread that created the\ntext.\n\n**Available Since:** This function is available since SDL_ttf 3.0.0.\n\n**See Also:** TTF_SetTextPosition"]
+    #[doc = "Get the position of a text object.\n\n**Parameter:** text the TTF_Text to query.\n\n**Parameter:** x a pointer filled in with the x offset of the upper left corner of\nthis text in pixels, may be NULL.\n\n**Parameter:** y a pointer filled in with the y offset of the upper left corner of\nthis text in pixels, may be NULL.\n\n**Thread Safety:** This function should be called on the thread that created the\ntext.\n\n**Available Since:** This function is available since SDL_ttf 3.0.0.\n\n**See Also:** TTF_SetTextPosition"]
     pub fn TTF_GetTextPosition(
         text: *mut TTF_Text,
         x: *mut core::ffi::c_int,
@@ -911,7 +901,7 @@ unsafe extern "C" {
     ) -> bool;
 }
 unsafe extern "C" {
-    #[doc = "Get the previous substring in a text object\n\nIf called at the start of the text, this will return a zero length\nsubstring with the TTF_SUBSTRING_TEXT_START flag set.\n\n**Parameter:** text the TTF_Text to query.\n\n**Parameter:** substring the TTF_SubString to query.\n\n**Parameter:** previous a pointer filled in with the previous substring in the text\nobject.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should be called on the thread that created the\ntext.\n\n**Available Since:** This function is available since SDL_ttf 3.0.0."]
+    #[doc = "Get the previous substring in a text object\n\nIf called at the start of the text, this will return a zero length\nsubstring with the TTF_SUBSTRING_TEXT_START flag set.\n\n**Parameter:** text the TTF_Text to query.\n\n**Parameter:** substring the TTF_SubString to query.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should be called on the thread that created the\ntext.\n\n**Available Since:** This function is available since SDL_ttf 3.0.0."]
     pub fn TTF_GetPreviousTextSubString(
         text: *mut TTF_Text,
         substring: *const TTF_SubString,

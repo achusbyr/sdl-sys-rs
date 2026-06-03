@@ -3,8 +3,8 @@
 use sdl_sys_bindgen::*;
 
 pub const SDL_MIXER_MAJOR_VERSION: u32 = 3;
-pub const SDL_MIXER_MINOR_VERSION: u32 = 3;
-pub const SDL_MIXER_MICRO_VERSION: u32 = 0;
+pub const SDL_MIXER_MINOR_VERSION: u32 = 2;
+pub const SDL_MIXER_MICRO_VERSION: u32 = 2;
 pub const MIX_PROP_MIXER_DEVICE_NUMBER: &[u8; 23] = b"SDL_mixer.mixer.device\0";
 pub const MIX_PROP_AUDIO_LOAD_IOSTREAM_POINTER: &[u8; 30] = b"SDL_mixer.audio.load.iostream\0";
 pub const MIX_PROP_AUDIO_LOAD_CLOSEIO_BOOLEAN: &[u8; 29] = b"SDL_mixer.audio.load.closeio\0";

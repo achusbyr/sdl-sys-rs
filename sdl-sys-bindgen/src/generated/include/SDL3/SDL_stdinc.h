@@ -1290,8 +1290,9 @@ extern "C" {
 /**
  * Free memory previously allocated with SDL_stack_alloc.
  *
- * If SDL used alloca() to allocate this memory, this macro does nothing and
- * the allocated memory will be automatically released when the function that
+ * If SDL used alloca() to allocate this memory, this macro does nothing (other
+ * than insert `((void)(data)` so the compiler sees an expression) and the
+ * allocated memory will be automatically released when the function that
  * called SDL_stack_alloc() returns. If SDL used SDL_malloc(), it will
  * SDL_free the memory immediately.
  *
@@ -1303,10 +1304,10 @@ extern "C" {
  *
  * \sa SDL_stack_alloc
  */
-#define SDL_stack_free(data)
+#define SDL_stack_free(data) ((void)(data))
 #elif !defined(SDL_DISABLE_ALLOCA)
 #define SDL_stack_alloc(type, count)    (type*)alloca(sizeof(type)*(count))
-#define SDL_stack_free(data)
+#define SDL_stack_free(data)            ((void)(data))
 #else
 #define SDL_stack_alloc(type, count)    (type*)SDL_malloc(sizeof(type)*(count))
 #define SDL_stack_free(data)            SDL_free(data)
@@ -1728,7 +1729,7 @@ extern SDL_DECLSPEC const char * SDLCALL SDL_GetEnvironmentVariable(SDL_Environm
  *
  * \sa SDL_GetEnvironment
  * \sa SDL_CreateEnvironment
- * \sa SDL_GetEnvironmentVariable
+ * \sa SDL_GetEnvironmentVariables
  * \sa SDL_SetEnvironmentVariable
  * \sa SDL_UnsetEnvironmentVariable
  */
@@ -3023,7 +3024,7 @@ extern SDL_DECLSPEC long SDLCALL SDL_wcstol(const wchar_t *str, wchar_t **endp, 
  * If you need the length of a UTF-8 string, consider using SDL_utf8strlen().
  *
  * \param str The null-terminated string to read. Must not be NULL.
- * \returns the length (in bytes, excluding the null terminator) of `str`.
+ * \returns the length (in bytes, excluding the null terminator) of `src`.
  *
  * \threadsafety It is safe to call this function from any thread.
  *
@@ -3212,7 +3213,7 @@ extern SDL_DECLSPEC char * SDLCALL SDL_strrev(char *str);
  * Convert a string to uppercase.
  *
  * **WARNING**: Regardless of system locale, this will only convert ASCII
- * values 'a' through 'z' to uppercase.
+ * values 'A' through 'Z' to uppercase.
  *
  * This function operates on a null-terminated string of bytes--even if it is
  * malformed UTF-8!--and converts ASCII characters 'a' through 'z' to their
@@ -3996,7 +3997,7 @@ extern SDL_DECLSPEC char * SDLCALL SDL_strpbrk(const char *str, const char *brea
  * NULL-terminated, as the function will blindly read until it sees the NULL
  * char.
  *
- * If `*pslen` is zero, it assumes the end of string is reached and returns a
+ * if `*pslen` is zero, it assumes the end of string is reached and returns a
  * zero codepoint regardless of the contents of the string buffer.
  *
  * If the resulting codepoint is zero (a NULL terminator), or `*pslen` is
@@ -4360,7 +4361,7 @@ extern SDL_DECLSPEC float SDLCALL SDL_randf(void);
 /**
  * Generate 32 pseudo-random bits.
  *
- * You likely want to use SDL_rand() to get a pseudo-random number instead.
+ * You likely want to use SDL_rand() to get a psuedo-random number instead.
  *
  * There are no guarantees as to the quality of the random sequence produced,
  * and this should not be used for security (cryptography, passwords) or where
@@ -4418,6 +4419,9 @@ extern SDL_DECLSPEC Sint32 SDLCALL SDL_rand_r(Uint64 *state, Sint32 n);
 /**
  * Generate a uniform pseudo-random floating point number less than 1.0
  *
+ * If you want reproducible output, be sure to initialize with SDL_srand()
+ * first.
+ *
  * There are no guarantees as to the quality of the random sequence produced,
  * and this should not be used for security (cryptography, passwords) or where
  * money is on the line (loot-boxes, casinos). There are many random number
@@ -4442,7 +4446,7 @@ extern SDL_DECLSPEC float SDLCALL SDL_randf_r(Uint64 *state);
 /**
  * Generate 32 pseudo-random bits.
  *
- * You likely want to use SDL_rand_r() to get a pseudo-random number instead.
+ * You likely want to use SDL_rand_r() to get a psuedo-random number instead.
  *
  * There are no guarantees as to the quality of the random sequence produced,
  * and this should not be used for security (cryptography, passwords) or where
@@ -4681,7 +4685,7 @@ extern SDL_DECLSPEC float SDLCALL SDL_atanf(float x);
  *
  * Domain: `-INF <= x <= INF`, `-INF <= y <= INF`
  *
- * Range: `-Pi <= z <= Pi`
+ * Range: `-Pi <= y <= Pi`
  *
  * This function operates on double-precision floating point values, use
  * SDL_atan2f for single-precision floats.
@@ -4695,8 +4699,8 @@ extern SDL_DECLSPEC float SDLCALL SDL_atanf(float x);
  *
  * \param y floating point value of the numerator (y coordinate).
  * \param x floating point value of the denominator (x coordinate).
- * \returns arc tangent of `y / x` in radians, or, if `x = 0`, either `-Pi/2`,
- *          `0`, or `Pi/2`, depending on the value of `y`.
+ * \returns arc tangent of of `y / x` in radians, or, if `x = 0`, either
+ *          `-Pi/2`, `0`, or `Pi/2`, depending on the value of `y`.
  *
  * \threadsafety It is safe to call this function from any thread.
  *

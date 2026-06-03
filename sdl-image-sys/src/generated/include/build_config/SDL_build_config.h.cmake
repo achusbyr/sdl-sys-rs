@@ -107,7 +107,6 @@
 #cmakedefine HAVE_STRTOK_R 1
 #cmakedefine HAVE_ITOA 1
 #cmakedefine HAVE__LTOA 1
-#cmakedefine HAVE__UITOA 1
 #cmakedefine HAVE__ULTOA 1
 #cmakedefine HAVE_STRTOL 1
 #cmakedefine HAVE_STRTOUL 1
@@ -292,7 +291,7 @@
 #cmakedefine SDL_AUDIO_DRIVER_N3DS 1
 #cmakedefine SDL_AUDIO_DRIVER_NGAGE 1
 #cmakedefine SDL_AUDIO_DRIVER_QNX 1
-#cmakedefine SDL_AUDIO_DRIVER_DOS_SOUNDBLASTER 1
+
 #cmakedefine SDL_AUDIO_DRIVER_PRIVATE 1
 
 /* Enable various input drivers */
@@ -303,7 +302,6 @@
 #cmakedefine SDL_HAVE_MACHINE_JOYSTICK_H 1
 #cmakedefine SDL_JOYSTICK_ANDROID 1
 #cmakedefine SDL_JOYSTICK_DINPUT 1
-#cmakedefine SDL_JOYSTICK_DOS 1
 #cmakedefine SDL_JOYSTICK_DUMMY 1
 #cmakedefine SDL_JOYSTICK_EMSCRIPTEN 1
 #cmakedefine SDL_JOYSTICK_GAMEINPUT 1
@@ -371,7 +369,6 @@
 #cmakedefine SDL_THREAD_PSP 1
 #cmakedefine SDL_THREAD_PS2 1
 #cmakedefine SDL_THREAD_N3DS 1
-#cmakedefine SDL_THREAD_DOS 1
 
 #cmakedefine SDL_THREAD_PRIVATE 1
 
@@ -394,7 +391,6 @@
 #cmakedefine SDL_TIMER_PSP 1
 #cmakedefine SDL_TIMER_PS2 1
 #cmakedefine SDL_TIMER_N3DS 1
-#cmakedefine SDL_TIMER_DOS 1
 
 #cmakedefine SDL_TIMER_PRIVATE 1
 
@@ -451,7 +447,6 @@
 #cmakedefine SDL_VIDEO_DRIVER_X11_XSYNC 1
 #cmakedefine SDL_VIDEO_DRIVER_X11_XTEST 1
 #cmakedefine SDL_VIDEO_DRIVER_QNX 1
-#cmakedefine SDL_VIDEO_DRIVER_DOSVESA 1
 
 #cmakedefine SDL_VIDEO_DRIVER_PRIVATE 1
 
@@ -492,7 +487,6 @@
 #cmakedefine SDL_GPU_D3D12 1
 #cmakedefine SDL_GPU_VULKAN 1
 #cmakedefine SDL_GPU_METAL 1
-#cmakedefine HAVE_GPU_OPENXR 1
 
 #cmakedefine SDL_GPU_PRIVATE 1
 
@@ -524,7 +518,6 @@
 #cmakedefine SDL_FILESYSTEM_PSP 1
 #cmakedefine SDL_FILESYSTEM_PS2 1
 #cmakedefine SDL_FILESYSTEM_N3DS 1
-#cmakedefine SDL_FILESYSTEM_DOS 1
 
 #cmakedefine SDL_FILESYSTEM_PRIVATE 1
 

@@ -1,6 +1,6 @@
 [package]
 name = "sdl-ttf-sys"
-version = "0.1.3+3.3.0-2eabf8bcdf56a7a9adcb8c3505399d922a6f1007"
+version = "0.1.4+3.2.2-a1ce3670aec736ecbf0936c43f2f0cc53aa61e5b"
 edition = "2024"
 description = "Alternative bindings for SDL3_ttf using bindgen"
 repository = "https://github.com/achusbyr/sdl-sys-rs"

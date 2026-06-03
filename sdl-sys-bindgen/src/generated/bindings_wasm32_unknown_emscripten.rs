@@ -9,7 +9,6 @@ pub const __LITTLE_ENDIAN: u32 = 1234;
 pub const __BIG_ENDIAN: u32 = 4321;
 pub const __USE_TIME_BITS64: u32 = 1;
 pub const WEOF: u32 = 4294967295;
-pub const WINT_MIN: u32 = 0;
 pub const __PRI64: &[u8; 3] = b"ll\0";
 pub const __PRIPTR: &[u8; 2] = b"l\0";
 pub const PRId8: &[u8; 2] = b"d\0";
@@ -330,8 +329,6 @@ pub const SDL_PROP_WINDOW_COCOA_WINDOW_POINTER: &[u8; 24] = b"SDL.window.cocoa.w
 pub const SDL_PROP_WINDOW_COCOA_METAL_VIEW_TAG_NUMBER: &[u8; 32] =
     b"SDL.window.cocoa.metal_view_tag\0";
 pub const SDL_PROP_WINDOW_OPENVR_OVERLAY_ID_NUMBER: &[u8; 29] = b"SDL.window.openvr.overlay_id\0";
-pub const SDL_PROP_WINDOW_QNX_WINDOW_POINTER: &[u8; 22] = b"SDL.window.qnx.window\0";
-pub const SDL_PROP_WINDOW_QNX_SURFACE_POINTER: &[u8; 23] = b"SDL.window.qnx.surface\0";
 pub const SDL_PROP_WINDOW_VIVANTE_DISPLAY_POINTER: &[u8; 27] = b"SDL.window.vivante.display\0";
 pub const SDL_PROP_WINDOW_VIVANTE_WINDOW_POINTER: &[u8; 26] = b"SDL.window.vivante.window\0";
 pub const SDL_PROP_WINDOW_VIVANTE_SURFACE_POINTER: &[u8; 27] = b"SDL.window.vivante.surface\0";
@@ -676,10 +673,6 @@ pub const SDL_PROP_TEXTINPUT_TYPE_NUMBER: &[u8; 19] = b"SDL.textinput.type\0";
 pub const SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER: &[u8; 29] = b"SDL.textinput.capitalization\0";
 pub const SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN: &[u8; 26] = b"SDL.textinput.autocorrect\0";
 pub const SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN: &[u8; 24] = b"SDL.textinput.multiline\0";
-pub const SDL_PROP_TEXTINPUT_TITLE_STRING: &[u8; 20] = b"SDL.textinput.title\0";
-pub const SDL_PROP_TEXTINPUT_PLACEHOLDER_STRING: &[u8; 26] = b"SDL.textinput.placeholder\0";
-pub const SDL_PROP_TEXTINPUT_DEFAULT_TEXT_STRING: &[u8; 27] = b"SDL.textinput.default_text\0";
-pub const SDL_PROP_TEXTINPUT_MAX_LENGTH_NUMBER: &[u8; 25] = b"SDL.textinput.max_length\0";
 pub const SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER: &[u8; 32] =
     b"SDL.textinput.android.inputtype\0";
 pub const SDL_BUTTON_LEFT: u32 = 1;
@@ -761,32 +754,6 @@ pub const SDL_PROP_GPU_DEVICE_CREATE_VULKAN_OPTIONS_POINTER: &[u8; 37] =
     b"SDL.gpu.device.create.vulkan.options\0";
 pub const SDL_PROP_GPU_DEVICE_CREATE_METAL_ALLOW_MACFAMILY1_BOOLEAN: &[u8; 44] =
     b"SDL.gpu.device.create.metal.allowmacfamily1\0";
-pub const SDL_PROP_GPU_DEVICE_CREATE_XR_ENABLE_BOOLEAN: &[u8; 32] =
-    b"SDL.gpu.device.create.xr.enable\0";
-pub const SDL_PROP_GPU_DEVICE_CREATE_XR_INSTANCE_POINTER: &[u8; 38] =
-    b"SDL.gpu.device.create.xr.instance_out\0";
-pub const SDL_PROP_GPU_DEVICE_CREATE_XR_SYSTEM_ID_POINTER: &[u8; 39] =
-    b"SDL.gpu.device.create.xr.system_id_out\0";
-pub const SDL_PROP_GPU_DEVICE_CREATE_XR_VERSION_NUMBER: &[u8; 33] =
-    b"SDL.gpu.device.create.xr.version\0";
-pub const SDL_PROP_GPU_DEVICE_CREATE_XR_FORM_FACTOR_NUMBER: &[u8; 37] =
-    b"SDL.gpu.device.create.xr.form_factor\0";
-pub const SDL_PROP_GPU_DEVICE_CREATE_XR_EXTENSION_COUNT_NUMBER: &[u8; 42] =
-    b"SDL.gpu.device.create.xr.extensions.count\0";
-pub const SDL_PROP_GPU_DEVICE_CREATE_XR_EXTENSION_NAMES_POINTER: &[u8; 42] =
-    b"SDL.gpu.device.create.xr.extensions.names\0";
-pub const SDL_PROP_GPU_DEVICE_CREATE_XR_LAYER_COUNT_NUMBER: &[u8; 38] =
-    b"SDL.gpu.device.create.xr.layers.count\0";
-pub const SDL_PROP_GPU_DEVICE_CREATE_XR_LAYER_NAMES_POINTER: &[u8; 38] =
-    b"SDL.gpu.device.create.xr.layers.names\0";
-pub const SDL_PROP_GPU_DEVICE_CREATE_XR_APPLICATION_NAME_STRING: &[u8; 42] =
-    b"SDL.gpu.device.create.xr.application.name\0";
-pub const SDL_PROP_GPU_DEVICE_CREATE_XR_APPLICATION_VERSION_NUMBER: &[u8; 45] =
-    b"SDL.gpu.device.create.xr.application.version\0";
-pub const SDL_PROP_GPU_DEVICE_CREATE_XR_ENGINE_NAME_STRING: &[u8; 37] =
-    b"SDL.gpu.device.create.xr.engine.name\0";
-pub const SDL_PROP_GPU_DEVICE_CREATE_XR_ENGINE_VERSION_NUMBER: &[u8; 40] =
-    b"SDL.gpu.device.create.xr.engine.version\0";
 pub const SDL_PROP_GPU_DEVICE_NAME_STRING: &[u8; 20] = b"SDL.gpu.device.name\0";
 pub const SDL_PROP_GPU_DEVICE_DRIVER_NAME_STRING: &[u8; 27] = b"SDL.gpu.device.driver_name\0";
 pub const SDL_PROP_GPU_DEVICE_DRIVER_VERSION_STRING: &[u8; 30] = b"SDL.gpu.device.driver_version\0";
@@ -880,7 +847,6 @@ pub const SDL_HINT_CPU_FEATURE_MASK: &[u8; 21] = b"SDL_CPU_FEATURE_MASK\0";
 pub const SDL_HINT_JOYSTICK_DIRECTINPUT: &[u8; 25] = b"SDL_JOYSTICK_DIRECTINPUT\0";
 pub const SDL_HINT_FILE_DIALOG_DRIVER: &[u8; 23] = b"SDL_FILE_DIALOG_DRIVER\0";
 pub const SDL_HINT_DISPLAY_USABLE_BOUNDS: &[u8; 26] = b"SDL_DISPLAY_USABLE_BOUNDS\0";
-pub const SDL_HINT_DOS_ALLOW_DIRECT_FRAMEBUFFER: &[u8; 33] = b"SDL_DOS_ALLOW_DIRECT_FRAMEBUFFER\0";
 pub const SDL_HINT_INVALID_PARAM_CHECKS: &[u8; 25] = b"SDL_INVALID_PARAM_CHECKS\0";
 pub const SDL_HINT_EMSCRIPTEN_ASYNCIFY: &[u8; 24] = b"SDL_EMSCRIPTEN_ASYNCIFY\0";
 pub const SDL_HINT_EMSCRIPTEN_CANVAS_SELECTOR: &[u8; 31] = b"SDL_EMSCRIPTEN_CANVAS_SELECTOR\0";
@@ -908,7 +874,6 @@ pub const SDL_HINT_HIDAPI_LIBUSB_GAMECUBE: &[u8; 27] = b"SDL_HIDAPI_LIBUSB_GAMEC
 pub const SDL_HINT_HIDAPI_LIBUSB_WHITELIST: &[u8; 28] = b"SDL_HIDAPI_LIBUSB_WHITELIST\0";
 pub const SDL_HINT_HIDAPI_UDEV: &[u8; 16] = b"SDL_HIDAPI_UDEV\0";
 pub const SDL_HINT_GPU_DRIVER: &[u8; 15] = b"SDL_GPU_DRIVER\0";
-pub const SDL_HINT_OPENXR_LIBRARY: &[u8; 19] = b"SDL_OPENXR_LIBRARY\0";
 pub const SDL_HINT_HIDAPI_ENUMERATE_ONLY_CONTROLLERS: &[u8; 38] =
     b"SDL_HIDAPI_ENUMERATE_ONLY_CONTROLLERS\0";
 pub const SDL_HINT_HIDAPI_IGNORE_DEVICES: &[u8; 26] = b"SDL_HIDAPI_IGNORE_DEVICES\0";
@@ -923,7 +888,6 @@ pub const SDL_HINT_JOYSTICK_BLACKLIST_DEVICES: &[u8; 31] = b"SDL_JOYSTICK_BLACKL
 pub const SDL_HINT_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED: &[u8; 40] =
     b"SDL_JOYSTICK_BLACKLIST_DEVICES_EXCLUDED\0";
 pub const SDL_HINT_JOYSTICK_DEVICE: &[u8; 20] = b"SDL_JOYSTICK_DEVICE\0";
-pub const SDL_HINT_JOYSTICK_DRUM_DEVICES: &[u8; 26] = b"SDL_JOYSTICK_DRUM_DEVICES\0";
 pub const SDL_HINT_JOYSTICK_ENHANCED_REPORTS: &[u8; 30] = b"SDL_JOYSTICK_ENHANCED_REPORTS\0";
 pub const SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES: &[u8; 33] = b"SDL_JOYSTICK_FLIGHTSTICK_DEVICES\0";
 pub const SDL_HINT_JOYSTICK_FLIGHTSTICK_DEVICES_EXCLUDED: &[u8; 42] =
@@ -933,7 +897,6 @@ pub const SDL_HINT_JOYSTICK_GAMEINPUT_RAW: &[u8; 27] = b"SDL_JOYSTICK_GAMEINPUT_
 pub const SDL_HINT_JOYSTICK_GAMECUBE_DEVICES: &[u8; 30] = b"SDL_JOYSTICK_GAMECUBE_DEVICES\0";
 pub const SDL_HINT_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED: &[u8; 39] =
     b"SDL_JOYSTICK_GAMECUBE_DEVICES_EXCLUDED\0";
-pub const SDL_HINT_JOYSTICK_GUITAR_DEVICES: &[u8; 28] = b"SDL_JOYSTICK_GUITAR_DEVICES\0";
 pub const SDL_HINT_JOYSTICK_HIDAPI: &[u8; 20] = b"SDL_JOYSTICK_HIDAPI\0";
 pub const SDL_HINT_JOYSTICK_HIDAPI_COMBINE_JOY_CONS: &[u8; 37] =
     b"SDL_JOYSTICK_HIDAPI_COMBINE_JOY_CONS\0";
@@ -967,7 +930,6 @@ pub const SDL_HINT_JOYSTICK_HIDAPI_8BITDO: &[u8; 27] = b"SDL_JOYSTICK_HIDAPI_8BI
 pub const SDL_HINT_JOYSTICK_HIDAPI_SINPUT: &[u8; 27] = b"SDL_JOYSTICK_HIDAPI_SINPUT\0";
 pub const SDL_HINT_JOYSTICK_HIDAPI_ZUIKI: &[u8; 26] = b"SDL_JOYSTICK_HIDAPI_ZUIKI\0";
 pub const SDL_HINT_JOYSTICK_HIDAPI_FLYDIGI: &[u8; 28] = b"SDL_JOYSTICK_HIDAPI_FLYDIGI\0";
-pub const SDL_HINT_JOYSTICK_HIDAPI_GAMESIR: &[u8; 28] = b"SDL_JOYSTICK_HIDAPI_GAMESIR\0";
 pub const SDL_HINT_JOYSTICK_HIDAPI_SWITCH: &[u8; 27] = b"SDL_JOYSTICK_HIDAPI_SWITCH\0";
 pub const SDL_HINT_JOYSTICK_HIDAPI_SWITCH_HOME_LED: &[u8; 36] =
     b"SDL_JOYSTICK_HIDAPI_SWITCH_HOME_LED\0";
@@ -1110,6 +1072,7 @@ pub const SDL_HINT_VIDEO_WAYLAND_PREFER_LIBDECOR: &[u8; 34] =
 pub const SDL_HINT_VIDEO_WAYLAND_SCALE_TO_DISPLAY: &[u8; 35] =
     b"SDL_VIDEO_WAYLAND_SCALE_TO_DISPLAY\0";
 pub const SDL_HINT_VIDEO_WIN_D3DCOMPILER: &[u8; 26] = b"SDL_VIDEO_WIN_D3DCOMPILER\0";
+pub const SDL_HINT_VIDEO_X11_ENABLE_XSYNC_EXT: &[u8; 31] = b"SDL_VIDEO_X11_ENABLE_XSYNC_EXT\0";
 pub const SDL_HINT_VIDEO_X11_EXTERNAL_WINDOW_INPUT: &[u8; 36] =
     b"SDL_VIDEO_X11_EXTERNAL_WINDOW_INPUT\0";
 pub const SDL_HINT_VIDEO_X11_NET_WM_BYPASS_COMPOSITOR: &[u8; 39] =
@@ -1366,18 +1329,9 @@ pub const SDL_TRAYENTRY_CHECKBOX: u32 = 2;
 pub const SDL_TRAYENTRY_SUBMENU: u32 = 4;
 pub const SDL_TRAYENTRY_DISABLED: u32 = 2147483648;
 pub const SDL_TRAYENTRY_CHECKED: u32 = 1073741824;
-pub const SDL_PROP_TRAY_CREATE_ICON_POINTER: &[u8; 21] = b"SDL.tray.create.icon\0";
-pub const SDL_PROP_TRAY_CREATE_TOOLTIP_STRING: &[u8; 24] = b"SDL.tray.create.tooltip\0";
-pub const SDL_PROP_TRAY_CREATE_USERDATA_POINTER: &[u8; 25] = b"SDL.tray.create.userdata\0";
-pub const SDL_PROP_TRAY_CREATE_LEFTCLICK_CALLBACK_POINTER: &[u8; 35] =
-    b"SDL.tray.create.leftclick_callback\0";
-pub const SDL_PROP_TRAY_CREATE_RIGHTCLICK_CALLBACK_POINTER: &[u8; 36] =
-    b"SDL.tray.create.rightclick_callback\0";
-pub const SDL_PROP_TRAY_CREATE_MIDDLECLICK_CALLBACK_POINTER: &[u8; 37] =
-    b"SDL.tray.create.middleclick_callback\0";
 pub const SDL_MAJOR_VERSION: u32 = 3;
-pub const SDL_MINOR_VERSION: u32 = 5;
-pub const SDL_MICRO_VERSION: u32 = 0;
+pub const SDL_MINOR_VERSION: u32 = 4;
+pub const SDL_MICRO_VERSION: u32 = 10;
 pub type __gnuc_va_list = __builtin_va_list;
 pub type va_list = __builtin_va_list;
 #[repr(C)]
@@ -1419,22 +1373,22 @@ pub struct tm {
 }
 pub type intmax_t = core::ffi::c_longlong;
 pub type uintmax_t = core::ffi::c_ulonglong;
-pub type int_fast8_t = i8;
-pub type int_fast64_t = i64;
-pub type int_least8_t = i8;
-pub type int_least16_t = i16;
-pub type int_least32_t = i32;
-pub type int_least64_t = i64;
-pub type uint_fast8_t = u8;
-pub type uint_fast64_t = u64;
-pub type uint_least8_t = u8;
-pub type uint_least16_t = u16;
-pub type uint_least32_t = u32;
-pub type uint_least64_t = u64;
-pub type int_fast16_t = i32;
-pub type int_fast32_t = i32;
-pub type uint_fast16_t = u32;
-pub type uint_fast32_t = u32;
+pub type int_fast8_t = core::ffi::c_schar;
+pub type int_fast16_t = core::ffi::c_short;
+pub type int_fast32_t = core::ffi::c_int;
+pub type int_fast64_t = core::ffi::c_longlong;
+pub type int_least8_t = core::ffi::c_schar;
+pub type int_least16_t = core::ffi::c_short;
+pub type int_least32_t = core::ffi::c_int;
+pub type int_least64_t = core::ffi::c_longlong;
+pub type uint_fast8_t = core::ffi::c_uchar;
+pub type uint_fast16_t = core::ffi::c_ushort;
+pub type uint_fast32_t = core::ffi::c_uint;
+pub type uint_fast64_t = core::ffi::c_ulonglong;
+pub type uint_least8_t = core::ffi::c_uchar;
+pub type uint_least16_t = core::ffi::c_ushort;
+pub type uint_least32_t = core::ffi::c_uint;
+pub type uint_least64_t = core::ffi::c_ulonglong;
 #[repr(C)]
 #[derive(Debug, Default, Copy, Clone, Hash)]
 pub struct imaxdiv_t {
@@ -1585,7 +1539,7 @@ unsafe extern "C" {
     ) -> *const core::ffi::c_char;
 }
 unsafe extern "C" {
-    #[doc = "Get all variables in the environment.\n\n**Parameter:** env the environment to query.\n\n**Returns:** a NULL terminated array of pointers to environment variables in\nthe form \"variable=value\" or NULL on failure; call SDL_GetError()\nfor more information. This is a single allocation that should be\nfreed with SDL_free() when it is no longer needed.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_GetEnvironment\n\n**See Also:** SDL_CreateEnvironment\n\n**See Also:** SDL_GetEnvironmentVariable\n\n**See Also:** SDL_SetEnvironmentVariable\n\n**See Also:** SDL_UnsetEnvironmentVariable"]
+    #[doc = "Get all variables in the environment.\n\n**Parameter:** env the environment to query.\n\n**Returns:** a NULL terminated array of pointers to environment variables in\nthe form \"variable=value\" or NULL on failure; call SDL_GetError()\nfor more information. This is a single allocation that should be\nfreed with SDL_free() when it is no longer needed.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_GetEnvironment\n\n**See Also:** SDL_CreateEnvironment\n\n**See Also:** SDL_GetEnvironmentVariables\n\n**See Also:** SDL_SetEnvironmentVariable\n\n**See Also:** SDL_UnsetEnvironmentVariable"]
     pub fn SDL_GetEnvironmentVariables(env: *mut SDL_Environment) -> *mut *mut core::ffi::c_char;
 }
 unsafe extern "C" {
@@ -1860,7 +1814,7 @@ unsafe extern "C" {
     ) -> core::ffi::c_long;
 }
 unsafe extern "C" {
-    #[doc = "This works exactly like strlen() but doesn't require access to a C runtime.\n\nCounts the bytes in `str`, excluding the null terminator.\n\nIf you need the length of a UTF-8 string, consider using SDL_utf8strlen().\n\n**Parameter:** str The null-terminated string to read. Must not be NULL.\n\n**Returns:** the length (in bytes, excluding the null terminator) of `str`.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_strnlen\n\n**See Also:** SDL_utf8strlen\n\n**See Also:** SDL_utf8strnlen"]
+    #[doc = "This works exactly like strlen() but doesn't require access to a C runtime.\n\nCounts the bytes in `str`, excluding the null terminator.\n\nIf you need the length of a UTF-8 string, consider using SDL_utf8strlen().\n\n**Parameter:** str The null-terminated string to read. Must not be NULL.\n\n**Returns:** the length (in bytes, excluding the null terminator) of `src`.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_strnlen\n\n**See Also:** SDL_utf8strlen\n\n**See Also:** SDL_utf8strnlen"]
     pub fn SDL_strlen(str_: *const core::ffi::c_char) -> usize;
 }
 unsafe extern "C" {
@@ -1904,7 +1858,7 @@ unsafe extern "C" {
     pub fn SDL_strrev(str_: *mut core::ffi::c_char) -> *mut core::ffi::c_char;
 }
 unsafe extern "C" {
-    #[doc = "Convert a string to uppercase.\n\n**WARNING**: Regardless of system locale, this will only convert ASCII\nvalues 'a' through 'z' to uppercase.\n\nThis function operates on a null-terminated string of bytes--even if it is\nmalformed UTF-8!--and converts ASCII characters 'a' through 'z' to their\nuppercase equivalents in-place, returning the original `str` pointer.\n\n**Parameter:** str the string to convert in-place. Can not be NULL.\n\n**Returns:** the `str` pointer passed into this function.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_strlwr"]
+    #[doc = "Convert a string to uppercase.\n\n**WARNING**: Regardless of system locale, this will only convert ASCII\nvalues 'A' through 'Z' to uppercase.\n\nThis function operates on a null-terminated string of bytes--even if it is\nmalformed UTF-8!--and converts ASCII characters 'a' through 'z' to their\nuppercase equivalents in-place, returning the original `str` pointer.\n\n**Parameter:** str the string to convert in-place. Can not be NULL.\n\n**Returns:** the `str` pointer passed into this function.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_strlwr"]
     pub fn SDL_strupr(str_: *mut core::ffi::c_char) -> *mut core::ffi::c_char;
 }
 unsafe extern "C" {
@@ -2093,7 +2047,7 @@ unsafe extern "C" {
     ) -> *mut core::ffi::c_char;
 }
 unsafe extern "C" {
-    #[doc = "Decode a UTF-8 string, one Unicode codepoint at a time.\n\nThis will return the first Unicode codepoint in the UTF-8 encoded string in\n`*pstr`, and then advance `*pstr` past any consumed bytes before returning.\n\nIt will not access more than `*pslen` bytes from the string. `*pslen` will\nbe adjusted, as well, subtracting the number of bytes consumed.\n\n`pslen` is allowed to be NULL, in which case the string _must_ be\nNULL-terminated, as the function will blindly read until it sees the NULL\nchar.\n\nIf `*pslen` is zero, it assumes the end of string is reached and returns a\nzero codepoint regardless of the contents of the string buffer.\n\nIf the resulting codepoint is zero (a NULL terminator), or `*pslen` is\nzero, it will not advance `*pstr` or `*pslen` at all.\n\nGenerally this function is called in a loop until it returns zero,\nadjusting its parameters each iteration.\n\nIf an invalid UTF-8 sequence is encountered, this function returns\nSDL_INVALID_UNICODE_CODEPOINT and advances the string/length by one byte\n(which is to say, a multibyte sequence might produce several\nSDL_INVALID_UNICODE_CODEPOINT returns before it syncs to the next valid\nUTF-8 sequence).\n\nSeveral things can generate invalid UTF-8 sequences, including overlong\nencodings, the use of UTF-16 surrogate values, and truncated data. Please\nrefer to\n[RFC3629](https://www.ietf.org/rfc/rfc3629.txt)\nfor details.\n\n**Parameter:** pstr a pointer to a UTF-8 string pointer to be read and adjusted.\n\n**Parameter:** pslen a pointer to the number of bytes in the string, to be read and\nadjusted. NULL is allowed.\n\n**Returns:** the first Unicode codepoint in the string.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0."]
+    #[doc = "Decode a UTF-8 string, one Unicode codepoint at a time.\n\nThis will return the first Unicode codepoint in the UTF-8 encoded string in\n`*pstr`, and then advance `*pstr` past any consumed bytes before returning.\n\nIt will not access more than `*pslen` bytes from the string. `*pslen` will\nbe adjusted, as well, subtracting the number of bytes consumed.\n\n`pslen` is allowed to be NULL, in which case the string _must_ be\nNULL-terminated, as the function will blindly read until it sees the NULL\nchar.\n\nif `*pslen` is zero, it assumes the end of string is reached and returns a\nzero codepoint regardless of the contents of the string buffer.\n\nIf the resulting codepoint is zero (a NULL terminator), or `*pslen` is\nzero, it will not advance `*pstr` or `*pslen` at all.\n\nGenerally this function is called in a loop until it returns zero,\nadjusting its parameters each iteration.\n\nIf an invalid UTF-8 sequence is encountered, this function returns\nSDL_INVALID_UNICODE_CODEPOINT and advances the string/length by one byte\n(which is to say, a multibyte sequence might produce several\nSDL_INVALID_UNICODE_CODEPOINT returns before it syncs to the next valid\nUTF-8 sequence).\n\nSeveral things can generate invalid UTF-8 sequences, including overlong\nencodings, the use of UTF-16 surrogate values, and truncated data. Please\nrefer to\n[RFC3629](https://www.ietf.org/rfc/rfc3629.txt)\nfor details.\n\n**Parameter:** pstr a pointer to a UTF-8 string pointer to be read and adjusted.\n\n**Parameter:** pslen a pointer to the number of bytes in the string, to be read and\nadjusted. NULL is allowed.\n\n**Returns:** the first Unicode codepoint in the string.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0."]
     pub fn SDL_StepUTF8(pstr: *mut *const core::ffi::c_char, pslen: *mut usize) -> Uint32;
 }
 unsafe extern "C" {
@@ -2106,7 +2060,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = "Convert a single Unicode codepoint to UTF-8.\n\nThe buffer pointed to by `dst` must be at least 4 bytes long, as this\nfunction may generate between 1 and 4 bytes of output.\n\nThis function returns the first byte _after_ the newly-written UTF-8\nsequence, which is useful for encoding multiple codepoints in a loop, or\nknowing where to write a NULL-terminator character to end the string (in\neither case, plan to have a buffer of _more_ than 4 bytes!).\n\nIf `codepoint` is an invalid value (outside the Unicode range, or a UTF-16\nsurrogate value, etc), this will use U+FFFD (REPLACEMENT CHARACTER) for the\ncodepoint instead, and not set an error.\n\nIf `dst` is NULL, this returns NULL immediately without writing to the\npointer and without setting an error.\n\n**Parameter:** codepoint a Unicode codepoint to convert to UTF-8.\n\n**Parameter:** dst the location to write the encoded UTF-8. Must point to at least\n4 bytes!\n\n**Returns:** the first byte past the newly-written UTF-8 sequence.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0."]
     pub fn SDL_UCS4ToUTF8(codepoint: Uint32, dst: *mut core::ffi::c_char)
-        -> *mut core::ffi::c_char;
+    -> *mut core::ffi::c_char;
 }
 unsafe extern "C" {
     #[doc = "This works exactly like sscanf() but doesn't require access to a C runtime.\n\nScan a string, matching a format string, converting each '%' item and\nstoring it to pointers provided through variable arguments.\n\n**Parameter:** text the string to scan. Must not be NULL.\n\n**Parameter:** fmt a printf-style format string. Must not be NULL.\n\n**Parameter:** ... a list of pointers to values to be filled in with scanned items.\n\n**Returns:** the number of items that matched the format string.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0."]
@@ -2189,7 +2143,7 @@ unsafe extern "C" {
     pub fn SDL_randf() -> f32;
 }
 unsafe extern "C" {
-    #[doc = "Generate 32 pseudo-random bits.\n\nYou likely want to use SDL_rand() to get a pseudo-random number instead.\n\nThere are no guarantees as to the quality of the random sequence produced,\nand this should not be used for security (cryptography, passwords) or where\nmoney is on the line (loot-boxes, casinos). There are many random number\nlibraries available with different characteristics and you should pick one\nof those to meet any serious needs.\n\n**Returns:** a random value in the range of [0-SDL_MAX_UINT32].\n\n**Thread Safety:** All calls should be made from a single thread\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_rand\n\n**See Also:** SDL_randf\n\n**See Also:** SDL_srand"]
+    #[doc = "Generate 32 pseudo-random bits.\n\nYou likely want to use SDL_rand() to get a psuedo-random number instead.\n\nThere are no guarantees as to the quality of the random sequence produced,\nand this should not be used for security (cryptography, passwords) or where\nmoney is on the line (loot-boxes, casinos). There are many random number\nlibraries available with different characteristics and you should pick one\nof those to meet any serious needs.\n\n**Returns:** a random value in the range of [0-SDL_MAX_UINT32].\n\n**Thread Safety:** All calls should be made from a single thread\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_rand\n\n**See Also:** SDL_randf\n\n**See Also:** SDL_srand"]
     pub fn SDL_rand_bits() -> Uint32;
 }
 unsafe extern "C" {
@@ -2197,11 +2151,11 @@ unsafe extern "C" {
     pub fn SDL_rand_r(state: *mut Uint64, n: Sint32) -> Sint32;
 }
 unsafe extern "C" {
-    #[doc = "Generate a uniform pseudo-random floating point number less than 1.0\n\nThere are no guarantees as to the quality of the random sequence produced,\nand this should not be used for security (cryptography, passwords) or where\nmoney is on the line (loot-boxes, casinos). There are many random number\nlibraries available with different characteristics and you should pick one\nof those to meet any serious needs.\n\n**Parameter:** state a pointer to the current random number state, this may not be\nNULL.\n\n**Returns:** a random value in the range of [0.0, 1.0).\n\n**Thread Safety:** This function is thread-safe, as long as the state pointer\nisn't shared between threads.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_rand_bits_r\n\n**See Also:** SDL_rand_r\n\n**See Also:** SDL_randf"]
+    #[doc = "Generate a uniform pseudo-random floating point number less than 1.0\n\nIf you want reproducible output, be sure to initialize with SDL_srand()\nfirst.\n\nThere are no guarantees as to the quality of the random sequence produced,\nand this should not be used for security (cryptography, passwords) or where\nmoney is on the line (loot-boxes, casinos). There are many random number\nlibraries available with different characteristics and you should pick one\nof those to meet any serious needs.\n\n**Parameter:** state a pointer to the current random number state, this may not be\nNULL.\n\n**Returns:** a random value in the range of [0.0, 1.0).\n\n**Thread Safety:** This function is thread-safe, as long as the state pointer\nisn't shared between threads.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_rand_bits_r\n\n**See Also:** SDL_rand_r\n\n**See Also:** SDL_randf"]
     pub fn SDL_randf_r(state: *mut Uint64) -> f32;
 }
 unsafe extern "C" {
-    #[doc = "Generate 32 pseudo-random bits.\n\nYou likely want to use SDL_rand_r() to get a pseudo-random number instead.\n\nThere are no guarantees as to the quality of the random sequence produced,\nand this should not be used for security (cryptography, passwords) or where\nmoney is on the line (loot-boxes, casinos). There are many random number\nlibraries available with different characteristics and you should pick one\nof those to meet any serious needs.\n\n**Parameter:** state a pointer to the current random number state, this may not be\nNULL.\n\n**Returns:** a random value in the range of [0-SDL_MAX_UINT32].\n\n**Thread Safety:** This function is thread-safe, as long as the state pointer\nisn't shared between threads.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_rand_r\n\n**See Also:** SDL_randf_r"]
+    #[doc = "Generate 32 pseudo-random bits.\n\nYou likely want to use SDL_rand_r() to get a psuedo-random number instead.\n\nThere are no guarantees as to the quality of the random sequence produced,\nand this should not be used for security (cryptography, passwords) or where\nmoney is on the line (loot-boxes, casinos). There are many random number\nlibraries available with different characteristics and you should pick one\nof those to meet any serious needs.\n\n**Parameter:** state a pointer to the current random number state, this may not be\nNULL.\n\n**Returns:** a random value in the range of [0-SDL_MAX_UINT32].\n\n**Thread Safety:** This function is thread-safe, as long as the state pointer\nisn't shared between threads.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_rand_r\n\n**See Also:** SDL_randf_r"]
     pub fn SDL_rand_bits_r(state: *mut Uint64) -> Uint32;
 }
 unsafe extern "C" {
@@ -2229,7 +2183,7 @@ unsafe extern "C" {
     pub fn SDL_atanf(x: f32) -> f32;
 }
 unsafe extern "C" {
-    #[doc = "Compute the arc tangent of `y / x`, using the signs of x and y to adjust\nthe result's quadrant.\n\nThe definition of `z = atan2(x, y)` is `y = x tan(z)`, where the quadrant\nof z is determined based on the signs of x and y.\n\nDomain: `-INF <= x <= INF`, `-INF <= y <= INF`\n\nRange: `-Pi <= z <= Pi`\n\nThis function operates on double-precision floating point values, use\nSDL_atan2f for single-precision floats.\n\nTo calculate the arc tangent of a single value, use SDL_atan.\n\nThis function may use a different approximation across different versions,\nplatforms and configurations. i.e, it can return a different value given\nthe same input on different machines or operating systems, or if SDL is\nupdated.\n\n**Parameter:** y floating point value of the numerator (y coordinate).\n\n**Parameter:** x floating point value of the denominator (x coordinate).\n\n**Returns:** arc tangent of `y / x` in radians, or, if `x = 0`, either `-Pi/2`,\n`0`, or `Pi/2`, depending on the value of `y`.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_atan2f\n\n**See Also:** SDL_atan\n\n**See Also:** SDL_tan"]
+    #[doc = "Compute the arc tangent of `y / x`, using the signs of x and y to adjust\nthe result's quadrant.\n\nThe definition of `z = atan2(x, y)` is `y = x tan(z)`, where the quadrant\nof z is determined based on the signs of x and y.\n\nDomain: `-INF <= x <= INF`, `-INF <= y <= INF`\n\nRange: `-Pi <= y <= Pi`\n\nThis function operates on double-precision floating point values, use\nSDL_atan2f for single-precision floats.\n\nTo calculate the arc tangent of a single value, use SDL_atan.\n\nThis function may use a different approximation across different versions,\nplatforms and configurations. i.e, it can return a different value given\nthe same input on different machines or operating systems, or if SDL is\nupdated.\n\n**Parameter:** y floating point value of the numerator (y coordinate).\n\n**Parameter:** x floating point value of the denominator (x coordinate).\n\n**Returns:** arc tangent of of `y / x` in radians, or, if `x = 0`, either\n`-Pi/2`, `0`, or `Pi/2`, depending on the value of `y`.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_atan2f\n\n**See Also:** SDL_atan\n\n**See Also:** SDL_tan"]
     pub fn SDL_atan2(y: f64, x: f64) -> f64;
 }
 unsafe extern "C" {
@@ -3776,7 +3730,7 @@ unsafe extern "C" {
     pub fn SDL_GetAudioStreamDevice(stream: *mut SDL_AudioStream) -> SDL_AudioDeviceID;
 }
 unsafe extern "C" {
-    #[doc = "Create a new audio stream.\n\n**Parameter:** src_spec the format details of the input audio.\n\n**Parameter:** dst_spec the format details of the output audio.\n\n**Returns:** a new audio stream on success or NULL on failure; call\nSDL_GetError() for more information.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_PutAudioStreamData\n\n**See Also:** SDL_GetAudioStreamData\n\n**See Also:** SDL_GetAudioStreamAvailable\n\n**See Also:** SDL_FlushAudioStream\n\n**See Also:** SDL_ClearAudioStream\n\n**See Also:** SDL_SetAudioStreamFormat\n\n**See Also:** SDL_DestroyAudioStream"]
+    #[doc = "Create a new audio stream.\n\nNote that `src_spec` or `dst_spec` may be NULL, but any attempts to\nput or get data from an audio stream will fail until it has valid\nspecs assigned to both ends of the stream. Specs can be assigned later\nthrough SDL_SetAudioStreamFormat(), or binding the stream to an audio\ndevice (which will set the format of only the input or output,\ndepending on what kind of device the stream was bound to).\n\n**Parameter:** src_spec the format details of the input audio. May be NULL.\n\n**Parameter:** dst_spec the format details of the output audio. May be NULL.\n\n**Returns:** a new audio stream on success or NULL on failure; call\nSDL_GetError() for more information.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_PutAudioStreamData\n\n**See Also:** SDL_GetAudioStreamData\n\n**See Also:** SDL_GetAudioStreamAvailable\n\n**See Also:** SDL_FlushAudioStream\n\n**See Also:** SDL_ClearAudioStream\n\n**See Also:** SDL_SetAudioStreamFormat\n\n**See Also:** SDL_DestroyAudioStream"]
     pub fn SDL_CreateAudioStream(
         src_spec: *const SDL_AudioSpec,
         dst_spec: *const SDL_AudioSpec,
@@ -3795,7 +3749,7 @@ unsafe extern "C" {
     ) -> bool;
 }
 unsafe extern "C" {
-    #[doc = "Change the input and output formats of an audio stream.\n\nFuture calls to and SDL_GetAudioStreamAvailable and SDL_GetAudioStreamData\nwill reflect the new format, and future calls to SDL_PutAudioStreamData\nmust provide data in the new input formats.\n\nData that was previously queued in the stream will still be operated on in\nthe format that was current when it was added, which is to say you can put\nthe end of a sound file in one format to a stream, change formats for the\nnext sound file, and start putting that new data while the previous sound\nfile is still queued, and everything will still play back correctly.\n\nIf a stream is bound to a device, then the format of the side of the stream\nbound to a device cannot be changed (src_spec for recording devices,\ndst_spec for playback devices). Attempts to make a change to this side will\nbe ignored, but this will not report an error. The other side's format can\nbe changed.\n\n**Parameter:** stream the stream the format is being changed.\n\n**Parameter:** src_spec the new format of the audio input; if NULL, it is not\nchanged.\n\n**Parameter:** dst_spec the new format of the audio output; if NULL, it is not\nchanged.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** It is safe to call this function from any thread, as it holds\na stream-specific mutex while running.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_GetAudioStreamFormat\n\n**See Also:** SDL_SetAudioStreamFrequencyRatio"]
+    #[doc = "Change the input and output formats of an audio stream.\n\nFuture calls to and SDL_GetAudioStreamAvailable and SDL_GetAudioStreamData\nwill reflect the new format, and future calls to SDL_PutAudioStreamData\nmust provide data in the new input formats.\n\nData that was previously queued in the stream will still be operated on in\nthe format that was current when it was added, which is to say you can put\nthe end of a sound file in one format to a stream, change formats for the\nnext sound file, and start putting that new data while the previous sound\nfile is still queued, and everything will still play back correctly.\n\nIf a stream is bound to a device, then the format of the side of the stream\nbound to a device cannot be changed (src_spec for recording devices,\ndst_spec for playback devices). Attempts to make a change to this side will\nbe ignored, but this will not report an error. The other side's format can\nbe changed.\n\n`src_spec` and `dst_spec` may each be NULL; a NULL spec signals not to\nchange the current format for that side of the stream.\n\n**Parameter:** stream the stream the format is being changed.\n\n**Parameter:** src_spec the new format of the audio input; if NULL, it is not\nchanged.\n\n**Parameter:** dst_spec the new format of the audio output; if NULL, it is not\nchanged.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** It is safe to call this function from any thread, as it holds\na stream-specific mutex while running.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_GetAudioStreamFormat\n\n**See Also:** SDL_SetAudioStreamFrequencyRatio"]
     pub fn SDL_SetAudioStreamFormat(
         stream: *mut SDL_AudioStream,
         src_spec: *const SDL_AudioSpec,
@@ -4031,7 +3985,7 @@ unsafe extern "C" {
     pub fn SDL_GetSilenceValueForFormat(format: SDL_AudioFormat) -> core::ffi::c_int;
 }
 unsafe extern "C" {
-    #[doc = "Get the index of the most significant (set) bit in a 32-bit number.\n\nThis operation can also be stated as \"count leading zeroes\" and \"log base\n2\".\n\nNote that this is a forced-inline function in a header, and not a public\nAPI function available in the SDL library (which is to say, the code is\nembedded in the calling program and the linker and dynamic loader will not\nbe able to find this function inside SDL itself).\n\n**Parameter:** x the 32-bit value to examine.\n\n**Returns:** the index of the most significant bit, or -1 if the value is 0.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0."]
+    #[doc = "Get the index of the most significant (set) bit in a 32-bit number.\n\nThis operation can also be stated as \"count leading zeroes\" and \"log base 2\".\n\nNote that this is a forced-inline function in a header, and not a public\nAPI function available in the SDL library (which is to say, the code is\nembedded in the calling program and the linker and dynamic loader will not\nbe able to find this function inside SDL itself).\n\n**Parameter:** x the 32-bit value to examine.\n\n**Returns:** the index of the most significant bit, or -1 if the value is 0.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0."]
     #[link_name = "SDL_MostSignificantBitIndex32__extern"]
     pub fn SDL_MostSignificantBitIndex32(x: Uint32) -> core::ffi::c_int;
 }
@@ -4661,7 +4615,7 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
-    #[doc = "Get RGBA values from a pixel in the specified format.\n\nThis function uses the entire 8-bit [0..255] range when converting color\ncomponents from pixel formats with less than 8-bits per RGB component\n(e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,\n0xff, 0xff] not [0xf8, 0xfc, 0xf8]).\n\nIf the format has no alpha component, the alpha will be returned as 0xff\n(100% opaque).\n\n**Parameter:** pixelvalue a pixel value.\n\n**Parameter:** format a pointer to SDL_PixelFormatDetails describing the pixel\nformat.\n\n**Parameter:** palette an optional palette for indexed formats, may be NULL.\n\n**Parameter:** r a pointer filled in with the red component, may be NULL.\n\n**Parameter:** g a pointer filled in with the green component, may be NULL.\n\n**Parameter:** b a pointer filled in with the blue component, may be NULL.\n\n**Parameter:** a a pointer filled in with the alpha component, may be NULL.\n\n**Thread Safety:** It is safe to call this function from any thread, as long as\nthe palette is not modified.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_GetPixelFormatDetails\n\n**See Also:** SDL_GetRGB\n\n**See Also:** SDL_MapRGB\n\n**See Also:** SDL_MapRGBA"]
+    #[doc = "Get RGBA values from a pixel in the specified format.\n\nThis function uses the entire 8-bit [0..255] range when converting color\ncomponents from pixel formats with less than 8-bits per RGB component\n(e.g., a completely white pixel in 16-bit RGB565 format would return [0xff,\n0xff, 0xff] not [0xf8, 0xfc, 0xf8]).\n\nIf the surface has no alpha component, the alpha will be returned as 0xff\n(100% opaque).\n\n**Parameter:** pixelvalue a pixel value.\n\n**Parameter:** format a pointer to SDL_PixelFormatDetails describing the pixel\nformat.\n\n**Parameter:** palette an optional palette for indexed formats, may be NULL.\n\n**Parameter:** r a pointer filled in with the red component, may be NULL.\n\n**Parameter:** g a pointer filled in with the green component, may be NULL.\n\n**Parameter:** b a pointer filled in with the blue component, may be NULL.\n\n**Parameter:** a a pointer filled in with the alpha component, may be NULL.\n\n**Thread Safety:** It is safe to call this function from any thread, as long as\nthe palette is not modified.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_GetPixelFormatDetails\n\n**See Also:** SDL_GetRGB\n\n**See Also:** SDL_MapRGB\n\n**See Also:** SDL_MapRGBA"]
     pub fn SDL_GetRGBA(
         pixelvalue: Uint32,
         format: *const SDL_PixelFormatDetails,
@@ -4974,7 +4928,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = "Add an alternate version of a surface.\n\nThis function adds an alternate version of this surface, usually used for\ncontent with high DPI representations like cursors or icons. The size,\nformat, and content do not need to match the original surface, and these\nalternate versions will not be updated when the original surface changes.\n\nThis function adds a reference to the alternate version, so you should call\nSDL_DestroySurface() on the image after this call.\n\n**Parameter:** surface the SDL_Surface structure to update.\n\n**Parameter:** image a pointer to an alternate SDL_Surface to associate with this\nsurface.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function can be called on different threads with\ndifferent surfaces.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_RemoveSurfaceAlternateImages\n\n**See Also:** SDL_GetSurfaceImages\n\n**See Also:** SDL_SurfaceHasAlternateImages"]
     pub fn SDL_AddSurfaceAlternateImage(surface: *mut SDL_Surface, image: *mut SDL_Surface)
-        -> bool;
+    -> bool;
 }
 unsafe extern "C" {
     #[doc = "Return whether a surface has alternate versions available.\n\n**Parameter:** surface the SDL_Surface structure to query.\n\n**Returns:** true if alternate versions are available or false otherwise.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_AddSurfaceAlternateImage\n\n**See Also:** SDL_RemoveSurfaceAlternateImages\n\n**See Also:** SDL_GetSurfaceImages"]
@@ -5018,7 +4972,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = "Save a surface to a seekable SDL data stream in BMP format.\n\nSurfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the\nBMP directly. Other RGB formats with 8-bit or higher get converted to a\n24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit\nsurface before they are saved. YUV and paletted 1-bit and 4-bit formats are\nnot supported.\n\n**Parameter:** surface the SDL_Surface structure containing the image to be saved.\n\n**Parameter:** dst a data stream to save to.\n\n**Parameter:** closeio if true, calls SDL_CloseIO() on `dst` before returning, even\nin the case of an error.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function can be called on different threads with\ndifferent surfaces.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_LoadBMP_IO\n\n**See Also:** SDL_SaveBMP"]
     pub fn SDL_SaveBMP_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
-        -> bool;
+    -> bool;
 }
 unsafe extern "C" {
     #[doc = "Save a surface to a file in BMP format.\n\nSurfaces with a 24-bit, 32-bit and paletted 8-bit format get saved in the\nBMP directly. Other RGB formats with 8-bit or higher get converted to a\n24-bit surface or, if they have an alpha mask or a colorkey, to a 32-bit\nsurface before they are saved. YUV and paletted 1-bit and 4-bit formats are\nnot supported.\n\n**Parameter:** surface the SDL_Surface structure containing the image to be saved.\n\n**Parameter:** file a file to save to.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function can be called on different threads with\ndifferent surfaces.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_LoadBMP\n\n**See Also:** SDL_SaveBMP_IO"]
@@ -5035,7 +4989,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = "Save a surface to a seekable SDL data stream in PNG format.\n\n**Parameter:** surface the SDL_Surface structure containing the image to be saved.\n\n**Parameter:** dst a data stream to save to.\n\n**Parameter:** closeio if true, calls SDL_CloseIO() on `dst` before returning, even\nin the case of an error.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function can be called on different threads with\ndifferent surfaces.\n\n**Available Since:** This function is available since SDL 3.4.0.\n\n**See Also:** SDL_LoadPNG_IO\n\n**See Also:** SDL_SavePNG"]
     pub fn SDL_SavePNG_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
-        -> bool;
+    -> bool;
 }
 unsafe extern "C" {
     #[doc = "Save a surface to a file in PNG format.\n\n**Parameter:** surface the SDL_Surface structure containing the image to be saved.\n\n**Parameter:** file a file to save to.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function can be called on different threads with\ndifferent surfaces.\n\n**Available Since:** This function is available since SDL 3.4.0.\n\n**See Also:** SDL_LoadPNG\n\n**See Also:** SDL_SavePNG_IO"]
@@ -5194,7 +5148,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = "Perform a fast fill of a rectangle with a specific color.\n\n`color` should be a pixel of the format used by the surface, and can be\ngenerated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an\nalpha component then the destination is simply filled with that alpha\ninformation, no blending takes place.\n\nIf there is a clip rectangle set on the destination (set via\nSDL_SetSurfaceClipRect()), then this function will fill based on the\nintersection of the clip rectangle and `rect`.\n\n**Parameter:** dst the SDL_Surface structure that is the drawing target.\n\n**Parameter:** rect the SDL_Rect structure representing the rectangle to fill, or\nNULL to fill the entire surface.\n\n**Parameter:** color the color to fill with.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function can be called on different threads with\ndifferent surfaces.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_FillSurfaceRects"]
     pub fn SDL_FillSurfaceRect(dst: *mut SDL_Surface, rect: *const SDL_Rect, color: Uint32)
-        -> bool;
+    -> bool;
 }
 unsafe extern "C" {
     #[doc = "Perform a fast fill of a set of rectangles with a specific color.\n\n`color` should be a pixel of the format used by the surface, and can be\ngenerated by SDL_MapRGB() or SDL_MapRGBA(). If the color value contains an\nalpha component then the destination is simply filled with that alpha\ninformation, no blending takes place.\n\nIf there is a clip rectangle set on the destination (set via\nSDL_SetSurfaceClipRect()), then this function will fill based on the\nintersection of the clip rectangle and `rect`.\n\n**Parameter:** dst the SDL_Surface structure that is the drawing target.\n\n**Parameter:** rects an array of SDL_Rects representing the rectangles to fill.\n\n**Parameter:** count the number of rectangles in the array.\n\n**Parameter:** color the color to fill with.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function can be called on different threads with\ndifferent surfaces.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_FillSurfaceRect"]
@@ -5483,7 +5437,7 @@ unsafe extern "C" {
     ) -> *mut SDL_Surface;
 }
 unsafe extern "C" {
-    #[doc = "Release a frame of video acquired from a camera.\n\nLet the back-end reuse the internal buffer for camera.\n\nThis function _must_ be called only on surface objects returned by\nSDL_AcquireCameraFrame(). This function should be called as quickly as\npossible after acquisition, as SDL keeps a small FIFO queue of surfaces for\nvideo frames; if surfaces aren't released in a timely manner, SDL may drop\nupcoming video frames from the camera.\n\nIf the app needs to keep the surface for a significant time, they should\nmake a copy of it and release the original.\n\nThe app should not use the surface again after calling this function;\nassume the surface is freed and the pointer is invalid.\n\n**Parameter:** camera opened camera device.\n\n**Parameter:** frame the video frame surface to release.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_AcquireCameraFrame"]
+    #[doc = "Release a frame of video acquired from a camera.\n\nLet the back-end re-use the internal buffer for camera.\n\nThis function _must_ be called only on surface objects returned by\nSDL_AcquireCameraFrame(). This function should be called as quickly as\npossible after acquisition, as SDL keeps a small FIFO queue of surfaces for\nvideo frames; if surfaces aren't released in a timely manner, SDL may drop\nupcoming video frames from the camera.\n\nIf the app needs to keep the surface for a significant time, they should\nmake a copy of it and release the original.\n\nThe app should not use the surface again after calling this function;\nassume the surface is freed and the pointer is invalid.\n\n**Parameter:** camera opened camera device.\n\n**Parameter:** frame the video frame surface to release.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_AcquireCameraFrame"]
     pub fn SDL_ReleaseCameraFrame(camera: *mut SDL_Camera, frame: *mut SDL_Surface);
 }
 unsafe extern "C" {
@@ -5831,7 +5785,7 @@ impl SDL_GLAttr {
     pub const SDL_GL_CONTEXT_PROFILE_MASK: SDL_GLAttr = SDL_GLAttr(20);
     #[doc = "< OpenGL context sharing; defaults to 0."]
     pub const SDL_GL_SHARE_WITH_CURRENT_CONTEXT: SDL_GLAttr = SDL_GLAttr(21);
-    #[doc = "< requests sRGB capable visual; defaults to 0."]
+    #[doc = "< requests sRGB-capable visual if 1. Defaults to -1 (\"don't care\"). This is a request; GL drivers might not comply!"]
     pub const SDL_GL_FRAMEBUFFER_SRGB_CAPABLE: SDL_GLAttr = SDL_GLAttr(22);
     #[doc = "< sets context the release behavior. See SDL_GLContextReleaseFlag; defaults to FLUSH."]
     pub const SDL_GL_CONTEXT_RELEASE_BEHAVIOR: SDL_GLAttr = SDL_GLAttr(23);
@@ -6014,7 +5968,7 @@ unsafe extern "C" {
     pub fn SDL_GetWindowParent(window: *mut SDL_Window) -> *mut SDL_Window;
 }
 unsafe extern "C" {
-    #[doc = "Get the properties associated with a window.\n\nThe following read-only properties are provided by SDL:\n\n- `SDL_PROP_WINDOW_SHAPE_POINTER`: the surface associated with a shaped\nwindow\n- `SDL_PROP_WINDOW_HDR_ENABLED_BOOLEAN`: true if the window has HDR\nheadroom above the SDR white point. This property can change dynamically\nwhen SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.\n- `SDL_PROP_WINDOW_SDR_WHITE_LEVEL_FLOAT`: the value of SDR white in the\nSDL_COLORSPACE_SRGB_LINEAR colorspace. On Windows this corresponds to the\nSDR white level in scRGB colorspace, and on Apple platforms this is\nalways 1.0 for EDR content. This property can change dynamically when\nSDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.\n- `SDL_PROP_WINDOW_HDR_HEADROOM_FLOAT`: the additional high dynamic range\nthat can be displayed, in terms of the SDR white point. When HDR is not\nenabled, this will be 1.0. This property can change dynamically when\nSDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.\n\nOn Android:\n\n- `SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER`: the ANativeWindow associated\nwith the window\n- `SDL_PROP_WINDOW_ANDROID_SURFACE_POINTER`: the EGLSurface associated with\nthe window\n\nOn iOS:\n\n- `SDL_PROP_WINDOW_UIKIT_WINDOW_POINTER`: the `(__unsafe_unretained)`\nUIWindow associated with the window\n- `SDL_PROP_WINDOW_UIKIT_METAL_VIEW_TAG_NUMBER`: the NSInteger tag\nassociated with metal views on the window\n- `SDL_PROP_WINDOW_UIKIT_OPENGL_FRAMEBUFFER_NUMBER`: the OpenGL view's\nframebuffer object. It must be bound when rendering to the screen using\nOpenGL.\n- `SDL_PROP_WINDOW_UIKIT_OPENGL_RENDERBUFFER_NUMBER`: the OpenGL view's\nrenderbuffer object. It must be bound when SDL_GL_SwapWindow is called.\n- `SDL_PROP_WINDOW_UIKIT_OPENGL_RESOLVE_FRAMEBUFFER_NUMBER`: the OpenGL\nview's resolve framebuffer, when MSAA is used.\n\nOn KMS/DRM:\n\n- `SDL_PROP_WINDOW_KMSDRM_DEVICE_INDEX_NUMBER`: the device index associated\nwith the window (e.g. the X in /dev/dri/cardX)\n- `SDL_PROP_WINDOW_KMSDRM_DRM_FD_NUMBER`: the DRM FD associated with the\nwindow\n- `SDL_PROP_WINDOW_KMSDRM_GBM_DEVICE_POINTER`: the GBM device associated\nwith the window\n\nOn macOS:\n\n- `SDL_PROP_WINDOW_COCOA_WINDOW_POINTER`: the `(__unsafe_unretained)`\nNSWindow associated with the window\n- `SDL_PROP_WINDOW_COCOA_METAL_VIEW_TAG_NUMBER`: the NSInteger tag\nassociated with metal views on the window\n\nOn OpenVR:\n\n- `SDL_PROP_WINDOW_OPENVR_OVERLAY_ID_NUMBER`: the OpenVR Overlay Handle ID\nfor the associated overlay window.\n\nOn QNX:\n\n- `SDL_PROP_WINDOW_QNX_WINDOW_POINTER`: the screen_window_t associated with\nthe window.\n- `SDL_PROP_WINDOW_QNX_SURFACE_POINTER`: the EGLSurface associated with the\nwindow\n\nOn Vivante:\n\n- `SDL_PROP_WINDOW_VIVANTE_DISPLAY_POINTER`: the EGLNativeDisplayType\nassociated with the window\n- `SDL_PROP_WINDOW_VIVANTE_WINDOW_POINTER`: the EGLNativeWindowType\nassociated with the window\n- `SDL_PROP_WINDOW_VIVANTE_SURFACE_POINTER`: the EGLSurface associated with\nthe window\n\nOn Windows:\n\n- `SDL_PROP_WINDOW_WIN32_HWND_POINTER`: the HWND associated with the window\n- `SDL_PROP_WINDOW_WIN32_HDC_POINTER`: the HDC associated with the window\n- `SDL_PROP_WINDOW_WIN32_INSTANCE_POINTER`: the HINSTANCE associated with\nthe window\n\nOn Wayland:\n\nNote: The `xdg_*` window objects do not internally persist across window\nshow/hide calls. They will be null if the window is hidden and must be\nqueried each time it is shown.\n\n- `SDL_PROP_WINDOW_WAYLAND_DISPLAY_POINTER`: the wl_display associated with\nthe window\n- `SDL_PROP_WINDOW_WAYLAND_SURFACE_POINTER`: the wl_surface associated with\nthe window\n- `SDL_PROP_WINDOW_WAYLAND_VIEWPORT_POINTER`: the wp_viewport associated\nwith the window\n- `SDL_PROP_WINDOW_WAYLAND_EGL_WINDOW_POINTER`: the wl_egl_window\nassociated with the window\n- `SDL_PROP_WINDOW_WAYLAND_XDG_SURFACE_POINTER`: the xdg_surface associated\nwith the window\n- `SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_POINTER`: the xdg_toplevel role\nassociated with the window\n- 'SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_EXPORT_HANDLE_STRING': the export\nhandle associated with the window\n- `SDL_PROP_WINDOW_WAYLAND_XDG_POPUP_POINTER`: the xdg_popup role\nassociated with the window\n- `SDL_PROP_WINDOW_WAYLAND_XDG_POSITIONER_POINTER`: the xdg_positioner\nassociated with the window, in popup mode\n\nOn X11:\n\n- `SDL_PROP_WINDOW_X11_DISPLAY_POINTER`: the X11 Display associated with\nthe window\n- `SDL_PROP_WINDOW_X11_SCREEN_NUMBER`: the screen number associated with\nthe window\n- `SDL_PROP_WINDOW_X11_WINDOW_NUMBER`: the X11 Window associated with the\nwindow\n\nOn Emscripten:\n\n- `SDL_PROP_WINDOW_EMSCRIPTEN_CANVAS_ID_STRING`: the id the canvas element\nwill have\n- `SDL_PROP_WINDOW_EMSCRIPTEN_KEYBOARD_ELEMENT_STRING`: the keyboard\nelement that associates keyboard events to this window\n\n**Parameter:** window the window to query.\n\n**Returns:** a valid property ID on success or 0 on failure; call\nSDL_GetError() for more information.\n\n**Thread Safety:** This function should only be called on the main thread.\n\n**Available Since:** This function is available since SDL 3.2.0."]
+    #[doc = "Get the properties associated with a window.\n\nThe following read-only properties are provided by SDL:\n\n- `SDL_PROP_WINDOW_SHAPE_POINTER`: the surface associated with a shaped\nwindow\n- `SDL_PROP_WINDOW_HDR_ENABLED_BOOLEAN`: true if the window has HDR\nheadroom above the SDR white point. This property can change dynamically\nwhen SDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.\n- `SDL_PROP_WINDOW_SDR_WHITE_LEVEL_FLOAT`: the value of SDR white in the\nSDL_COLORSPACE_SRGB_LINEAR colorspace. On Windows this corresponds to the\nSDR white level in scRGB colorspace, and on Apple platforms this is\nalways 1.0 for EDR content. This property can change dynamically when\nSDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.\n- `SDL_PROP_WINDOW_HDR_HEADROOM_FLOAT`: the additional high dynamic range\nthat can be displayed, in terms of the SDR white point. When HDR is not\nenabled, this will be 1.0. This property can change dynamically when\nSDL_EVENT_WINDOW_HDR_STATE_CHANGED is sent.\n\nOn Android:\n\n- `SDL_PROP_WINDOW_ANDROID_WINDOW_POINTER`: the ANativeWindow associated\nwith the window\n- `SDL_PROP_WINDOW_ANDROID_SURFACE_POINTER`: the EGLSurface associated with\nthe window\n\nOn iOS:\n\n- `SDL_PROP_WINDOW_UIKIT_WINDOW_POINTER`: the `(__unsafe_unretained)`\nUIWindow associated with the window\n- `SDL_PROP_WINDOW_UIKIT_METAL_VIEW_TAG_NUMBER`: the NSInteger tag\nassociated with metal views on the window\n- `SDL_PROP_WINDOW_UIKIT_OPENGL_FRAMEBUFFER_NUMBER`: the OpenGL view's\nframebuffer object. It must be bound when rendering to the screen using\nOpenGL.\n- `SDL_PROP_WINDOW_UIKIT_OPENGL_RENDERBUFFER_NUMBER`: the OpenGL view's\nrenderbuffer object. It must be bound when SDL_GL_SwapWindow is called.\n- `SDL_PROP_WINDOW_UIKIT_OPENGL_RESOLVE_FRAMEBUFFER_NUMBER`: the OpenGL\nview's resolve framebuffer, when MSAA is used.\n\nOn KMS/DRM:\n\n- `SDL_PROP_WINDOW_KMSDRM_DEVICE_INDEX_NUMBER`: the device index associated\nwith the window (e.g. the X in /dev/dri/cardX)\n- `SDL_PROP_WINDOW_KMSDRM_DRM_FD_NUMBER`: the DRM FD associated with the\nwindow\n- `SDL_PROP_WINDOW_KMSDRM_GBM_DEVICE_POINTER`: the GBM device associated\nwith the window\n\nOn macOS:\n\n- `SDL_PROP_WINDOW_COCOA_WINDOW_POINTER`: the `(__unsafe_unretained)`\nNSWindow associated with the window\n- `SDL_PROP_WINDOW_COCOA_METAL_VIEW_TAG_NUMBER`: the NSInteger tag\nassociated with metal views on the window\n\nOn OpenVR:\n\n- `SDL_PROP_WINDOW_OPENVR_OVERLAY_ID_NUMBER`: the OpenVR Overlay Handle ID\nfor the associated overlay window.\n\nOn Vivante:\n\n- `SDL_PROP_WINDOW_VIVANTE_DISPLAY_POINTER`: the EGLNativeDisplayType\nassociated with the window\n- `SDL_PROP_WINDOW_VIVANTE_WINDOW_POINTER`: the EGLNativeWindowType\nassociated with the window\n- `SDL_PROP_WINDOW_VIVANTE_SURFACE_POINTER`: the EGLSurface associated with\nthe window\n\nOn Windows:\n\n- `SDL_PROP_WINDOW_WIN32_HWND_POINTER`: the HWND associated with the window\n- `SDL_PROP_WINDOW_WIN32_HDC_POINTER`: the HDC associated with the window\n- `SDL_PROP_WINDOW_WIN32_INSTANCE_POINTER`: the HINSTANCE associated with\nthe window\n\nOn Wayland:\n\nNote: The `xdg_*` window objects do not internally persist across window\nshow/hide calls. They will be null if the window is hidden and must be\nqueried each time it is shown.\n\n- `SDL_PROP_WINDOW_WAYLAND_DISPLAY_POINTER`: the wl_display associated with\nthe window\n- `SDL_PROP_WINDOW_WAYLAND_SURFACE_POINTER`: the wl_surface associated with\nthe window\n- `SDL_PROP_WINDOW_WAYLAND_VIEWPORT_POINTER`: the wp_viewport associated\nwith the window\n- `SDL_PROP_WINDOW_WAYLAND_EGL_WINDOW_POINTER`: the wl_egl_window\nassociated with the window\n- `SDL_PROP_WINDOW_WAYLAND_XDG_SURFACE_POINTER`: the xdg_surface associated\nwith the window\n- `SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_POINTER`: the xdg_toplevel role\nassociated with the window\n- 'SDL_PROP_WINDOW_WAYLAND_XDG_TOPLEVEL_EXPORT_HANDLE_STRING': the export\nhandle associated with the window\n- `SDL_PROP_WINDOW_WAYLAND_XDG_POPUP_POINTER`: the xdg_popup role\nassociated with the window\n- `SDL_PROP_WINDOW_WAYLAND_XDG_POSITIONER_POINTER`: the xdg_positioner\nassociated with the window, in popup mode\n\nOn X11:\n\n- `SDL_PROP_WINDOW_X11_DISPLAY_POINTER`: the X11 Display associated with\nthe window\n- `SDL_PROP_WINDOW_X11_SCREEN_NUMBER`: the screen number associated with\nthe window\n- `SDL_PROP_WINDOW_X11_WINDOW_NUMBER`: the X11 Window associated with the\nwindow\n\nOn Emscripten:\n\n- `SDL_PROP_WINDOW_EMSCRIPTEN_CANVAS_ID_STRING`: the id the canvas element\nwill have\n- `SDL_PROP_WINDOW_EMSCRIPTEN_KEYBOARD_ELEMENT_STRING`: the keyboard\nelement that associates keyboard events to this window\n\n**Parameter:** window the window to query.\n\n**Returns:** a valid property ID on success or 0 on failure; call\nSDL_GetError() for more information.\n\n**Thread Safety:** This function should only be called on the main thread.\n\n**Available Since:** This function is available since SDL 3.2.0."]
     pub fn SDL_GetWindowProperties(window: *mut SDL_Window) -> SDL_PropertiesID;
 }
 unsafe extern "C" {
@@ -6198,7 +6152,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = "Get VSync for the window surface.\n\n**Parameter:** window the window to query.\n\n**Parameter:** vsync an int filled with the current vertical refresh sync interval.\nSee SDL_SetWindowSurfaceVSync() for the meaning of the value.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should only be called on the main thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_SetWindowSurfaceVSync"]
     pub fn SDL_GetWindowSurfaceVSync(window: *mut SDL_Window, vsync: *mut core::ffi::c_int)
-        -> bool;
+    -> bool;
 }
 unsafe extern "C" {
     #[doc = "Copy the window surface to the screen.\n\nThis is the function you use to reflect any changes to the surface on the\nscreen.\n\nThis function is equivalent to the SDL 1.2 API SDL_Flip().\n\n**Parameter:** window the window to update.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should only be called on the main thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_GetWindowSurface\n\n**See Also:** SDL_UpdateWindowSurfaceRects"]
@@ -6473,7 +6427,7 @@ pub type SDL_DialogFileCallback = ::core::option::Option<
     ),
 >;
 unsafe extern "C" {
-    #[doc = "Displays a dialog that lets the user select a file on their filesystem.\n\nThis is an asynchronous function; it will return immediately, and the\nresult will be passed to the callback.\n\nThe callback will be invoked with a null-terminated list of files the user\nchose. The list will be empty if the user canceled the dialog, and it will\nbe NULL if an error occurred.\n\nNote that the callback may be called from a different thread than the one\nthe function was invoked on.\n\nDepending on the platform, the user may be allowed to input paths that\ndon't yet exist.\n\nOn Linux, dialogs may require XDG Portals, which requires DBus, which\nrequires an event-handling loop. Apps that do not use SDL to handle events\nshould add a call to SDL_PumpEvents in their main loop.\n\n**Parameter:** callback a function pointer to be invoked when the user selects a\nfile and accepts, or cancels the dialog, or an error\noccurs.\n\n**Parameter:** userdata an optional pointer to pass extra data to the callback when\nit will be invoked.\n\n**Parameter:** window the window that the dialog should be modal for, may be NULL.\nNot all platforms support this option.\n\n**Parameter:** filters a list of filters, may be NULL. Not all platforms support\nthis option, and platforms that do support it may allow the\nuser to ignore the filters. If non-NULL, it must remain\nvalid at least until the callback is invoked.\n\n**Parameter:** nfilters the number of filters. Ignored if filters is NULL.\n\n**Parameter:** default_location the default folder or file to start the dialog at,\nmay be NULL. Not all platforms support this option.\n\n**Parameter:** allow_many if non-zero, the user will be allowed to select multiple\nentries. Not all platforms support this option.\n\n**Thread Safety:** This function should be called only from the main thread. The\ncallback may be invoked from the same thread or from a\ndifferent one, depending on the OS's constraints.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_DialogFileCallback\n\n**See Also:** SDL_DialogFileFilter\n\n**See Also:** SDL_ShowSaveFileDialog\n\n**See Also:** SDL_ShowOpenFolderDialog\n\n**See Also:** SDL_ShowFileDialogWithProperties"]
+    #[doc = "Displays a dialog that lets the user select a file on their filesystem.\n\nThis is an asynchronous function; it will return immediately, and the\nresult will be passed to the callback.\n\nThe callback will be invoked with a null-terminated list of files the user\nchose. The list will be empty if the user canceled the dialog, and it will\nbe NULL if an error occurred.\n\nNote that the callback may be called from a different thread than the one\nthe function was invoked on.\n\nDepending on the platform, the user may be allowed to input paths that\ndon't yet exist.\n\nOn Linux, dialogs may require XDG Portals, which requires DBus, which\nrequires an event-handling loop. Apps that do not use SDL to handle events\nshould add a call to SDL_PumpEvents in their main loop.\n\n**Parameter:** callback a function pointer to be invoked when the user selects a\nfile and accepts, or cancels the dialog, or an error\noccurs.\n\n**Parameter:** userdata an optional pointer to pass extra data to the callback when\nit will be invoked.\n\n**Parameter:** window the window that the dialog should be modal for, may be NULL.\nNot all platforms support this option.\n\n**Parameter:** filters a list of filters, may be NULL. See the\n[`SDL_DialogFileFilter`](SDL_DialogFileFilter#code-examples)\ndocumentation for examples]. Not all platforms support this\noption, and platforms that do support it may allow the user\nto ignore the filters. If non-NULL, it must remain valid at\nleast until the callback is invoked.\n\n**Parameter:** nfilters the number of filters. Ignored if filters is NULL.\n\n**Parameter:** default_location the default folder or file to start the dialog at,\nmay be NULL. Not all platforms support this option.\n\n**Parameter:** allow_many if non-zero, the user will be allowed to select multiple\nentries. Not all platforms support this option.\n\n**Thread Safety:** This function should be called only from the main thread. The\ncallback may be invoked from the same thread or from a\ndifferent one, depending on the OS's constraints.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_DialogFileCallback\n\n**See Also:** SDL_DialogFileFilter\n\n**See Also:** SDL_ShowSaveFileDialog\n\n**See Also:** SDL_ShowOpenFolderDialog\n\n**See Also:** SDL_ShowFileDialogWithProperties"]
     pub fn SDL_ShowOpenFileDialog(
         callback: SDL_DialogFileCallback,
         userdata: *mut core::ffi::c_void,
@@ -6703,10 +6657,6 @@ pub struct SDL_JoystickConnectionState(pub core::ffi::c_int);
 unsafe extern "C" {
     #[doc = "Locking for atomic access to the joystick API.\n\nThe SDL joystick functions are thread-safe, however you can lock the\njoysticks while processing to guarantee that the joystick list won't change\nand joystick and gamepad events will not be delivered.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0."]
     pub fn SDL_LockJoysticks();
-}
-unsafe extern "C" {
-    #[doc = "Locking for atomic access to the joystick API.\n\nThe SDL joystick functions are thread-safe, however you can lock the\njoysticks while processing to guarantee that the joystick list won't change\nand joystick and gamepad events will not be delivered.\n\n**Returns:** true if the joysticks were successfully locked, false otherwise.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.6.0."]
-    pub fn SDL_TryLockJoysticks() -> bool;
 }
 unsafe extern "C" {
     #[doc = "Unlocking for atomic access to the joystick API.\n\n**Thread Safety:** This should be called from the same thread that called\nSDL_LockJoysticks().\n\n**Available Since:** This function is available since SDL 3.2.0."]
@@ -7127,7 +7077,7 @@ unsafe extern "C" {
     pub fn SDL_JoystickEventsEnabled() -> bool;
 }
 unsafe extern "C" {
-    #[doc = "Update the current state of the open joysticks.\n\nThis is called automatically by the event loop if any joystick events are\nenabled and SDL_HINT_AUTO_UPDATE_JOYSTICKS hasn't been set to \"0\".\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0."]
+    #[doc = "Update the current state of the open joysticks.\n\nThis is called automatically by the event loop if any joystick events are\nenabled.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0."]
     pub fn SDL_UpdateJoysticks();
 }
 unsafe extern "C" {
@@ -7256,15 +7206,15 @@ impl SDL_GamepadButton {
     pub const SDL_GAMEPAD_BUTTON_DPAD_DOWN: SDL_GamepadButton = SDL_GamepadButton(12);
     pub const SDL_GAMEPAD_BUTTON_DPAD_LEFT: SDL_GamepadButton = SDL_GamepadButton(13);
     pub const SDL_GAMEPAD_BUTTON_DPAD_RIGHT: SDL_GamepadButton = SDL_GamepadButton(14);
-    #[doc = "< Additional button (e.g. Xbox Series X share button, PS5 microphone button, Nintendo Switch Pro capture button, Amazon Luna microphone button, Google Stadia capture button)"]
+    #[doc = "< Additional button (e.g. Xbox Series X share button, PS5 microphone button, Nintendo Switch Pro capture button, Steam Controller QAM button, Amazon Luna microphone button, Google Stadia capture button)"]
     pub const SDL_GAMEPAD_BUTTON_MISC1: SDL_GamepadButton = SDL_GamepadButton(15);
-    #[doc = "< Upper or primary paddle, under your right hand (e.g. Xbox Elite paddle P1, DualSense Edge RB button, Right Joy-Con SR button)"]
+    #[doc = "< Upper or primary paddle, under your right hand (e.g. Xbox Elite paddle P1, DualSense Edge RB button, Right Joy-Con SR button, Steam Controller R4 button)"]
     pub const SDL_GAMEPAD_BUTTON_RIGHT_PADDLE1: SDL_GamepadButton = SDL_GamepadButton(16);
-    #[doc = "< Upper or primary paddle, under your left hand (e.g. Xbox Elite paddle P3, DualSense Edge LB button, Left Joy-Con SL button)"]
+    #[doc = "< Upper or primary paddle, under your left hand (e.g. Xbox Elite paddle P3, DualSense Edge LB button, Left Joy-Con SL button, Steam Controller L4 button)"]
     pub const SDL_GAMEPAD_BUTTON_LEFT_PADDLE1: SDL_GamepadButton = SDL_GamepadButton(17);
-    #[doc = "< Lower or secondary paddle, under your right hand (e.g. Xbox Elite paddle P2, DualSense Edge right Fn button, Right Joy-Con SL button)"]
+    #[doc = "< Lower or secondary paddle, under your right hand (e.g. Xbox Elite paddle P2, DualSense Edge right Fn button, Right Joy-Con SL button, Steam Controller R5 button)"]
     pub const SDL_GAMEPAD_BUTTON_RIGHT_PADDLE2: SDL_GamepadButton = SDL_GamepadButton(18);
-    #[doc = "< Lower or secondary paddle, under your left hand (e.g. Xbox Elite paddle P4, DualSense Edge left Fn button, Left Joy-Con SR button)"]
+    #[doc = "< Lower or secondary paddle, under your left hand (e.g. Xbox Elite paddle P4, DualSense Edge left Fn button, Left Joy-Con SR button, Steam Controller L5 button)"]
     pub const SDL_GAMEPAD_BUTTON_LEFT_PADDLE2: SDL_GamepadButton = SDL_GamepadButton(19);
     #[doc = "< PS4/PS5 touchpad button"]
     pub const SDL_GAMEPAD_BUTTON_TOUCHPAD: SDL_GamepadButton = SDL_GamepadButton(20);
@@ -7889,7 +7839,7 @@ impl SDL_Scancode {
     pub const SDL_SCANCODE_RIGHTBRACKET: SDL_Scancode = SDL_Scancode(48);
     #[doc = "< Located at the lower left of the return\nkey on ISO keyboards and at the right end\nof the QWERTY row on ANSI keyboards.\nProduces REVERSE SOLIDUS (backslash) and\nVERTICAL LINE in a US layout, REVERSE\nSOLIDUS and VERTICAL LINE in a UK Mac\nlayout, NUMBER SIGN and TILDE in a UK\nWindows layout, DOLLAR SIGN and POUND SIGN\nin a Swiss German layout, NUMBER SIGN and\nAPOSTROPHE in a German layout, GRAVE\nACCENT and POUND SIGN in a French Mac\nlayout, and ASTERISK and MICRO SIGN in a\nFrench Windows layout."]
     pub const SDL_SCANCODE_BACKSLASH: SDL_Scancode = SDL_Scancode(49);
-    #[doc = "< ISO USB keyboards actually use this code\ninstead of 49 for the same key, but all\nOSes I've seen treat the two codes\nidentically. So, as an implementer, unless\nyour keyboard generates both of those\ncodes and your OS treats them differently,\nyou should generate SDL_SCANCODE_BACKSLASH\ninstead of this code. As a user, you\nshould not rely on this code because SDL\nwill never generate it with most (all?)\nkeyboards."]
+    #[doc = "< ISO USB keyboards actually use this code\ninstead of 49 for the same key, but all\nOSes I've seen treat the two codes\nidentically. So, as an implementor, unless\nyour keyboard generates both of those\ncodes and your OS treats them differently,\nyou should generate SDL_SCANCODE_BACKSLASH\ninstead of this code. As a user, you\nshould not rely on this code because SDL\nwill never generate it with most (all?)\nkeyboards."]
     pub const SDL_SCANCODE_NONUSHASH: SDL_Scancode = SDL_Scancode(50);
     pub const SDL_SCANCODE_SEMICOLON: SDL_Scancode = SDL_Scancode(51);
     pub const SDL_SCANCODE_APOSTROPHE: SDL_Scancode = SDL_Scancode(52);
@@ -8277,7 +8227,7 @@ impl SDL_Capitalization {
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct SDL_Capitalization(pub core::ffi::c_uint);
 unsafe extern "C" {
-    #[doc = "Start accepting Unicode text input events in a window, with properties\ndescribing the input.\n\nThis function will enable text input (SDL_EVENT_TEXT_INPUT and\nSDL_EVENT_TEXT_EDITING events) in the specified window. Please use this\nfunction paired with SDL_StopTextInput().\n\nText input events are not received by default.\n\nOn some platforms using this function shows the screen keyboard and/or\nactivates an IME, which can prevent some key press events from being passed\nthrough.\n\nThese are the supported properties:\n\n- `SDL_PROP_TEXTINPUT_TYPE_NUMBER` - an SDL_TextInputType value that\ndescribes text being input, defaults to SDL_TEXTINPUT_TYPE_TEXT.\n- `SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER` - an SDL_Capitalization value\nthat describes how text should be capitalized, defaults to\nSDL_CAPITALIZE_SENTENCES for normal text entry, SDL_CAPITALIZE_WORDS for\nSDL_TEXTINPUT_TYPE_TEXT_NAME, and SDL_CAPITALIZE_NONE for e-mail\naddresses, usernames, and passwords.\n- `SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN` - true to enable auto completion\nand auto correction, defaults to true.\n- `SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN` - true if multiple lines of text\nare allowed. This defaults to true if SDL_HINT_RETURN_KEY_HIDES_IME is\n\"0\" or is not set, and defaults to false if SDL_HINT_RETURN_KEY_HIDES_IME\nis \"1\".\n- `SDL_PROP_TEXTINPUT_TITLE_STRING` - a title for the top of the on-screen\nkeyboard window, if it has one.\n- `SDL_PROP_TEXTINPUT_PLACEHOLDER_STRING` - the placeholder shown before\nthe user starts typing, when the field is empty.\n- `SDL_PROP_TEXTINPUT_DEFAULT_TEXT_STRING` - text to prefill the text field\nwith.\n- `SDL_PROP_TEXTINPUT_MAX_LENGTH_NUMBER` - maximum length for the text\nfield, in characters (not bytes).\n\nOn Android you can directly specify the input type:\n\n- `SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER` - the text input type to\nuse, overriding other properties. This is documented at\nhttps://developer.android.com/reference/android/text/InputType\n\n**Parameter:** window the window to enable text input.\n\n**Parameter:** props the properties to use.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should only be called on the main thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_SetTextInputArea\n\n**See Also:** SDL_StartTextInput\n\n**See Also:** SDL_StopTextInput\n\n**See Also:** SDL_TextInputActive"]
+    #[doc = "Start accepting Unicode text input events in a window, with properties\ndescribing the input.\n\nThis function will enable text input (SDL_EVENT_TEXT_INPUT and\nSDL_EVENT_TEXT_EDITING events) in the specified window. Please use this\nfunction paired with SDL_StopTextInput().\n\nText input events are not received by default.\n\nOn some platforms using this function shows the screen keyboard and/or\nactivates an IME, which can prevent some key press events from being passed\nthrough.\n\nThese are the supported properties:\n\n- `SDL_PROP_TEXTINPUT_TYPE_NUMBER` - an SDL_TextInputType value that\ndescribes text being input, defaults to SDL_TEXTINPUT_TYPE_TEXT.\n- `SDL_PROP_TEXTINPUT_CAPITALIZATION_NUMBER` - an SDL_Capitalization value\nthat describes how text should be capitalized, defaults to\nSDL_CAPITALIZE_SENTENCES for normal text entry, SDL_CAPITALIZE_WORDS for\nSDL_TEXTINPUT_TYPE_TEXT_NAME, and SDL_CAPITALIZE_NONE for e-mail\naddresses, usernames, and passwords.\n- `SDL_PROP_TEXTINPUT_AUTOCORRECT_BOOLEAN` - true to enable auto completion\nand auto correction, defaults to true.\n- `SDL_PROP_TEXTINPUT_MULTILINE_BOOLEAN` - true if multiple lines of text\nare allowed. This defaults to true if SDL_HINT_RETURN_KEY_HIDES_IME is\n\"0\" or is not set, and defaults to false if SDL_HINT_RETURN_KEY_HIDES_IME\nis \"1\".\n\nOn Android you can directly specify the input type:\n\n- `SDL_PROP_TEXTINPUT_ANDROID_INPUTTYPE_NUMBER` - the text input type to\nuse, overriding other properties. This is documented at\nhttps://developer.android.com/reference/android/text/InputType\n\n**Parameter:** window the window to enable text input.\n\n**Parameter:** props the properties to use.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should only be called on the main thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_SetTextInputArea\n\n**See Also:** SDL_StartTextInput\n\n**See Also:** SDL_StopTextInput\n\n**See Also:** SDL_TextInputActive"]
     pub fn SDL_StartTextInputWithProperties(
         window: *mut SDL_Window,
         props: SDL_PropertiesID,
@@ -8712,7 +8662,7 @@ impl SDL_EventType {
     pub const SDL_EVENT_WINDOW_CLOSE_REQUESTED: SDL_EventType = SDL_EventType(528);
     #[doc = "< Window had a hit test that wasn't SDL_HITTEST_NORMAL"]
     pub const SDL_EVENT_WINDOW_HIT_TEST: SDL_EventType = SDL_EventType(529);
-    #[doc = "< The window's ICC profile has changed"]
+    #[doc = "< The ICC profile of the window's display has changed"]
     pub const SDL_EVENT_WINDOW_ICCPROF_CHANGED: SDL_EventType = SDL_EventType(530);
     #[doc = "< Window has been moved to display data1"]
     pub const SDL_EVENT_WINDOW_DISPLAY_CHANGED: SDL_EventType = SDL_EventType(531);
@@ -9276,7 +9226,7 @@ pub struct SDL_MouseMotionEvent {
     pub timestamp: Uint64,
     #[doc = "< The window with mouse focus, if any"]
     pub windowID: SDL_WindowID,
-    #[doc = "< The mouse instance id in relative mode, SDL_TOUCH_MOUSEID for touch events, or 0"]
+    #[doc = "< The mouse instance id in relative mode, SDL_TOUCH_MOUSEID for touch events, SDL_PEN_MOUSEID for pen events, or 0"]
     pub which: SDL_MouseID,
     #[doc = "< The current button state"]
     pub state: SDL_MouseButtonFlags,
@@ -10851,7 +10801,7 @@ unsafe extern "C" {
     pub fn SDL_WaitEvent(event: *mut SDL_Event) -> bool;
 }
 unsafe extern "C" {
-    #[doc = "Wait until the specified timeout (in milliseconds) for the next available\nevent.\n\nIf `event` is not NULL, the next event is removed from the queue and stored\nin the SDL_Event structure pointed to by `event`.\n\nAs this function may implicitly call SDL_PumpEvents(), you can only call\nthis function in the thread that initialized the video subsystem.\n\nThe timeout is not guaranteed, the actual wait time could be longer due to\nsystem scheduling.\n\n**Parameter:** event the SDL_Event structure to be filled in with the next event\nfrom the queue, or NULL.\n\n**Parameter:** timeoutMS the maximum number of milliseconds to wait for the next\navailable event, or -1 to wait indefinitely.\n\n**Returns:** true if this got an event or false if the timeout elapsed without\nany events available.\n\n**Thread Safety:** This function should only be called on the main thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_PollEvent\n\n**See Also:** SDL_PushEvent\n\n**See Also:** SDL_WaitEvent"]
+    #[doc = "Wait until the specified timeout (in milliseconds) for the next available\nevent.\n\nIf `event` is not NULL, the next event is removed from the queue and stored\nin the SDL_Event structure pointed to by `event`.\n\nAs this function may implicitly call SDL_PumpEvents(), you can only call\nthis function in the thread that initialized the video subsystem.\n\nThe timeout is not guaranteed, the actual wait time could be longer due to\nsystem scheduling.\n\n**Parameter:** event the SDL_Event structure to be filled in with the next event\nfrom the queue, or NULL.\n\n**Parameter:** timeoutMS the maximum number of milliseconds to wait for the next\navailable event.\n\n**Returns:** true if this got an event or false if the timeout elapsed without\nany events available.\n\n**Thread Safety:** This function should only be called on the main thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_PollEvent\n\n**See Also:** SDL_PushEvent\n\n**See Also:** SDL_WaitEvent"]
     pub fn SDL_WaitEventTimeout(event: *mut SDL_Event, timeoutMS: Sint32) -> bool;
 }
 unsafe extern "C" {
@@ -10968,7 +10918,7 @@ impl SDL_PathType {
 #[doc = "Types of filesystem entries.\n\nNote that there may be other sorts of items on a filesystem: devices, named\npipes, etc. They are currently reported as SDL_PATHTYPE_OTHER.\n\n**Available Since:** This enum is available since SDL 3.2.0.\n\n**See Also:** SDL_PathInfo"]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct SDL_PathType(pub core::ffi::c_uint);
-#[doc = "Information about a path on the filesystem.\n\n**Available Since:** This datatype is available since SDL 3.2.0.\n\n**See Also:** SDL_PathType\n\n**See Also:** SDL_GetPathInfo\n\n**See Also:** SDL_GetStoragePathInfo"]
+#[doc = "Information about a path on the filesystem.\n\n**Available Since:** This datatype is available since SDL 3.2.0.\n\n**See Also:** SDL_GetPathInfo\n\n**See Also:** SDL_GetStoragePathInfo"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone, Hash)]
 pub struct SDL_PathInfo {
@@ -12501,7 +12451,7 @@ const _: () = {
     ["Offset of field: SDL_GPUBufferCreateInfo::props"]
         [::core::mem::offset_of!(SDL_GPUBufferCreateInfo, props) - 8usize];
 };
-#[doc = "A structure specifying the parameters of a transfer buffer.\n\n**Available Since:** This struct is available since SDL 3.2.0.\n\n**See Also:** SDL_GPUTransferBufferUsage\n\n**See Also:** SDL_CreateGPUTransferBuffer"]
+#[doc = "A structure specifying the parameters of a transfer buffer.\n\n**Available Since:** This struct is available since SDL 3.2.0.\n\n**See Also:** SDL_CreateGPUTransferBuffer"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone, Hash)]
 pub struct SDL_GPUTransferBufferCreateInfo {
@@ -13825,7 +13775,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = "Claims a window, creating a swapchain structure for it.\n\nThis must be called before SDL_AcquireGPUSwapchainTexture is called using\nthe window. You should only call this function from the thread that created\nthe window.\n\nThe swapchain will be created with SDL_GPU_SWAPCHAINCOMPOSITION_SDR and\nSDL_GPU_PRESENTMODE_VSYNC. If you want to have different swapchain\nparameters, you must call SDL_SetGPUSwapchainParameters after claiming the\nwindow.\n\n**Parameter:** device a GPU context.\n\n**Parameter:** window an SDL_Window.\n\n**Returns:** true on success, or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should only be called from the thread that\ncreated the window.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_WaitAndAcquireGPUSwapchainTexture\n\n**See Also:** SDL_ReleaseWindowFromGPUDevice\n\n**See Also:** SDL_WindowSupportsGPUPresentMode\n\n**See Also:** SDL_WindowSupportsGPUSwapchainComposition"]
     pub fn SDL_ClaimWindowForGPUDevice(device: *mut SDL_GPUDevice, window: *mut SDL_Window)
-        -> bool;
+    -> bool;
 }
 unsafe extern "C" {
     #[doc = "Unclaims a window, destroying its swapchain structure.\n\n**Parameter:** device a GPU context.\n\n**Parameter:** window an SDL_Window that has been claimed.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_ClaimWindowForGPUDevice"]
@@ -14603,7 +14553,7 @@ impl Default for SDL_hid_device_info {
     }
 }
 unsafe extern "C" {
-    #[doc = "Initialize the HIDAPI library.\n\nThis function initializes the HIDAPI library. Calling it is not strictly\nnecessary, as it will be called automatically by SDL_hid_enumerate(),\nSDL_hid_open(), and SDL_hid_open_path() if needed. This function should be\ncalled at the beginning of execution however, if there is a chance of\nHIDAPI handles being opened by different threads simultaneously.\n\nEach call to this function should have a matching call to SDL_hid_exit()\n\n**Returns:** 0 on success or a negative error code on failure; call\nSDL_GetError() for more information.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_hid_exit"]
+    #[doc = "Initialize the HIDAPI library.\n\nThis function initializes the HIDAPI library. Calling it is not strictly\nnecessary, as it will be called automatically by SDL_hid_enumerate() and\nany of the SDL_hid_open_*() functions if it is needed. This function should\nbe called at the beginning of execution however, if there is a chance of\nHIDAPI handles being opened by different threads simultaneously.\n\nEach call to this function should have a matching call to SDL_hid_exit()\n\n**Returns:** 0 on success or a negative error code on failure; call\nSDL_GetError() for more information.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_hid_exit"]
     pub fn SDL_hid_init() -> core::ffi::c_int;
 }
 unsafe extern "C" {
@@ -15953,7 +15903,7 @@ unsafe extern "C" {
     ) -> bool;
 }
 unsafe extern "C" {
-    #[doc = "Render a list of triangles, optionally using a texture and indices into the\nvertex array.\n\nColor and alpha modulation is done per vertex (SDL_SetTextureColorMod and\nSDL_SetTextureAlphaMod are ignored).\n\n**Parameter:** renderer the rendering context.\n\n**Parameter:** texture (optional) The SDL texture to use.\n\n**Parameter:** vertices vertices.\n\n**Parameter:** num_vertices number of vertices.\n\n**Parameter:** indices (optional) An array of integer indices into the 'vertices'\narray, if NULL all vertices will be rendered in sequential\norder.\n\n**Parameter:** num_indices number of indices.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should only be called on the main thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_RenderGeometryRaw\n\n**See Also:** SDL_SetRenderTextureAddressMode"]
+    #[doc = "Render a list of triangles, optionally using a texture and indices into the\nvertex array Color and alpha modulation is done per vertex\n(SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).\n\n**Parameter:** renderer the rendering context.\n\n**Parameter:** texture (optional) The SDL texture to use.\n\n**Parameter:** vertices vertices.\n\n**Parameter:** num_vertices number of vertices.\n\n**Parameter:** indices (optional) An array of integer indices into the 'vertices'\narray, if NULL all vertices will be rendered in sequential\norder.\n\n**Parameter:** num_indices number of indices.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should only be called on the main thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_RenderGeometryRaw\n\n**See Also:** SDL_SetRenderTextureAddressMode"]
     pub fn SDL_RenderGeometry(
         renderer: *mut SDL_Renderer,
         texture: *mut SDL_Texture,
@@ -15964,7 +15914,7 @@ unsafe extern "C" {
     ) -> bool;
 }
 unsafe extern "C" {
-    #[doc = "Render a list of triangles, optionally using a texture and indices into the\nvertex arrays.\n\nColor and alpha modulation is done per vertex (SDL_SetTextureColorMod and\nSDL_SetTextureAlphaMod are ignored).\n\n**Parameter:** renderer the rendering context.\n\n**Parameter:** texture (optional) The SDL texture to use.\n\n**Parameter:** xy vertex positions.\n\n**Parameter:** xy_stride byte size to move from one element to the next element.\n\n**Parameter:** color vertex colors (as SDL_FColor).\n\n**Parameter:** color_stride byte size to move from one element to the next element.\n\n**Parameter:** uv vertex normalized texture coordinates.\n\n**Parameter:** uv_stride byte size to move from one element to the next element.\n\n**Parameter:** num_vertices number of vertices.\n\n**Parameter:** indices (optional) An array of indices into the 'vertices' arrays,\nif NULL all vertices will be rendered in sequential order.\n\n**Parameter:** num_indices number of indices.\n\n**Parameter:** size_indices index size: 1 (byte), 2 (short), 4 (int).\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should only be called on the main thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_RenderGeometry\n\n**See Also:** SDL_SetRenderTextureAddressMode"]
+    #[doc = "Render a list of triangles, optionally using a texture and indices into the\nvertex arrays Color and alpha modulation is done per vertex\n(SDL_SetTextureColorMod and SDL_SetTextureAlphaMod are ignored).\n\n**Parameter:** renderer the rendering context.\n\n**Parameter:** texture (optional) The SDL texture to use.\n\n**Parameter:** xy vertex positions.\n\n**Parameter:** xy_stride byte size to move from one element to the next element.\n\n**Parameter:** color vertex colors (as SDL_FColor).\n\n**Parameter:** color_stride byte size to move from one element to the next element.\n\n**Parameter:** uv vertex normalized texture coordinates.\n\n**Parameter:** uv_stride byte size to move from one element to the next element.\n\n**Parameter:** num_vertices number of vertices.\n\n**Parameter:** indices (optional) An array of indices into the 'vertices' arrays,\nif NULL all vertices will be rendered in sequential order.\n\n**Parameter:** num_indices number of indices.\n\n**Parameter:** size_indices index size: 1 (byte), 2 (short), 4 (int).\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should only be called on the main thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_RenderGeometry\n\n**See Also:** SDL_SetRenderTextureAddressMode"]
     pub fn SDL_RenderGeometryRaw(
         renderer: *mut SDL_Renderer,
         texture: *mut SDL_Texture,
@@ -16141,30 +16091,6 @@ unsafe extern "C" {
         renderer: *mut SDL_Renderer,
         createinfo: *const SDL_GPURenderStateCreateInfo,
     ) -> *mut SDL_GPURenderState;
-}
-unsafe extern "C" {
-    #[doc = "Set sampler bindings variables in a custom GPU render state.\n\nThe data is copied and will be binded using SDL_BindGPUFragmentSamplers()\nduring draw call execution.\n\n**Parameter:** state the state to modify.\n\n**Parameter:** num_sampler_bindings The number of additional fragment samplers to\nbind.\n\n**Parameter:** sampler_bindings Additional fragment samplers to bind.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should be called on the thread that created the\nrenderer.\n\n**Available Since:** This function is available since SDL 3.6.0."]
-    pub fn SDL_SetGPURenderStateSamplerBindings(
-        state: *mut SDL_GPURenderState,
-        num_sampler_bindings: core::ffi::c_int,
-        sampler_bindings: *const SDL_GPUTextureSamplerBinding,
-    ) -> bool;
-}
-unsafe extern "C" {
-    #[doc = "Set storage textures variables in a custom GPU render state.\n\nThe data is copied and will be binded using\nSDL_BindGPUFragmentStorageTextures() during draw call execution.\n\n**Parameter:** state the state to modify.\n\n**Parameter:** num_storage_textures The number of storage textures to bind.\n\n**Parameter:** storage_textures Storage textures to bind.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should be called on the thread that created the\nrenderer.\n\n**Available Since:** This function is available since SDL 3.6.0."]
-    pub fn SDL_SetGPURenderStateStorageTextures(
-        state: *mut SDL_GPURenderState,
-        num_storage_textures: core::ffi::c_int,
-        storage_textures: *const *mut SDL_GPUTexture,
-    ) -> bool;
-}
-unsafe extern "C" {
-    #[doc = "Set storage buffers variables in a custom GPU render state.\n\nThe data is copied and will be binded using\nSDL_BindGPUFragmentStorageBuffers() during draw call execution.\n\n**Parameter:** state the state to modify.\n\n**Parameter:** num_storage_buffers The number of storage buffers to bind.\n\n**Parameter:** storage_buffers Storage buffers to bind.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should be called on the thread that created the\nrenderer.\n\n**Available Since:** This function is available since SDL 3.6.0."]
-    pub fn SDL_SetGPURenderStateStorageBuffers(
-        state: *mut SDL_GPURenderState,
-        num_storage_buffers: core::ffi::c_int,
-        storage_buffers: *const *mut SDL_GPUBuffer,
-    ) -> bool;
 }
 unsafe extern "C" {
     #[doc = "Set fragment shader uniform variables in a custom GPU render state.\n\nThe data is copied and will be pushed using\nSDL_PushGPUFragmentUniformData() during draw call execution.\n\n**Parameter:** state the state to modify.\n\n**Parameter:** slot_index the fragment uniform slot to push data to.\n\n**Parameter:** data client data to write.\n\n**Parameter:** length the length of the data to write.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** This function should be called on the thread that created the\nrenderer.\n\n**Available Since:** This function is available since SDL 3.4.0."]
@@ -16368,7 +16294,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = "Remove a file or an empty directory in a writable storage container.\n\n**Parameter:** storage a storage container.\n\n**Parameter:** path the path to remove from the filesystem.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_StorageReady"]
     pub fn SDL_RemoveStoragePath(storage: *mut SDL_Storage, path: *const core::ffi::c_char)
-        -> bool;
+    -> bool;
 }
 unsafe extern "C" {
     #[doc = "Rename a file or directory in a writable storage container.\n\n**Parameter:** storage a storage container.\n\n**Parameter:** oldpath the old path.\n\n**Parameter:** newpath the new path.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_StorageReady"]
@@ -16421,10 +16347,6 @@ pub type SDL_X11EventHook = ::core::option::Option<
 unsafe extern "C" {
     #[doc = "Set a callback for every X11 event.\n\nThe callback may modify the event, and should return true if the event\nshould continue to be processed, or false to prevent further processing.\n\n**Parameter:** callback the SDL_X11EventHook function to call.\n\n**Parameter:** userdata a pointer to pass to every iteration of `callback`.\n\n**Thread Safety:** This function should only be called on the main thread.\n\n**Available Since:** This function is available since SDL 3.2.0."]
     pub fn SDL_SetX11EventHook(callback: SDL_X11EventHook, userdata: *mut core::ffi::c_void);
-}
-unsafe extern "C" {
-    #[doc = "Query if the current device is a phone.\n\nIf SDL can't determine this, it will return false.\n\n**Returns:** true if the device is a phone, false otherwise.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.6.0."]
-    pub fn SDL_IsPhone() -> bool;
 }
 unsafe extern "C" {
     #[doc = "Query if the current device is a tablet.\n\nIf SDL can't determine this, it will return false.\n\n**Returns:** true if the device is a tablet, false otherwise.\n\n**Thread Safety:** It is safe to call this function from any thread.\n\n**Available Since:** This function is available since SDL 3.2.0."]
@@ -16675,20 +16597,12 @@ pub type SDL_TrayEntryFlags = Uint32;
 pub type SDL_TrayCallback = ::core::option::Option<
     unsafe extern "C" fn(userdata: *mut core::ffi::c_void, entry: *mut SDL_TrayEntry),
 >;
-#[doc = "A callback that is invoked when the tray icon is clicked.\n\n**Parameter:** userdata an optional pointer to pass extra data to the callback when\nit will be invoked. May be NULL.\n\n**Parameter:** tray the tray that was clicked.\n\n**Returns:** true to show the tray menu after the callback returns, false to\nskip showing the menu. This return value is only used for left and\nright click callbacks; other mouse events ignore the return value.\n\n**Available Since:** This datatype is available since SDL 3.6.0.\n\n**See Also:** SDL_CreateTrayWithProperties"]
-pub type SDL_TrayClickCallback = ::core::option::Option<
-    unsafe extern "C" fn(userdata: *mut core::ffi::c_void, tray: *mut SDL_Tray) -> bool,
->;
 unsafe extern "C" {
-    #[doc = "Create an icon to be placed in the operating system's tray, or equivalent.\n\nMany platforms advise not using a system tray unless persistence is a\nnecessary feature. Avoid needlessly creating a tray icon, as the user may\nfeel like it clutters their interface.\n\nUsing tray icons require the video subsystem.\n\n**Parameter:** icon a surface to be used as icon. May be NULL.\n\n**Parameter:** tooltip a tooltip to be displayed when the mouse hovers the icon in\nUTF-8 encoding. Not supported on all platforms. May be NULL.\n\n**Returns:** The newly created system tray icon.\n\n**Thread Safety:** This function should only be called on the main thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_CreateTrayWithProperties\n\n**See Also:** SDL_CreateTrayMenu\n\n**See Also:** SDL_GetTrayMenu\n\n**See Also:** SDL_DestroyTray"]
+    #[doc = "Create an icon to be placed in the operating system's tray, or equivalent.\n\nMany platforms advise not using a system tray unless persistence is a\nnecessary feature. Avoid needlessly creating a tray icon, as the user may\nfeel like it clutters their interface.\n\nUsing tray icons require the video subsystem.\n\n**Parameter:** icon a surface to be used as icon. May be NULL.\n\n**Parameter:** tooltip a tooltip to be displayed when the mouse hovers the icon in\nUTF-8 encoding. Not supported on all platforms. May be NULL.\n\n**Returns:** The newly created system tray icon.\n\n**Thread Safety:** This function should only be called on the main thread.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_CreateTrayMenu\n\n**See Also:** SDL_GetTrayMenu\n\n**See Also:** SDL_DestroyTray"]
     pub fn SDL_CreateTray(
         icon: *mut SDL_Surface,
         tooltip: *const core::ffi::c_char,
     ) -> *mut SDL_Tray;
-}
-unsafe extern "C" {
-    #[doc = "Create an icon to be placed in the operating system's tray, or equivalent.\n\nMany platforms advise not using a system tray unless persistence is a\nnecessary feature. Avoid needlessly creating a tray icon, as the user may\nfeel like it clutters their interface.\n\nUsing tray icons require the video subsystem.\n\nThese are the supported properties:\n\n- `SDL_PROP_TRAY_CREATE_ICON_POINTER`: an SDL_Surface to be used as the\ntray icon. May be NULL.\n- `SDL_PROP_TRAY_CREATE_TOOLTIP_STRING`: a tooltip to be displayed when the\nmouse hovers the icon in UTF-8 encoding. Not supported on all platforms.\nMay be NULL.\n- `SDL_PROP_TRAY_CREATE_USERDATA_POINTER`: an optional pointer to associate\nwith the tray, which will be passed to click callbacks. May be NULL.\n- `SDL_PROP_TRAY_CREATE_LEFTCLICK_CALLBACK_POINTER`: an\nSDL_TrayClickCallback to be invoked when the tray icon is left-clicked.\nNot supported on all platforms. The callback should return true to show\nthe default menu, or false to skip showing it. May be NULL.\n- `SDL_PROP_TRAY_CREATE_RIGHTCLICK_CALLBACK_POINTER`: an\nSDL_TrayClickCallback to be invoked when the tray icon is right-clicked.\nNot supported on all platforms. The callback should return true to show\nthe default menu, or false to skip showing it. May be NULL.\n- `SDL_PROP_TRAY_CREATE_MIDDLECLICK_CALLBACK_POINTER`: an\nSDL_TrayClickCallback to be invoked when the tray icon is middle-clicked.\nNot supported on all platforms. May be NULL.\n\n**Parameter:** props the properties to use.\n\n**Returns:** The newly created system tray icon.\n\n**Thread Safety:** This function should only be called on the main thread.\n\n**Available Since:** This function is available since SDL 3.6.0.\n\n**See Also:** SDL_CreateTray\n\n**See Also:** SDL_CreateTrayMenu\n\n**See Also:** SDL_GetTrayMenu\n\n**See Also:** SDL_DestroyTray"]
-    pub fn SDL_CreateTrayWithProperties(props: SDL_PropertiesID) -> *mut SDL_Tray;
 }
 unsafe extern "C" {
     #[doc = "Updates the system tray icon's icon.\n\n**Parameter:** tray the tray icon to be updated.\n\n**Parameter:** icon the new icon. May be NULL.\n\n**Thread Safety:** This function should be called on the thread that created the\ntray.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_CreateTray"]
@@ -16830,7 +16744,7 @@ unsafe extern "C" {
     ) -> core::ffi::c_int;
 }
 unsafe extern "C" {
-    #[doc = "Callback from the application to let the suspend continue.\n\nThis should be called in response to an `SDL_EVENT_DID_ENTER_BACKGROUND`\nevent, which can be detected via event watch. However, do NOT call this\nfunction directly from within an event watch callback. Instead, wait until\nthe app has suppressed all rendering operations, then call this from the\napplication render thread.\n\nWhen using SDL_Render, this should be called after calling\nSDL_GDKSuspendRenderer.\n\nWhen using SDL_GPU, this should be called after calling SDL_GDKSuspendGPU.\n\nIf you're writing your own D3D12 renderer, this should be called after\ncalling `ID3D12CommandQueue::SuspendX`.\n\nThis function is only needed for Xbox GDK support; all other platforms will\ndo nothing and set an \"unsupported\" error message.\n\n**Thread Safety:** This function is not thread safe.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_AddEventWatch"]
+    #[doc = "Callback from the application to let the suspend continue.\n\nThis should be called from an event watch in response to an\n`SDL_EVENT_DID_ENTER_BACKGROUND` event.\n\nWhen using SDL_Render, your event watch should be added _after_ creating\nthe `SDL_Renderer`; this allows the timing of the D3D12 command queue\nsuspension to execute in the correct order.\n\nWhen using SDL_GPU, this should be called after calling SDL_GDKSuspendGPU.\n\nIf you're writing your own D3D12 renderer, this should be called after\ncalling `ID3D12CommandQueue::SuspendX`.\n\nThis function is only needed for Xbox GDK support; all other platforms will\ndo nothing and set an \"unsupported\" error message.\n\n**Thread Safety:** This function is not thread safe.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_AddEventWatch"]
     pub fn SDL_GDKSuspendComplete();
 }
 pub type __builtin_va_list = *mut core::ffi::c_void;
@@ -16890,7 +16804,6 @@ pub const SDL_PLATFORM_PS2: i32 = 1;
 pub const SDL_PLATFORM_VITA: i32 = 1;
 pub const SDL_PLATFORM_3DS: i32 = 1;
 pub const SDL_PLATFORM_NGAGE: i32 = 1;
-pub const SDL_PLATFORM_DOS: i32 = 1;
 pub const SDL_PLATFORM_HURD: i32 = 1;
 pub const SDL_NOLONGLONG: i32 = 1;
 pub const SDL_MAX_SINT8: i8 = 0x7F;

@@ -3,8 +3,8 @@
 use sdl_sys_bindgen::*;
 
 pub const SDL_IMAGE_MAJOR_VERSION: u32 = 3;
-pub const SDL_IMAGE_MINOR_VERSION: u32 = 5;
-pub const SDL_IMAGE_MICRO_VERSION: u32 = 0;
+pub const SDL_IMAGE_MINOR_VERSION: u32 = 4;
+pub const SDL_IMAGE_MICRO_VERSION: u32 = 4;
 pub const IMG_PROP_ANIMATION_ENCODER_CREATE_FILENAME_STRING: &[u8; 44] =
     b"SDL_image.animation_encoder.create.filename\0";
 pub const IMG_PROP_ANIMATION_ENCODER_CREATE_IOSTREAM_POINTER: &[u8; 44] =
@@ -341,7 +341,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = "Save an SDL_Surface into BMP image data, via an SDL_IOStream.\n\nIf you just want to save to a filename, you can use IMG_SaveBMP() instead.\n\nIf `closeio` is true, `dst` will be closed before returning, whether this\nfunction succeeds or not.\n\n**Parameter:** surface the SDL surface to save.\n\n**Parameter:** dst the SDL_IOStream to save the image data to.\n\n**Parameter:** closeio true to close/free the SDL_IOStream before returning, false\nto leave it open.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Available Since:** This function is available since SDL_image 3.4.0.\n\n**See Also:** IMG_SaveBMP"]
     pub fn IMG_SaveBMP_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
-        -> bool;
+    -> bool;
 }
 unsafe extern "C" {
     #[doc = "Save an SDL_Surface into a CUR image file.\n\nIf the file already exists, it will be overwritten.\n\n**Parameter:** surface the SDL surface to save.\n\n**Parameter:** file path on the filesystem to write new file to.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Available Since:** This function is available since SDL_image 3.4.0.\n\n**See Also:** IMG_SaveCUR_IO"]
@@ -350,7 +350,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = "Save an SDL_Surface into CUR image data, via an SDL_IOStream.\n\nIf you just want to save to a filename, you can use IMG_SaveCUR() instead.\n\nIf `closeio` is true, `dst` will be closed before returning, whether this\nfunction succeeds or not.\n\n**Parameter:** surface the SDL surface to save.\n\n**Parameter:** dst the SDL_IOStream to save the image data to.\n\n**Parameter:** closeio true to close/free the SDL_IOStream before returning, false\nto leave it open.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Available Since:** This function is available since SDL_image 3.4.0.\n\n**See Also:** IMG_SaveCUR"]
     pub fn IMG_SaveCUR_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
-        -> bool;
+    -> bool;
 }
 unsafe extern "C" {
     #[doc = "Save an SDL_Surface into a GIF image file.\n\nIf the file already exists, it will be overwritten.\n\n**Parameter:** surface the SDL surface to save.\n\n**Parameter:** file path on the filesystem to write new file to.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Available Since:** This function is available since SDL_image 3.4.0.\n\n**See Also:** IMG_SaveGIF_IO"]
@@ -359,7 +359,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = "Save an SDL_Surface into GIF image data, via an SDL_IOStream.\n\nIf you just want to save to a filename, you can use IMG_SaveGIF() instead.\n\nIf `closeio` is true, `dst` will be closed before returning, whether this\nfunction succeeds or not.\n\n**Parameter:** surface the SDL surface to save.\n\n**Parameter:** dst the SDL_IOStream to save the image data to.\n\n**Parameter:** closeio true to close/free the SDL_IOStream before returning, false\nto leave it open.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Available Since:** This function is available since SDL_image 3.4.0.\n\n**See Also:** IMG_SaveGIF"]
     pub fn IMG_SaveGIF_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
-        -> bool;
+    -> bool;
 }
 unsafe extern "C" {
     #[doc = "Save an SDL_Surface into a ICO image file.\n\nIf the file already exists, it will be overwritten.\n\n**Parameter:** surface the SDL surface to save.\n\n**Parameter:** file path on the filesystem to write new file to.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Available Since:** This function is available since SDL_image 3.4.0.\n\n**See Also:** IMG_SaveICO_IO"]
@@ -368,7 +368,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = "Save an SDL_Surface into ICO image data, via an SDL_IOStream.\n\nIf you just want to save to a filename, you can use IMG_SaveICO() instead.\n\nIf `closeio` is true, `dst` will be closed before returning, whether this\nfunction succeeds or not.\n\n**Parameter:** surface the SDL surface to save.\n\n**Parameter:** dst the SDL_IOStream to save the image data to.\n\n**Parameter:** closeio true to close/free the SDL_IOStream before returning, false\nto leave it open.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Available Since:** This function is available since SDL_image 3.4.0.\n\n**See Also:** IMG_SaveICO"]
     pub fn IMG_SaveICO_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
-        -> bool;
+    -> bool;
 }
 unsafe extern "C" {
     #[doc = "Save an SDL_Surface into a JPEG image file.\n\nIf the file already exists, it will be overwritten.\n\n**Parameter:** surface the SDL surface to save.\n\n**Parameter:** file path on the filesystem to write new file to.\n\n**Parameter:** quality [0; 33] is Lowest quality, [34; 66] is Middle quality, [67;\n100] is Highest quality.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Available Since:** This function is available since SDL_image 3.0.0.\n\n**See Also:** IMG_SaveJPG_IO"]
@@ -394,7 +394,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = "Save an SDL_Surface into PNG image data, via an SDL_IOStream.\n\nIf you just want to save to a filename, you can use IMG_SavePNG() instead.\n\nIf `closeio` is true, `dst` will be closed before returning, whether this\nfunction succeeds or not.\n\n**Parameter:** surface the SDL surface to save.\n\n**Parameter:** dst the SDL_IOStream to save the image data to.\n\n**Parameter:** closeio true to close/free the SDL_IOStream before returning, false\nto leave it open.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Available Since:** This function is available since SDL_image 3.0.0.\n\n**See Also:** IMG_SavePNG"]
     pub fn IMG_SavePNG_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
-        -> bool;
+    -> bool;
 }
 unsafe extern "C" {
     #[doc = "Save an SDL_Surface into a TGA image file.\n\nIf the file already exists, it will be overwritten.\n\n**Parameter:** surface the SDL surface to save.\n\n**Parameter:** file path on the filesystem to write new file to.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Available Since:** This function is available since SDL_image 3.4.0.\n\n**See Also:** IMG_SaveTGA_IO"]
@@ -403,7 +403,7 @@ unsafe extern "C" {
 unsafe extern "C" {
     #[doc = "Save an SDL_Surface into TGA image data, via an SDL_IOStream.\n\nIf you just want to save to a filename, you can use IMG_SaveTGA() instead.\n\nIf `closeio` is true, `dst` will be closed before returning, whether this\nfunction succeeds or not.\n\n**Parameter:** surface the SDL surface to save.\n\n**Parameter:** dst the SDL_IOStream to save the image data to.\n\n**Parameter:** closeio true to close/free the SDL_IOStream before returning, false\nto leave it open.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Available Since:** This function is available since SDL_image 3.4.0.\n\n**See Also:** IMG_SaveTGA"]
     pub fn IMG_SaveTGA_IO(surface: *mut SDL_Surface, dst: *mut SDL_IOStream, closeio: bool)
-        -> bool;
+    -> bool;
 }
 unsafe extern "C" {
     #[doc = "Save an SDL_Surface into a WEBP image file.\n\nIf the file already exists, it will be overwritten.\n\n**Parameter:** surface the SDL surface to save.\n\n**Parameter:** file path on the filesystem to write the new file to.\n\n**Parameter:** quality between 0 and 100. For lossy, 0 gives the smallest size and\n100 the largest. For lossless, this parameter is the amount\nof effort put into the compression: 0 is the fastest but\ngives larger files compared to the slowest, but best, 100.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Available Since:** This function is available since SDL_image 3.4.0.\n\n**See Also:** IMG_SaveWEBP_IO"]
@@ -637,7 +637,7 @@ unsafe extern "C" {
     ) -> *mut IMG_AnimationDecoder;
 }
 unsafe extern "C" {
-    #[doc = "Get the properties of an animation decoder.\n\nThis function returns the properties of the animation decoder, which holds\ninformation about the underlying image such as description, copyright text\nand loop count.\n\n**Parameter:** decoder the animation decoder.\n\n**Returns:** the properties ID of the animation decoder, or 0 if there are no\nproperties; call SDL_GetError() for more information.\n\n**Available Since:** This function is available since SDL_image 3.4.0.\n\n**See Also:** IMG_CreateAnimationDecoder\n\n**See Also:** IMG_CreateAnimationDecoder_IO\n\n**See Also:** IMG_CreateAnimationDecoderWithProperties"]
+    #[doc = "Get the properties of an animation decoder.\n\nThis function returns the properties of the animation decoder, which holds\ninformation about the underlying image such as description, copyright text\nand loop count.\n\n`IMG_PROP_METADATA_LOOP_COUNT_NUMBER`, if present, specifies the number of times to play the animation, with 0 meaning loop continuously.\n\n**Parameter:** decoder the animation decoder.\n\n**Returns:** the properties ID of the animation decoder, or 0 if there are no\nproperties; call SDL_GetError() for more information.\n\n**Available Since:** This function is available since SDL_image 3.4.0.\n\n**See Also:** IMG_CreateAnimationDecoder\n\n**See Also:** IMG_CreateAnimationDecoder_IO\n\n**See Also:** IMG_CreateAnimationDecoderWithProperties"]
     pub fn IMG_GetAnimationDecoderProperties(
         decoder: *mut IMG_AnimationDecoder,
     ) -> SDL_PropertiesID;

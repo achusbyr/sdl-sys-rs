@@ -109,14 +109,18 @@ fn generate_crate_bindings(
         }
 
         // Generate bindings
-        if target.contains("apple-darwin") {
-            if let Some(path) = osx_sdk {
-                unsafe { env::set_var("SDKROOT", path) };
-            }
+        if target.contains("apple-darwin")
+            && let Some(path) = osx_sdk
+        {
+            let abs_path = fs::canonicalize(path).unwrap_or_else(|_| path.clone());
+            builder = builder.clang_arg(format!("-isysroot{}", abs_path.display()));
+            unsafe { env::set_var("SDKROOT", &abs_path) };
         } else if target.contains("apple-ios")
             && let Some(path) = ios_sdk
         {
-            unsafe { env::set_var("SDKROOT", path) };
+            let abs_path = fs::canonicalize(path).unwrap_or_else(|_| path.clone());
+            builder = builder.clang_arg(format!("-isysroot{}", abs_path.display()));
+            unsafe { env::set_var("SDKROOT", &abs_path) };
         }
 
         let bindings = builder
