@@ -90,6 +90,14 @@ fn generate_crate_bindings(
             }
         }
 
+        // Vulkan config. Note that SDL doesn't bundle MoltenVK, using Vulkan on Apple platforms requires the user to handle it themselves
+        // Marking raw string checking for library name in case of future changes to the config structure
+        if config.lib_name == "SDL3"
+            && (target.contains("windows") || target.contains("linux") || target.contains("apple"))
+        {
+            builder = builder.header("submodules/SDL/include/SDL3/SDL_vulkan.h");
+        }
+
         // Add headers from config
         for header_file in config.headers {
             let header_path = root_dir.join(header_file);
@@ -106,9 +114,12 @@ fn generate_crate_bindings(
             builder = builder.allowlist_file(allowlist);
             builder = builder.blocklist_file(".*SDL3[^_].*");
             builder = builder.raw_line("use sdl_sys_bindgen::*;");
+        } else if config.lib_name == "SDL3" {
+            // (L94) ↑ Here too
+            builder = builder.allowlist_file(r".*/SDL3/.*");
         }
 
-        // Generate bindings
+        // Prepare environment for cross-compilation to Apple platforms
         if target.contains("apple-darwin")
             && let Some(path) = osx_sdk
         {
@@ -123,6 +134,7 @@ fn generate_crate_bindings(
             unsafe { env::set_var("SDKROOT", &abs_path) };
         }
 
+        // Generate bindings
         let bindings = builder
             .generate()
             .unwrap_or_else(|e| panic!("Failed to generate bindings for {}: {e}", config.lib_name));

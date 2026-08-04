@@ -60,6 +60,12 @@ pub const MIX_PROP_AUDIO_LOAD_SKIP_METADATA_TAGS_BOOLEAN: Property = Property {
     ty: PropertyType::Boolean,
     doc: "",
 };
+pub const MIX_PROP_AUDIO_LOAD_IGNORE_LOOPS_BOOLEAN: Property = Property {
+    name: "MIX_PROP_AUDIO_LOAD_IGNORE_LOOPS_BOOLEAN",
+    value: "SDL_mixer.audio.load.ignore_loops",
+    ty: PropertyType::Boolean,
+    doc: "",
+};
 pub const MIX_PROP_AUDIO_DECODER_STRING: Property = Property {
     name: "MIX_PROP_AUDIO_DECODER_STRING",
     value: "SDL_mixer.audio.decoder",

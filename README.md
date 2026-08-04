@@ -5,11 +5,11 @@
 
 Low-level Rust FFI bindings for **SDL3** and its satellite libraries, featuring a robust build system and an idiomatic application wrapper.
 
-## Why this project?
+## Features
 
-- **Pre-generated Bindings:** No need for LLVM/Clang during a standard build. Bindings for common targets (Linux, Windows, macOS, iOS, Emscripten) are bundled.
-- **Typestate Build System:** A safe, compile-time checked builder for handling complex C library linkage and source builds.
-- **Main Loop Wrapper:** An idiomatic, `no_std`-friendly trait-based wrapper for SDL3's callback-based application architecture.
+- **Pre-generated Bindings:** LLVM/Clang not required during a standard build. Bindings for common targets (Linux, Windows, macOS, iOS, Emscripten) are bundled.
+- **Typestate Build System:** Compile-time checked builder for handling C library linkage and source builds.
+- **Main Loop Wrapper:** `no_std`-friendly trait-based wrapper for SDL3's callback-based application architecture.
 - **Cross-Platform:** Built-in support for cross-compiling to WASM (Emscripten) and mobile platforms.
 
 ## Workspace Crates
@@ -28,9 +28,9 @@ Low-level Rust FFI bindings for **SDL3** and its satellite libraries, featuring 
 
 ## Quick Start
 
-### 1. Simple Application Loop
+### 1. Using Application Callbacks
 
-The `sdl-main-wrapper` crate allows you to write SDL3 applications using a safe, callback-based trait.
+The `sdl-main-wrapper` crate allows you to write SDL3 applications using a callback-based trait.
 
 ```rust
 use sdl_main_wrapper::*;

@@ -908,6 +908,28 @@ pub const SDL_HINT_ENABLE_SCREEN_KEYBOARD: Hint = Hint {
     doc: "/**\n* A variable that controls whether the on-screen keyboard should be shown\n* when text input is active.\n*\n* The variable can be set to the following values:\n*\n* - \"auto\": The on-screen keyboard will be shown if there is no physical\n*   keyboard attached. (default)\n* - \"0\": Do not show the on-screen keyboard.\n* - \"1\": Show the on-screen keyboard, if available.\n*\n* This hint must be set before SDL_StartTextInput() is called\n*\n* \\since This hint is available since SDL 3.2.0.\n*/\n",
 };
 /**
+* A variable that controls whether the Steam on-screen keyboard should be
+* shown when text input is active.
+*
+* Steam will set this hint via environment variable for games launched in Big
+* Picture mode. To override this you should call SDL_SetHintWithPriority()
+* with priority `SDL_HINT_OVERRIDE`.
+*
+* The variable can be set to the following values:
+*
+* - "0": Do not show the Steam on-screen keyboard.
+* - "1": Show the Steam on-screen keyboard.
+*
+* This hint should be set before SDL is initialized.
+*
+* \since This hint is available since SDL 3.4.12.
+*/
+pub const SDL_HINT_ENABLE_STEAM_SCREEN_KEYBOARD: Hint = Hint {
+    name: "SDL_HINT_ENABLE_STEAM_SCREEN_KEYBOARD",
+    value: "SDL_ENABLE_STEAM_SCREEN_KEYBOARD",
+    doc: "/**\n* A variable that controls whether the Steam on-screen keyboard should be\n* shown when text input is active.\n*\n* Steam will set this hint via environment variable for games launched in Big\n* Picture mode. To override this you should call SDL_SetHintWithPriority()\n* with priority `SDL_HINT_OVERRIDE`.\n*\n* The variable can be set to the following values:\n*\n* - \"0\": Do not show the Steam on-screen keyboard.\n* - \"1\": Show the Steam on-screen keyboard.\n*\n* This hint should be set before SDL is initialized.\n*\n* \\since This hint is available since SDL 3.4.12.\n*/\n",
+};
+/**
 * A variable containing a list of evdev devices to use if udev is not
 * available.
 *
@@ -2475,7 +2497,8 @@ pub const SDL_HINT_JOYSTICK_HIDAPI_GIP: Hint = Hint {
 * - "0": Assume this is a generic controller.
 * - "1": Reset the controller to get metadata.
 *
-* By default the controller is not reset.
+* By default the controller is reset. This is so we can properly detect
+* the controller type.
 *
 * This hint should be set before initializing joysticks and gamepads.
 *
@@ -2484,7 +2507,7 @@ pub const SDL_HINT_JOYSTICK_HIDAPI_GIP: Hint = Hint {
 pub const SDL_HINT_JOYSTICK_HIDAPI_GIP_RESET_FOR_METADATA: Hint = Hint {
     name: "SDL_HINT_JOYSTICK_HIDAPI_GIP_RESET_FOR_METADATA",
     value: "SDL_JOYSTICK_HIDAPI_GIP_RESET_FOR_METADATA",
-    doc: "/**\n* A variable controlling whether the new HIDAPI driver for wired Xbox One\n* (GIP) controllers should reset the controller if it can't get the metadata\n* from the controller.\n*\n* The variable can be set to the following values:\n*\n* - \"0\": Assume this is a generic controller.\n* - \"1\": Reset the controller to get metadata.\n*\n* By default the controller is not reset.\n*\n* This hint should be set before initializing joysticks and gamepads.\n*\n* \\since This hint is available since SDL 3.4.0.\n*/\n",
+    doc: "/**\n* A variable controlling whether the new HIDAPI driver for wired Xbox One\n* (GIP) controllers should reset the controller if it can't get the metadata\n* from the controller.\n*\n* The variable can be set to the following values:\n*\n* - \"0\": Assume this is a generic controller.\n* - \"1\": Reset the controller to get metadata.\n*\n* By default the controller is reset. This is so we can properly detect\n* the controller type.\n*\n* This hint should be set before initializing joysticks and gamepads.\n*\n* \\since This hint is available since SDL 3.4.0.\n*/\n",
 };
 /**
 * A variable controlling whether IOKit should be used for controller

@@ -2,172 +2,6 @@
 
 pub const SDL_PLATFORM_UNIX: u32 = 1;
 pub const SDL_PLATFORM_EMSCRIPTEN: u32 = 1;
-pub const _BSD_SOURCE: u32 = 1;
-pub const _XOPEN_SOURCE: u32 = 700;
-pub const __BYTE_ORDER: u32 = 1234;
-pub const __LITTLE_ENDIAN: u32 = 1234;
-pub const __BIG_ENDIAN: u32 = 4321;
-pub const __USE_TIME_BITS64: u32 = 1;
-pub const WEOF: u32 = 4294967295;
-pub const __PRI64: &[u8; 3] = b"ll\0";
-pub const __PRIPTR: &[u8; 2] = b"l\0";
-pub const PRId8: &[u8; 2] = b"d\0";
-pub const PRId16: &[u8; 2] = b"d\0";
-pub const PRId32: &[u8; 2] = b"d\0";
-pub const PRId64: &[u8; 4] = b"lld\0";
-pub const PRIdLEAST8: &[u8; 2] = b"d\0";
-pub const PRIdLEAST16: &[u8; 2] = b"d\0";
-pub const PRIdLEAST32: &[u8; 2] = b"d\0";
-pub const PRIdLEAST64: &[u8; 4] = b"lld\0";
-pub const PRIdFAST8: &[u8; 2] = b"d\0";
-pub const PRIdFAST16: &[u8; 2] = b"d\0";
-pub const PRIdFAST32: &[u8; 2] = b"d\0";
-pub const PRIdFAST64: &[u8; 4] = b"lld\0";
-pub const PRIi8: &[u8; 2] = b"i\0";
-pub const PRIi16: &[u8; 2] = b"i\0";
-pub const PRIi32: &[u8; 2] = b"i\0";
-pub const PRIi64: &[u8; 4] = b"lli\0";
-pub const PRIiLEAST8: &[u8; 2] = b"i\0";
-pub const PRIiLEAST16: &[u8; 2] = b"i\0";
-pub const PRIiLEAST32: &[u8; 2] = b"i\0";
-pub const PRIiLEAST64: &[u8; 4] = b"lli\0";
-pub const PRIiFAST8: &[u8; 2] = b"i\0";
-pub const PRIiFAST16: &[u8; 2] = b"i\0";
-pub const PRIiFAST32: &[u8; 2] = b"i\0";
-pub const PRIiFAST64: &[u8; 4] = b"lli\0";
-pub const PRIo8: &[u8; 2] = b"o\0";
-pub const PRIo16: &[u8; 2] = b"o\0";
-pub const PRIo32: &[u8; 2] = b"o\0";
-pub const PRIo64: &[u8; 4] = b"llo\0";
-pub const PRIoLEAST8: &[u8; 2] = b"o\0";
-pub const PRIoLEAST16: &[u8; 2] = b"o\0";
-pub const PRIoLEAST32: &[u8; 2] = b"o\0";
-pub const PRIoLEAST64: &[u8; 4] = b"llo\0";
-pub const PRIoFAST8: &[u8; 2] = b"o\0";
-pub const PRIoFAST16: &[u8; 2] = b"o\0";
-pub const PRIoFAST32: &[u8; 2] = b"o\0";
-pub const PRIoFAST64: &[u8; 4] = b"llo\0";
-pub const PRIu8: &[u8; 2] = b"u\0";
-pub const PRIu16: &[u8; 2] = b"u\0";
-pub const PRIu32: &[u8; 2] = b"u\0";
-pub const PRIu64: &[u8; 4] = b"llu\0";
-pub const PRIuLEAST8: &[u8; 2] = b"u\0";
-pub const PRIuLEAST16: &[u8; 2] = b"u\0";
-pub const PRIuLEAST32: &[u8; 2] = b"u\0";
-pub const PRIuLEAST64: &[u8; 4] = b"llu\0";
-pub const PRIuFAST8: &[u8; 2] = b"u\0";
-pub const PRIuFAST16: &[u8; 2] = b"u\0";
-pub const PRIuFAST32: &[u8; 2] = b"u\0";
-pub const PRIuFAST64: &[u8; 4] = b"llu\0";
-pub const PRIx8: &[u8; 2] = b"x\0";
-pub const PRIx16: &[u8; 2] = b"x\0";
-pub const PRIx32: &[u8; 2] = b"x\0";
-pub const PRIx64: &[u8; 4] = b"llx\0";
-pub const PRIxLEAST8: &[u8; 2] = b"x\0";
-pub const PRIxLEAST16: &[u8; 2] = b"x\0";
-pub const PRIxLEAST32: &[u8; 2] = b"x\0";
-pub const PRIxLEAST64: &[u8; 4] = b"llx\0";
-pub const PRIxFAST8: &[u8; 2] = b"x\0";
-pub const PRIxFAST16: &[u8; 2] = b"x\0";
-pub const PRIxFAST32: &[u8; 2] = b"x\0";
-pub const PRIxFAST64: &[u8; 4] = b"llx\0";
-pub const PRIX8: &[u8; 2] = b"X\0";
-pub const PRIX16: &[u8; 2] = b"X\0";
-pub const PRIX32: &[u8; 2] = b"X\0";
-pub const PRIX64: &[u8; 4] = b"llX\0";
-pub const PRIXLEAST8: &[u8; 2] = b"X\0";
-pub const PRIXLEAST16: &[u8; 2] = b"X\0";
-pub const PRIXLEAST32: &[u8; 2] = b"X\0";
-pub const PRIXLEAST64: &[u8; 4] = b"llX\0";
-pub const PRIXFAST8: &[u8; 2] = b"X\0";
-pub const PRIXFAST16: &[u8; 2] = b"X\0";
-pub const PRIXFAST32: &[u8; 2] = b"X\0";
-pub const PRIXFAST64: &[u8; 4] = b"llX\0";
-pub const PRIdMAX: &[u8; 4] = b"lld\0";
-pub const PRIiMAX: &[u8; 4] = b"lli\0";
-pub const PRIoMAX: &[u8; 4] = b"llo\0";
-pub const PRIuMAX: &[u8; 4] = b"llu\0";
-pub const PRIxMAX: &[u8; 4] = b"llx\0";
-pub const PRIXMAX: &[u8; 4] = b"llX\0";
-pub const PRIdPTR: &[u8; 3] = b"ld\0";
-pub const PRIiPTR: &[u8; 3] = b"li\0";
-pub const PRIoPTR: &[u8; 3] = b"lo\0";
-pub const PRIuPTR: &[u8; 3] = b"lu\0";
-pub const PRIxPTR: &[u8; 3] = b"lx\0";
-pub const PRIXPTR: &[u8; 3] = b"lX\0";
-pub const SCNd8: &[u8; 4] = b"hhd\0";
-pub const SCNd16: &[u8; 3] = b"hd\0";
-pub const SCNd32: &[u8; 2] = b"d\0";
-pub const SCNd64: &[u8; 4] = b"lld\0";
-pub const SCNdLEAST8: &[u8; 4] = b"hhd\0";
-pub const SCNdLEAST16: &[u8; 3] = b"hd\0";
-pub const SCNdLEAST32: &[u8; 2] = b"d\0";
-pub const SCNdLEAST64: &[u8; 4] = b"lld\0";
-pub const SCNdFAST8: &[u8; 4] = b"hhd\0";
-pub const SCNdFAST16: &[u8; 2] = b"d\0";
-pub const SCNdFAST32: &[u8; 2] = b"d\0";
-pub const SCNdFAST64: &[u8; 4] = b"lld\0";
-pub const SCNi8: &[u8; 4] = b"hhi\0";
-pub const SCNi16: &[u8; 3] = b"hi\0";
-pub const SCNi32: &[u8; 2] = b"i\0";
-pub const SCNi64: &[u8; 4] = b"lli\0";
-pub const SCNiLEAST8: &[u8; 4] = b"hhi\0";
-pub const SCNiLEAST16: &[u8; 3] = b"hi\0";
-pub const SCNiLEAST32: &[u8; 2] = b"i\0";
-pub const SCNiLEAST64: &[u8; 4] = b"lli\0";
-pub const SCNiFAST8: &[u8; 4] = b"hhi\0";
-pub const SCNiFAST16: &[u8; 2] = b"i\0";
-pub const SCNiFAST32: &[u8; 2] = b"i\0";
-pub const SCNiFAST64: &[u8; 4] = b"lli\0";
-pub const SCNu8: &[u8; 4] = b"hhu\0";
-pub const SCNu16: &[u8; 3] = b"hu\0";
-pub const SCNu32: &[u8; 2] = b"u\0";
-pub const SCNu64: &[u8; 4] = b"llu\0";
-pub const SCNuLEAST8: &[u8; 4] = b"hhu\0";
-pub const SCNuLEAST16: &[u8; 3] = b"hu\0";
-pub const SCNuLEAST32: &[u8; 2] = b"u\0";
-pub const SCNuLEAST64: &[u8; 4] = b"llu\0";
-pub const SCNuFAST8: &[u8; 4] = b"hhu\0";
-pub const SCNuFAST16: &[u8; 2] = b"u\0";
-pub const SCNuFAST32: &[u8; 2] = b"u\0";
-pub const SCNuFAST64: &[u8; 4] = b"llu\0";
-pub const SCNo8: &[u8; 4] = b"hho\0";
-pub const SCNo16: &[u8; 3] = b"ho\0";
-pub const SCNo32: &[u8; 2] = b"o\0";
-pub const SCNo64: &[u8; 4] = b"llo\0";
-pub const SCNoLEAST8: &[u8; 4] = b"hho\0";
-pub const SCNoLEAST16: &[u8; 3] = b"ho\0";
-pub const SCNoLEAST32: &[u8; 2] = b"o\0";
-pub const SCNoLEAST64: &[u8; 4] = b"llo\0";
-pub const SCNoFAST8: &[u8; 4] = b"hho\0";
-pub const SCNoFAST16: &[u8; 2] = b"o\0";
-pub const SCNoFAST32: &[u8; 2] = b"o\0";
-pub const SCNoFAST64: &[u8; 4] = b"llo\0";
-pub const SCNx8: &[u8; 4] = b"hhx\0";
-pub const SCNx16: &[u8; 3] = b"hx\0";
-pub const SCNx32: &[u8; 2] = b"x\0";
-pub const SCNx64: &[u8; 4] = b"llx\0";
-pub const SCNxLEAST8: &[u8; 4] = b"hhx\0";
-pub const SCNxLEAST16: &[u8; 3] = b"hx\0";
-pub const SCNxLEAST32: &[u8; 2] = b"x\0";
-pub const SCNxLEAST64: &[u8; 4] = b"llx\0";
-pub const SCNxFAST8: &[u8; 4] = b"hhx\0";
-pub const SCNxFAST16: &[u8; 2] = b"x\0";
-pub const SCNxFAST32: &[u8; 2] = b"x\0";
-pub const SCNxFAST64: &[u8; 4] = b"llx\0";
-pub const SCNdMAX: &[u8; 4] = b"lld\0";
-pub const SCNiMAX: &[u8; 4] = b"lli\0";
-pub const SCNoMAX: &[u8; 4] = b"llo\0";
-pub const SCNuMAX: &[u8; 4] = b"llu\0";
-pub const SCNxMAX: &[u8; 4] = b"llx\0";
-pub const SCNdPTR: &[u8; 3] = b"ld\0";
-pub const SCNiPTR: &[u8; 3] = b"li\0";
-pub const SCNoPTR: &[u8; 3] = b"lo\0";
-pub const SCNuPTR: &[u8; 3] = b"lu\0";
-pub const SCNxPTR: &[u8; 3] = b"lx\0";
-pub const __bool_true_false_are_defined: u32 = 1;
-pub const true_: u32 = 1;
-pub const false_: u32 = 0;
 pub const SDL_PRIs64: &[u8; 4] = b"lld\0";
 pub const SDL_PRIu64: &[u8; 4] = b"llu\0";
 pub const SDL_PRIx64: &[u8; 4] = b"llx\0";
@@ -852,6 +686,7 @@ pub const SDL_HINT_EMSCRIPTEN_ASYNCIFY: &[u8; 24] = b"SDL_EMSCRIPTEN_ASYNCIFY\0"
 pub const SDL_HINT_EMSCRIPTEN_CANVAS_SELECTOR: &[u8; 31] = b"SDL_EMSCRIPTEN_CANVAS_SELECTOR\0";
 pub const SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT: &[u8; 32] = b"SDL_EMSCRIPTEN_KEYBOARD_ELEMENT\0";
 pub const SDL_HINT_ENABLE_SCREEN_KEYBOARD: &[u8; 27] = b"SDL_ENABLE_SCREEN_KEYBOARD\0";
+pub const SDL_HINT_ENABLE_STEAM_SCREEN_KEYBOARD: &[u8; 33] = b"SDL_ENABLE_STEAM_SCREEN_KEYBOARD\0";
 pub const SDL_HINT_EVDEV_DEVICES: &[u8; 18] = b"SDL_EVDEV_DEVICES\0";
 pub const SDL_HINT_EVENT_LOGGING: &[u8; 18] = b"SDL_EVENT_LOGGING\0";
 pub const SDL_HINT_FORCE_RAISEWINDOW: &[u8; 22] = b"SDL_FORCE_RAISEWINDOW\0";
@@ -1331,77 +1166,9 @@ pub const SDL_TRAYENTRY_DISABLED: u32 = 2147483648;
 pub const SDL_TRAYENTRY_CHECKED: u32 = 1073741824;
 pub const SDL_MAJOR_VERSION: u32 = 3;
 pub const SDL_MINOR_VERSION: u32 = 4;
-pub const SDL_MICRO_VERSION: u32 = 10;
-pub type __gnuc_va_list = __builtin_va_list;
+pub const SDL_MICRO_VERSION: u32 = 14;
 pub type va_list = __builtin_va_list;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct __locale_struct {
-    _unused: [u8; 0],
-}
-pub type locale_t = *mut __locale_struct;
 pub type wchar_t = core::ffi::c_int;
-pub type wint_t = core::ffi::c_int;
-pub type wctype_t = core::ffi::c_uint;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct _IO_FILE {
-    _unused: [u8; 0],
-}
-pub type FILE = _IO_FILE;
-pub type __isoc_va_list = __builtin_va_list;
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone, Hash)]
-pub struct __mbstate_t {
-    pub __opaque1: core::ffi::c_uint,
-    pub __opaque2: core::ffi::c_uint,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of __mbstate_t"][::core::mem::size_of::<__mbstate_t>() - 8usize];
-    ["Alignment of __mbstate_t"][::core::mem::align_of::<__mbstate_t>() - 4usize];
-    ["Offset of field: __mbstate_t::__opaque1"]
-        [::core::mem::offset_of!(__mbstate_t, __opaque1) - 0usize];
-    ["Offset of field: __mbstate_t::__opaque2"]
-        [::core::mem::offset_of!(__mbstate_t, __opaque2) - 4usize];
-};
-pub type mbstate_t = __mbstate_t;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct tm {
-    _unused: [u8; 0],
-}
-pub type intmax_t = core::ffi::c_longlong;
-pub type uintmax_t = core::ffi::c_ulonglong;
-pub type int_fast8_t = core::ffi::c_schar;
-pub type int_fast16_t = core::ffi::c_short;
-pub type int_fast32_t = core::ffi::c_int;
-pub type int_fast64_t = core::ffi::c_longlong;
-pub type int_least8_t = core::ffi::c_schar;
-pub type int_least16_t = core::ffi::c_short;
-pub type int_least32_t = core::ffi::c_int;
-pub type int_least64_t = core::ffi::c_longlong;
-pub type uint_fast8_t = core::ffi::c_uchar;
-pub type uint_fast16_t = core::ffi::c_ushort;
-pub type uint_fast32_t = core::ffi::c_uint;
-pub type uint_fast64_t = core::ffi::c_ulonglong;
-pub type uint_least8_t = core::ffi::c_uchar;
-pub type uint_least16_t = core::ffi::c_ushort;
-pub type uint_least32_t = core::ffi::c_uint;
-pub type uint_least64_t = core::ffi::c_ulonglong;
-#[repr(C)]
-#[derive(Debug, Default, Copy, Clone, Hash)]
-pub struct imaxdiv_t {
-    pub quot: intmax_t,
-    pub rem: intmax_t,
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of imaxdiv_t"][::core::mem::size_of::<imaxdiv_t>() - 16usize];
-    ["Alignment of imaxdiv_t"][::core::mem::align_of::<imaxdiv_t>() - 8usize];
-    ["Offset of field: imaxdiv_t::quot"][::core::mem::offset_of!(imaxdiv_t, quot) - 0usize];
-    ["Offset of field: imaxdiv_t::rem"][::core::mem::offset_of!(imaxdiv_t, rem) - 8usize];
-};
 #[doc = "A signed 8-bit integer type.\n\n**Available Since:** This macro is available since SDL 3.2.0."]
 pub type Sint8 = i8;
 #[doc = "An unsigned 8-bit integer type.\n\n**Available Since:** This macro is available since SDL 3.2.0."]
@@ -3881,7 +3648,7 @@ unsafe extern "C" {
     #[doc = "Unlock an audio stream for serialized access.\n\nThis unlocks an audio stream after a call to SDL_LockAudioStream.\n\n**Parameter:** stream the audio stream to unlock.\n\n**Returns:** true on success or false on failure; call SDL_GetError() for more\ninformation.\n\n**Thread Safety:** You should only call this from the same thread that\npreviously called SDL_LockAudioStream.\n\n**Available Since:** This function is available since SDL 3.2.0.\n\n**See Also:** SDL_LockAudioStream"]
     pub fn SDL_UnlockAudioStream(stream: *mut SDL_AudioStream) -> bool;
 }
-#[doc = "A callback that fires when data passes through an SDL_AudioStream.\n\nApps can (optionally) register a callback with an audio stream that is\ncalled when data is added with SDL_PutAudioStreamData, or requested with\nSDL_GetAudioStreamData.\n\nTwo values are offered here: one is the amount of additional data needed to\nsatisfy the immediate request (which might be zero if the stream already\nhas enough data queued) and the other is the total amount being requested.\nIn a Get call triggering a Put callback, these values can be different. In\na Put call triggering a Get callback, these values are always the same.\n\nByte counts might be slightly overestimated due to buffering or resampling,\nand may change from call to call.\n\nThis callback is not required to do anything. Generally this is useful for\nadding/reading data on demand, and the app will often put/get data as\nappropriate, but the system goes on with the data currently available to it\nif this callback does nothing.\n\n**Parameter:** stream the SDL audio stream associated with this callback.\n\n**Parameter:** additional_amount the amount of data, in bytes, that is needed right\nnow.\n\n**Parameter:** total_amount the total amount of data requested, in bytes, that is\nrequested or available.\n\n**Parameter:** userdata an opaque pointer provided by the app for their personal\nuse.\n\n**Thread Safety:** This callbacks may run from any thread, so if you need to\nprotect shared data, you should use SDL_LockAudioStream to\nserialize access; this lock will be held before your callback\nis called, so your callback does not need to manage the lock\nexplicitly.\n\n**Available Since:** This datatype is available since SDL 3.2.0.\n\n**See Also:** SDL_SetAudioStreamGetCallback\n\n**See Also:** SDL_SetAudioStreamPutCallback"]
+#[doc = "A callback that fires when data passes through an SDL_AudioStream.\n\nApps can (optionally) register a callback with an audio stream that is\ncalled when data is added with SDL_PutAudioStreamData, or requested with\nSDL_GetAudioStreamData.\n\nTwo values are offered here: one is the amount of additional data needed to\nsatisfy the immediate request (which might be zero if the stream already\nhas enough data queued) and the other is the total amount being requested.\nIn a Get call triggering a Put callback, these values can be different. In\na Put call triggering a Get callback, these values are always the same.\n\nByte counts might be slightly overestimated due to buffering or resampling,\nand may change from call to call.\n\nThis callback is not required to do anything. Generally this is useful for\nadding/reading data on demand, and the app will often put/get data as\nappropriate, but the system goes on with the data currently available to it\nif this callback does nothing.\n\nDo not call SDL_DestroyAudioStream() on `stream` during this callback.\n\n**Parameter:** stream the SDL audio stream associated with this callback.\n\n**Parameter:** additional_amount the amount of data, in bytes, that is needed right\nnow.\n\n**Parameter:** total_amount the total amount of data requested, in bytes, that is\nrequested or available.\n\n**Parameter:** userdata an opaque pointer provided by the app for their personal\nuse.\n\n**Thread Safety:** This callbacks may run from any thread, so if you need to\nprotect shared data, you should use SDL_LockAudioStream to\nserialize access; this lock will be held before your callback\nis called, so your callback does not need to manage the lock\nexplicitly.\n\n**Available Since:** This datatype is available since SDL 3.2.0.\n\n**See Also:** SDL_SetAudioStreamGetCallback\n\n**See Also:** SDL_SetAudioStreamPutCallback"]
 pub type SDL_AudioStreamCallback = ::core::option::Option<
     unsafe extern "C" fn(
         userdata: *mut core::ffi::c_void,
@@ -11297,7 +11064,7 @@ impl SDL_GPUTextureFormat {
 #[doc = "Specifies the pixel format of a texture.\n\nTexture format support varies depending on driver, hardware, and usage\nflags. In general, you should use SDL_GPUTextureSupportsFormat to query if\na format is supported before using it. However, there are a few guaranteed\nformats.\n\nFIXME: Check universal support for 32-bit component formats FIXME: Check\nuniversal support for SIMULTANEOUS_READ_WRITE\n\nFor SAMPLER usage, the following formats are universally supported:\n\n- R8G8B8A8_UNORM\n- B8G8R8A8_UNORM\n- R8_UNORM\n- R8_SNORM\n- R8G8_UNORM\n- R8G8_SNORM\n- R8G8B8A8_SNORM\n- R16_FLOAT\n- R16G16_FLOAT\n- R16G16B16A16_FLOAT\n- R32_FLOAT\n- R32G32_FLOAT\n- R32G32B32A32_FLOAT\n- R11G11B10_UFLOAT\n- R8G8B8A8_UNORM_SRGB\n- B8G8R8A8_UNORM_SRGB\n- D16_UNORM\n\nFor COLOR_TARGET usage, the following formats are universally supported:\n\n- R8G8B8A8_UNORM\n- B8G8R8A8_UNORM\n- R8_UNORM\n- R16_FLOAT\n- R16G16_FLOAT\n- R16G16B16A16_FLOAT\n- R32_FLOAT\n- R32G32_FLOAT\n- R32G32B32A32_FLOAT\n- R8_UINT\n- R8G8_UINT\n- R8G8B8A8_UINT\n- R16_UINT\n- R16G16_UINT\n- R16G16B16A16_UINT\n- R8_INT\n- R8G8_INT\n- R8G8B8A8_INT\n- R16_INT\n- R16G16_INT\n- R16G16B16A16_INT\n- R8G8B8A8_UNORM_SRGB\n- B8G8R8A8_UNORM_SRGB\n\nFor STORAGE usages, the following formats are universally supported:\n\n- R8G8B8A8_UNORM\n- R8G8B8A8_SNORM\n- R16G16B16A16_FLOAT\n- R32_FLOAT\n- R32G32_FLOAT\n- R32G32B32A32_FLOAT\n- R8G8B8A8_UINT\n- R16G16B16A16_UINT\n- R8G8B8A8_INT\n- R16G16B16A16_INT\n\nFor DEPTH_STENCIL_TARGET usage, the following formats are universally\nsupported:\n\n- D16_UNORM\n- Either (but not necessarily both!) D24_UNORM or D32_FLOAT\n- Either (but not necessarily both!) D24_UNORM_S8_UINT or D32_FLOAT_S8_UINT\n\nUnless D16_UNORM is sufficient for your purposes, always check which of\nD24/D32 is supported before creating a depth-stencil texture!\n\n**Available Since:** This enum is available since SDL 3.2.0.\n\n**See Also:** SDL_CreateGPUTexture\n\n**See Also:** SDL_GPUTextureSupportsFormat"]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct SDL_GPUTextureFormat(pub core::ffi::c_uint);
-#[doc = "Specifies how a texture is intended to be used by the client.\n\nA texture must have at least one usage flag. Note that some usage flag\ncombinations are invalid.\n\nWith regards to compute storage usage, READ | WRITE means that you can have\nshader A that only writes into the texture and shader B that only reads\nfrom the texture and bind the same texture to either shader respectively.\nSIMULTANEOUS means that you can do reads and writes within the same shader\nor compute pass. It also implies that atomic ops can be used, since those\nare read-modify-write operations. If you use SIMULTANEOUS, you are\nresponsible for avoiding data races, as there is no data synchronization\nwithin a compute pass. Note that SIMULTANEOUS usage is only supported by a\nlimited number of texture formats.\n\n**Available Since:** This datatype is available since SDL 3.2.0.\n\n**See Also:** SDL_CreateGPUTexture"]
+#[doc = "Specifies how a texture is intended to be used by the client.\n\nA texture must have at least one usage flag.\nNote that combining SAMPLER with STORAGE_READ flags is invalid.\n\nWith regards to compute storage usage, READ | WRITE means that you can have\nshader A that only writes into the texture and shader B that only reads\nfrom the texture and bind the same texture to either shader respectively.\nSIMULTANEOUS means that you can do reads and writes within the same shader\nor compute pass. It also implies that atomic ops can be used, since those\nare read-modify-write operations. If you use SIMULTANEOUS, you are\nresponsible for avoiding data races, as there is no data synchronization\nwithin a compute pass. Note that SIMULTANEOUS usage is only supported by a\nlimited number of texture formats.\n\n**Available Since:** This datatype is available since SDL 3.2.0.\n\n**See Also:** SDL_CreateGPUTexture"]
 pub type SDL_GPUTextureUsageFlags = Uint32;
 impl SDL_GPUTextureType {
     #[doc = "< The texture is a 2-dimensional image."]
@@ -11341,7 +11108,7 @@ impl SDL_GPUCubeMapFace {
 #[doc = "Specifies the face of a cube map.\n\nCan be passed in as the layer field in texture-related structs.\n\n**Available Since:** This enum is available since SDL 3.2.0."]
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub struct SDL_GPUCubeMapFace(pub core::ffi::c_uint);
-#[doc = "Specifies how a buffer is intended to be used by the client.\n\nA buffer must have at least one usage flag. Note that some usage flag\ncombinations are invalid.\n\nUnlike textures, READ | WRITE can be used for simultaneous read-write\nusage. The same data synchronization concerns as textures apply.\n\nIf you use a STORAGE flag, the data in the buffer must respect std140\nlayout conventions. In practical terms this means you must ensure that vec3\nand vec4 fields are 16-byte aligned.\n\n**Available Since:** This datatype is available since SDL 3.2.0.\n\n**See Also:** SDL_CreateGPUBuffer"]
+#[doc = "Specifies how a buffer is intended to be used by the client.\n\nA buffer must have at least one usage flag.\n\nIf a buffer has multiple read usages, this may lead to a performance penalty\ndue to more conservative memory barriers, but it also may not necessarily affect the performance.\n\nUnlike textures, READ | WRITE can be used for simultaneous read-write\nusage. The same data synchronization concerns as textures apply.\n\nIf you use a STORAGE flag, the data in the buffer must respect std140\nlayout conventions. In practical terms this means you must ensure that vec3\nand vec4 fields are 16-byte aligned.\n\n**Available Since:** This datatype is available since SDL 3.2.0.\n\n**See Also:** SDL_CreateGPUBuffer"]
 pub type SDL_GPUBufferUsageFlags = Uint32;
 impl SDL_GPUTransferBufferUsage {
     pub const SDL_GPU_TRANSFERBUFFERUSAGE_UPLOAD: SDL_GPUTransferBufferUsage =

@@ -1,6 +1,6 @@
 [package]
 name = "sdl-mixer-sys"
-version = "0.1.4+3.2.2-a5e1890afc5115ffd16cefdbb4d50f74bf4970ce"
+version = "0.1.5+3.2.4-72a81869b45e249e8e67102db4e98dd2441f05a1"
 edition = "2024"
 description = "Alternative bindings for SDL3_mixer using bindgen"
 repository = "https://github.com/achusbyr/sdl-sys-rs"
