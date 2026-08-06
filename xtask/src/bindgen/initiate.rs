@@ -90,14 +90,6 @@ fn generate_crate_bindings(
             }
         }
 
-        // Vulkan config. Note that SDL doesn't bundle MoltenVK, using Vulkan on Apple platforms requires the user to handle it themselves
-        // Marking raw string checking for library name in case of future changes to the config structure
-        if config.lib_name == "SDL3"
-            && (target.contains("windows") || target.contains("linux") || target.contains("apple"))
-        {
-            builder = builder.header("submodules/SDL/include/SDL3/SDL_vulkan.h");
-        }
-
         // Add headers from config
         for header_file in config.headers {
             let header_path = root_dir.join(header_file);
