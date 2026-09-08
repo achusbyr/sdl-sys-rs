@@ -21,10 +21,8 @@ Low-level Rust FFI bindings for **SDL3** and its satellite libraries, featuring 
 | [`sdl-mixer-sys`](./sdl-mixer-sys) | Bindings for SDL3_mixer. |
 | [`sdl-ttf-sys`](./sdl-ttf-sys) | Bindings for SDL3_ttf. |
 | [`sdl-main-wrapper`](./sdl-main-wrapper) | High-level `SdlApp` trait and `run_app` infrastructure. |
-| `sdl-build-helper` | Internal Typestate-based build logic (shared by `-sys` crates). |
+| `sdl-build-helper` | Internal build logic (shared by `-sys` crates). |
 | `xtask` | Developer tool for regenerating bindings. |
-
----
 
 ## Quick Start
 
@@ -74,51 +72,54 @@ The `-sys` crates provide several features to control linkage:
 
 If no features are selected, the build script defaults to dynamic linkage against system-installed libraries.
 
----
-
 ## Configuration Overrides
 
 When using `build-from-source`, you can fine-tune the build via environment variables:
 
 | Variable | Description |
 |---|---|
-| `SDL3_SOURCE_OVERRIDE` | Path to a local SDL3 source directory (skips Git clone). |
-| `SDL3_REPOSITORY_OVERRIDE` | Custom Git URL for the SDL3 repository. |
-| `SDL3_BRANCH_OVERRIDE` | Custom branch, tag, or commit hash to checkout. |
-| `SDL3_CMAKE_OVERRIDE` | Extra flags passed to CMake (e.g., `-DSDL_WAYLAND=OFF`). |
+| `(LIB)_SOURCE_OVERRIDE` | Path to a local SDL3 source directory (skips Git clone). |
+| `(LIB)_REPOSITORY_OVERRIDE` | Custom Git URL for the SDL3 repository. |
+| `(LIB)_BRANCH_OVERRIDE` | Custom branch, tag, or commit hash to checkout. |
+| `(LIB)_CMAKE_OVERRIDE` | Extra flags passed to CMake (e.g., `-DSDL_WAYLAND=OFF`). |
 
-*(Replace `SDL3` with `SDL3_IMAGE`, `SDL3_MIXER`, or `SDL3_TTF` for satellite libraries.)*
-
----
-
-## Advanced: Regenerating Bindings
-
-Bindings are pre-generated for most platforms. If you need to support a new platform or a custom SDL version:
-
-1. Clone with submodules: `git clone --recurse-submodules https://github.com/achusbyr/sdl-sys-rs.git`
-2. Ensure `bindgen` prerequisites (Clang/LLVM) are installed.
-3. Run the generator:
-   ```bash
-   cargo xtask
-   ```
-4. To add a new target, modify `xtask/src/main.rs` and update the `TARGETS` array.
-
----
+*(Replace `(LIB)` with `SDL3`, `SDL3_IMAGE`, `SDL3_MIXER`, or `SDL3_TTF`.)*
 
 ## Platform-Specific Notes
 
 ### WASM / Emscripten
 
-1. Install and setup `emsdk`.
-2. Build with the Emscripten target:
-   ```bash
-   cargo build --target wasm32-unknown-emscripten
-   ```
-3. Ensure your `SDL_main` is properly exported, you may have to manually expose a `SDL_main` function.
+1. Install and setup `emsdk` (`git clone https://github.com/emscripten-core/emsdk.git`)
+2. Make sure the environment is prepared and build with the Emscripten target: `cargo build --target wasm32-unknown-emscripten`
+
+You may have to manually expose a `SDL_main` function. For cross-generating bindings, run `cargo xtask` instead.
 
 ### Apple (iOS / macOS)
 
-Use the `--osx-sdk` or `--ios-sdk` flags with `cargo xtask` if cross-generating.
+Use the `--osx-sdk` and/or `--ios-sdk` flags with `cargo xtask` if cross-generating.
+
+## Development
+
+Make sure Clang is installed for bindgen.
+
+### Updating Bindings
+
+The process for updating bindings is as follows:
+
+1. Find the commit marking the latest release (e.g., [SDL 3.4.16](https://github.com/libsdl-org/SDL/releases/tag/release-3.4.16), in the top right corner, is commit [fa2c02b](https://github.com/libsdl-org/SDL/commit/fa2c02bb6e21974a89ea9824bc53c9932abe5f9c))
+2. Head to the corresponding bindings crate and bump the version (`0.1.5` -> `0.1.6`), the SDL version (`3.4.14` -> `3.4.16`), and the commit (`147a8ee...` -> `fa2c02b...`). Note that the commit must be the full hash.
+3. If you want to generate bindings for every target, [prepare your environment for cross compilation beforehand.](#platform-specific-notes)
+4. Run: `cargo xtask`
+
+### Adding Bindings
+
+#### Adding A New Platform
+
+Bindings are pre-generated for most platforms. If you need to support a new platform:
+
+1. Clone with submodules: `git clone --recurse-submodules https://github.com/achusbyr/sdl-sys-rs.git`
+2. To add a new target, update the `TARGETS` array in `xtask/src/main.rs`.
+3. Run the generator: `cargo xtask`
 
 ## License
 
