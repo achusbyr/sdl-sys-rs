@@ -1,11 +1,8 @@
 [workspace]
 resolver = "3"
 members = [
-    "xtask",
     "sdl-build-helper",
-    "sdl-sys-bindgen",
-    "sdl-image-sys",
-    "sdl-mixer-sys",
-    "sdl-ttf-sys",
     "sdl-main-wrapper",
+    "bindings/*",
+    "xtask"
 ]

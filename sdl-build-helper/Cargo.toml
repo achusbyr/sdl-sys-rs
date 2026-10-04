@@ -1,21 +1,22 @@
 [package]
 name = "sdl-build-helper"
-version = "0.1.4"
+version = "0.1.5"
+edition = "2024"
+rust-version = "1.89"
 description = "Internal library for building and linking SDL in use with bindgen"
 repository = "https://github.com/achusbyr/sdl-sys-rs"
 license = "Zlib"
-edition = "2024"
 categories = ["development-tools::build-utils"]
 keywords = ["sdl", "cmake"]
 
 [dependencies]
+git2 = { version = "0.21", features = ["https"], optional = true }
 pkg-config = { version = "0.3", optional = true }
-git2 = { version = "0.20", optional = true }
 cmake = { version = "0.1", optional = true }
 vcpkg = { version = "0.2", optional = true }
 cc = "1.0"
 
 [features]
-build-from-source = ["dep:cmake", "dep:git2"]
+build-from-source = ["dep:cmake", "dep:git2", "dep:pkg-config"]
 use-pkg-config = ["dep:pkg-config"]
 use-vcpkg = ["dep:vcpkg"]

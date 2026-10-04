@@ -1,0 +1,23 @@
+[package]
+name = "sdl-ttf-sys"
+version = "0.1.7+3.2.2-a1ce3670aec736ecbf0936c43f2f0cc53aa61e5b"
+edition = "2024"
+rust-version = "1.89"
+description = "Alternative bindings for SDL3_ttf using bindgen"
+repository = "https://github.com/achusbyr/sdl-sys-rs"
+license = "Zlib"
+links = "SDL3_ttf"
+categories = ["external-ffi-bindings"]
+keywords = ["sdl", "ffi", "ttf", "font"]
+
+[features]
+build-from-source = ["sdl-build-helper/build-from-source"]
+use-pkg-config = ["sdl-build-helper/use-pkg-config"]
+use-vcpkg = ["sdl-build-helper/use-vcpkg"]
+link-static = []
+
+[dependencies]
+sdl-sys-bindgen = { path = "../sdl-sys-bindgen", version = "0.1" }
+
+[build-dependencies]
+sdl-build-helper = { path = "../../sdl-build-helper", version = "0.1" }

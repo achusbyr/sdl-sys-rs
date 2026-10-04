@@ -5,38 +5,46 @@ use std::{
     path::{Path, PathBuf},
 };
 
+type Result<T> = std::result::Result<T, String>;
+
+/// Removes the bundled `src/generated/include` folder, if present.
+pub fn remove_crate_headers(out_path: &Path) -> Result<()> {
+    let crate_include_path = out_path.join("include");
+    if crate_include_path.exists() {
+        fs::remove_dir_all(&crate_include_path)
+            .map_err(|e| format!("Failed to remove {crate_include_path:?}: {e}"))?;
+    }
+    Ok(())
+}
+
 /// Internal helper to copy all headers from configured include directories into the sys-crate's `src/generated/include` folder.
-pub fn copy_headers_to_crate(config: &SysCrateConfig, root_dir: &Path, out_path: &Path) {
+pub fn copy_headers_to_crate(
+    config: &SysCrateConfig,
+    root_dir: &Path,
+    out_path: &Path,
+) -> Result<()> {
     let crate_include_path = out_path.join("include");
 
     if crate_include_path.exists() {
-        fs::remove_dir_all(&crate_include_path).unwrap_or_else(|e| {
-            panic!(
-                "Failed to clean old include directory at {:?}: {e}",
-                crate_include_path
-            )
-        });
+        fs::remove_dir_all(&crate_include_path).map_err(|e| {
+            format!("Failed to clean old include directory at {crate_include_path:?}: {e}")
+        })?;
     }
-    fs::create_dir_all(&crate_include_path).unwrap_or_else(|e| {
-        panic!(
-            "Failed to create include directory at {:?}: {e}",
-            crate_include_path
-        )
-    });
+    fs::create_dir_all(&crate_include_path).map_err(|e| {
+        format!("Failed to create include directory at {crate_include_path:?}: {e}")
+    })?;
 
     for inc in config.include_dirs {
         let src_inc = root_dir.join(inc);
         if src_inc.exists() {
-            copy_dir_all(&src_inc, &crate_include_path).unwrap_or_else(|e| {
-                panic!(
-                    "Failed to copy headers from {:?} to {:?}: {e}",
-                    src_inc, crate_include_path
-                )
-            });
+            copy_dir_all(&src_inc, &crate_include_path).map_err(|e| {
+                format!("Failed to copy headers from {src_inc:?} to {crate_include_path:?}: {e}")
+            })?;
         } else {
             println!("WARNING: Include directory not found: {:?}", src_inc);
         }
     }
+    Ok(())
 }
 
 /// Rewrites `#include` directives in the generated inline-wrapper C file to use paths relative
@@ -46,26 +54,27 @@ pub fn rewrite_inlines_includes(
     config: &SysCrateConfig,
     root_dir: &Path,
     out_path: &Path,
-) {
+) -> Result<()> {
     if !inlines_c.exists() {
-        return;
+        return Ok(());
     }
 
     let content = fs::read_to_string(inlines_c)
-        .unwrap_or_else(|e| panic!("Failed to read {}: {e}", inlines_c.display()));
+        .map_err(|e| format!("Failed to read {}: {e}", inlines_c.display()))?;
     let mut new_content = String::with_capacity(content.len());
 
     for line in content.lines() {
         if line.starts_with("#include") {
             let rewritten = rewrite_include_line(line, config, root_dir, out_path);
-            writeln!(new_content, "#include \"{}\"", rewritten.display()).unwrap();
+            writeln!(new_content, "#include \"{}\"", rewritten.display())
+                .map_err(|e| e.to_string())?;
         } else {
-            writeln!(new_content, "{}", line).unwrap();
+            writeln!(new_content, "{}", line).map_err(|e| e.to_string())?;
         }
     }
 
     fs::write(inlines_c, new_content)
-        .unwrap_or_else(|e| panic!("Failed to write {}: {e}", inlines_c.display()));
+        .map_err(|e| format!("Failed to write {}: {e}", inlines_c.display()))
 }
 
 /// Logic for mapping a submodule-based include path to a crate-internal relative path.
@@ -105,12 +114,11 @@ fn rewrite_include_line(
 
         if !found {
             // Fallback: calculate a relative path based on the output directory depth.
-            // This assumes a standard workspace structure where sys-crates are one level below root.
             let relative: PathBuf = components[pos..].iter().collect();
             let depth = out_path
                 .strip_prefix(root_dir)
                 .map(|p| p.components().count())
-                .unwrap_or(3);
+                .unwrap_or(4);
             let prefix = "../".repeat(depth);
             PathBuf::from(format!("{}{}", prefix, relative.display()))
         } else {

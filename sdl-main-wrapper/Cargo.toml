@@ -1,7 +1,8 @@
 [package]
 name = "sdl-main-wrapper"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
+rust-version = "1.89"
 description = "Wrapper over SDL's callback-based app loop"
 repository = "https://github.com/achusbyr/sdl-sys-rs"
 license = "Zlib"
@@ -10,9 +11,7 @@ keywords = ["sdl", "wrapper"]
 
 [features]
 default = ["alloc"]
-args = ["std"]
-std = ["alloc"]
 alloc = []
 
 [dependencies]
-sdl-sys-bindgen = { path = "../sdl-sys-bindgen", version = "0.1" }
+sdl-sys-bindgen = { path = "../bindings/sdl-sys-bindgen", version = "0.1" }

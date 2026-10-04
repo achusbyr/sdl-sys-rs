@@ -1,0 +1,20 @@
+[package]
+name = "sdl-sys-bindgen"
+version = "0.1.7+3.4.18-829a65d769d935c4852f8159e964312c0957260a"
+edition = "2024"
+rust-version = "1.89"
+description = "Alternative bindings for SDL using bindgen"
+repository = "https://github.com/achusbyr/sdl-sys-rs"
+license = "Zlib"
+links = "SDL3"
+categories = ["external-ffi-bindings"]
+keywords = ["sdl", "ffi"]
+
+[features]
+build-from-source = ["sdl-build-helper/build-from-source"]
+use-pkg-config = ["sdl-build-helper/use-pkg-config"]
+use-vcpkg = ["sdl-build-helper/use-vcpkg"]
+link-static = []
+
+[build-dependencies]
+sdl-build-helper = { path = "../../sdl-build-helper", version = "0.1" }

@@ -1,24 +1,86 @@
 use regex::Regex;
 use std::{
+    collections::HashSet,
     fs,
-    io::Write,
     path::{Path, PathBuf},
+    sync::LazyLock,
 };
 
-/// Collect and sort all `.h` header file paths from a directory.
-fn sorted_header_paths(dir: &Path) -> Vec<PathBuf> {
-    let entries = fs::read_dir(dir)
-        .unwrap_or_else(|e| panic!("Failed to read header directory {}: {e}", dir.display()));
+type Result<T> = std::result::Result<T, String>;
 
-    let mut paths: Vec<_> = entries
-        .map(|r| {
-            r.unwrap_or_else(|e| panic!("Failed to read directory entry in {}: {e}", dir.display()))
-                .path()
-        })
-        .filter(|p| p.extension().and_then(|e| e.to_str()) == Some("h"))
-        .collect();
+static RE_DEFINE: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"^#define\s+(SDL_[A-Z][A-Za-z0-9_]+)\s+(.+)$").unwrap());
+static RE_SDL_C_MACRO: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"^(~?)SDL_([US])INT(8|16|32|64)_C\(([^)]+)\)$").unwrap());
+static RE_CAST: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"^\(([A-Za-z_][A-Za-z0-9_]*)\)\s*(.+)$").unwrap());
+static RE_BIT_SHIFT: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"^\(?\s*1[uU]?\s*<<\s*([0-9]+)\s*\)?$").unwrap());
+static RE_NUMERIC: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"^(-?)(0[xX][0-9A-Fa-f]+|[0-9]+)[uU]?[lL]{0,2}$").unwrap());
+static RE_LITERAL: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"^(?:0[xX][0-9A-Fa-f]+|[0-9]+)$").unwrap());
+static RE_CONST_NAME: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"pub const ([A-Za-z0-9_]+)\s*:").unwrap());
+static RE_TYPE_ALIAS: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"pub type ([A-Za-z0-9_]+)\s*=").unwrap());
+
+/// A string `#define` (hint or property) together with its preceding doc comment.
+struct Entry {
+    name: String,
+    value: String,
+    doc: String,
+}
+
+fn read_file(path: &Path) -> Result<String> {
+    fs::read_to_string(path).map_err(|e| format!("Failed to read {}: {e}", path.display()))
+}
+
+/// Collect and sort all `.h` header file paths from a directory.
+fn sorted_header_paths(dir: &Path) -> Result<Vec<PathBuf>> {
+    let entries = fs::read_dir(dir)
+        .map_err(|e| format!("Failed to read header directory {}: {e}", dir.display()))?;
+
+    let mut paths = Vec::new();
+    for entry in entries {
+        let path = entry
+            .map_err(|e| format!("Failed to read directory entry in {}: {e}", dir.display()))?
+            .path();
+        if path.extension().and_then(|e| e.to_str()) == Some("h") {
+            paths.push(path);
+        }
+    }
     paths.sort();
-    paths
+    Ok(paths)
+}
+
+fn define_regex(prefix: &str) -> Result<Regex> {
+    Regex::new(&format!(
+        r#"^#define\s+({}[A-Za-z0-9_]+)\s+"([^"]+)"(?:\s*/\*.*\*/|\s*//.*)?"#,
+        regex::escape(prefix)
+    ))
+    .map_err(|e| format!("Invalid prefix '{prefix}': {e}"))
+}
+
+fn capture_define(re: &Regex, line: &str) -> Option<(String, String)> {
+    re.captures(line)
+        .map(|caps| (caps[1].to_string(), caps[2].to_string()))
+}
+
+/// Infer the property type based on the suffix of the constant name.
+fn property_type(name: &str) -> &'static str {
+    if name.ends_with("_STRING") {
+        "PropertyType::String"
+    } else if name.ends_with("_NUMBER") {
+        "PropertyType::Number"
+    } else if name.ends_with("_FLOAT") {
+        "PropertyType::Float"
+    } else if name.ends_with("_BOOLEAN") {
+        "PropertyType::Boolean"
+    } else {
+        // `_POINTER` and anything unrecognised.
+        "PropertyType::Pointer"
+    }
 }
 
 /// Scans SDL headers for `#define` macros that represent "Hints" or "Properties".
@@ -31,31 +93,20 @@ pub fn extract_and_generate(
     lib_name: &str,
     hint_prefix: &str,
     prop_prefix: &str,
-) {
+) -> Result<()> {
     let subsystem_dir = include_dir.join(lib_name);
 
     println!("Extracting constants from {:?}...", subsystem_dir);
 
     let mut hints = Vec::new();
     let mut props = Vec::new();
-    let mut seen = std::collections::HashSet::new();
+    let mut seen = HashSet::new();
 
-    let re_hint = Regex::new(&format!(
-        r#"^#define\s+({}[A-Za-z0-9_]+)\s+"([^"]+)"(?:\s*/\*.*\*/|\s*//.*)?"#,
-        hint_prefix
-    ))
-    .unwrap();
-    let re_prop = Regex::new(&format!(
-        r#"^#define\s+({}[A-Za-z0-9_]+)\s+"([^"]+)"(?:\s*/\*.*\*/|\s*//.*)?"#,
-        prop_prefix
-    ))
-    .unwrap();
+    let re_hint = define_regex(hint_prefix)?;
+    let re_prop = define_regex(prop_prefix)?;
 
-    let paths = sorted_header_paths(&subsystem_dir);
-
-    for path in paths {
-        let content = fs::read_to_string(&path)
-            .unwrap_or_else(|e| panic!("Failed to read {}: {e}", path.display()));
+    for path in sorted_header_paths(&subsystem_dir)? {
+        let content = read_file(&path)?;
         let mut current_doc = String::new();
         let mut in_doc = false;
 
@@ -73,261 +124,157 @@ pub fn extract_and_generate(
                 if trimmed.ends_with("*/") {
                     in_doc = false;
                 }
-            } else if let Some(caps) = re_hint.captures(trimmed) {
-                let name = caps.get(1).unwrap().as_str().to_string();
+            } else if let Some(((name, value), list)) =
+                [(&re_hint, &mut hints), (&re_prop, &mut props)]
+                    .into_iter()
+                    .find_map(|(re, list)| capture_define(re, trimmed).map(|found| (found, list)))
+            {
+                let doc = std::mem::take(&mut current_doc);
                 if seen.insert(name.clone()) {
-                    hints.push((
-                        name,
-                        caps.get(2).unwrap().as_str().to_string(),
-                        current_doc.clone(),
-                    ));
+                    list.push(Entry { name, value, doc });
                 }
-                current_doc.clear();
-            } else if let Some(caps) = re_prop.captures(trimmed) {
-                let name = caps.get(1).unwrap().as_str().to_string();
-                if seen.insert(name.clone()) {
-                    props.push((
-                        name,
-                        caps.get(2).unwrap().as_str().to_string(),
-                        current_doc.clone(),
-                    ));
-                }
-                current_doc.clear();
             } else if !trimmed.is_empty() {
                 current_doc.clear();
             }
         }
     }
 
-    let mut out = fs::File::create(out_file)
-        .unwrap_or_else(|e| panic!("Failed to create {}: {e}", out_file.display()));
-    writeln!(out, "//! Generated constants\n").unwrap();
-    writeln!(out, "#[derive(Debug, Clone, Copy, PartialEq, Eq)]").unwrap();
-    writeln!(
-        out,
-        "pub enum PropertyType {{ Pointer, String, Number, Float, Boolean }}"
-    )
-    .unwrap();
-    writeln!(out, "\n#[derive(Debug, Clone, Copy)]").unwrap();
-    writeln!(out, "pub struct Hint {{\n    pub name: &'static str,\n    pub value: &'static str,\n    pub doc: &'static str,\n}}").unwrap();
-    writeln!(out, "\n#[derive(Debug, Clone, Copy)]").unwrap();
-    writeln!(out, "pub struct Property {{\n    pub name: &'static str,\n    pub value: &'static str,\n    pub ty: PropertyType,\n    pub doc: &'static str,\n}}\n").unwrap();
+    let mut out = String::from(
+        "//! Generated constants\n\
+         \n\
+         #[derive(Debug, Clone, Copy, PartialEq, Eq)]\n\
+         pub enum PropertyType { Pointer, String, Number, Float, Boolean }\n\
+         \n\
+         #[derive(Debug, Clone, Copy)]\n\
+         pub struct Hint {\n    pub name: &'static str,\n    pub value: &'static str,\n    pub doc: &'static str,\n}\n\
+         \n\
+         #[derive(Debug, Clone, Copy)]\n\
+         pub struct Property {\n    pub name: &'static str,\n    pub value: &'static str,\n    pub ty: PropertyType,\n    pub doc: &'static str,\n}\n\n",
+    );
 
-    for (n, v, d) in &hints {
-        writeln!(
-            out,
-            "{d}pub const {n}: Hint = Hint {{ name: \"{n}\", value: \"{v}\", doc: {d:?} }};"
-        )
-        .unwrap();
+    for Entry { name, value, doc } in &hints {
+        out.push_str(&format!(
+            "{doc}pub const {name}: Hint = Hint {{ name: {name:?}, value: {value:?}, doc: {doc:?} }};\n"
+        ));
+    }
+    for Entry { name, value, doc } in &props {
+        let ty = property_type(name);
+        out.push_str(&format!(
+            "{doc}pub const {name}: Property = Property {{ name: {name:?}, value: {value:?}, ty: {ty}, doc: {doc:?} }};\n"
+        ));
     }
 
-    // Infer the property type based on the suffix of the constant name.
-    for (n, v, d) in &props {
-        let ty = if n.ends_with("_POINTER") {
-            "PropertyType::Pointer"
-        } else if n.ends_with("_STRING") {
-            "PropertyType::String"
-        } else if n.ends_with("_NUMBER") {
-            "PropertyType::Number"
-        } else if n.ends_with("_FLOAT") {
-            "PropertyType::Float"
-        } else if n.ends_with("_BOOLEAN") {
-            "PropertyType::Boolean"
-        } else {
-            "PropertyType::Pointer"
-        };
-        writeln!(
-            out,
-            "{d}pub const {n}: Property = Property {{ name: \"{n}\", value: \"{v}\", ty: {ty}, doc: {d:?} }};"
-        )
-        .unwrap();
-    }
+    fs::write(out_file, out).map_err(|e| format!("Failed to write {}: {e}", out_file.display()))
 }
 
-pub fn append_macro_constants(include_dir: &Path, out_file: &Path, lib_name: &str) {
+/// Appends numeric `#define` constants that bindgen did not emit to the bindings file.
+pub fn append_macro_constants(include_dir: &Path, out_file: &Path, lib_name: &str) -> Result<()> {
     let subsystem_dir = include_dir.join(lib_name);
-    let paths = sorted_header_paths(&subsystem_dir);
-
-    // Regex to match #define NAME VALUE
-    // We target names starting with SDL_ and values that don't look like function macros.
-    let re_define = Regex::new(r#"^#define\s+(SDL_[A-Z][A-Za-z0-9_]+)\s+(.+)$"#).unwrap();
-
-    // Specific patterns within the value
-    let re_sdl_c_macro = Regex::new(r#"SDL_(U?)INT(64|32|16|8)_C\(([^)]+)\)"#).unwrap();
-    let re_cast = Regex::new(r#"\(([A-Za-z0-9_]+)\)\s*(.+)$"#).unwrap();
-    let re_bit_shift = Regex::new(r#"\(\s*(1[uU]?)\s*<<\s*([0-9]+)\s*\)"#).unwrap();
-    let re_numeric = Regex::new(r#"^-?([0-9]+|0x[0-9A-Fa-f]+)[uU]?[lL]{0,2}$"#).unwrap();
+    let bindings = read_file(out_file)?;
+    let mut known: HashSet<String> = RE_CONST_NAME
+        .captures_iter(&bindings)
+        .map(|caps| caps[1].to_string())
+        .collect();
+    let aliases: HashSet<String> = RE_TYPE_ALIAS
+        .captures_iter(&bindings)
+        .map(|caps| caps[1].to_string())
+        .collect();
 
     let mut constants = Vec::new();
-    let mut seen_names = std::collections::HashSet::new();
 
-    for path in paths {
+    for path in sorted_header_paths(&subsystem_dir)? {
         let file_name = path.file_name().unwrap_or_default().to_string_lossy();
-        if file_name == "SDL_begin_code.h"
-            || file_name == "SDL_close_code.h"
-            || file_name == "SDL_assert.h"
-            || file_name == "SDL_oldnames.h"
-        {
+        if matches!(
+            file_name.as_ref(),
+            "SDL_begin_code.h" | "SDL_close_code.h" | "SDL_assert.h" | "SDL_oldnames.h"
+        ) {
             continue;
         }
 
-        let content = fs::read_to_string(&path)
-            .unwrap_or_else(|e| panic!("Failed to read {}: {e}", path.display()));
-
-        for line in content.lines() {
+        for line in read_file(&path)?.lines() {
             let trimmed = line.trim();
             if !trimmed.starts_with("#define") {
                 continue;
             }
 
             // Remove trailing comments from the line
-            let line_without_comment = trimmed
+            let without_comment = trimmed
                 .split("//")
                 .next()
-                .unwrap()
+                .unwrap_or_default()
                 .split("/*")
                 .next()
-                .unwrap()
+                .unwrap_or_default()
                 .trim();
 
-            if let Some(caps) = re_define.captures(line_without_comment) {
-                let name = caps.get(1).unwrap().as_str();
-                let mut raw_val = caps.get(2).unwrap().as_str().trim();
-
-                if seen_names.contains(name) {
-                    continue;
-                }
-
-                // Skip if it looks like a function macro
-                if raw_val.contains('\\') || (raw_val.starts_with('(') && !raw_val.ends_with(')')) {
-                    continue;
-                }
-
-                // Strip balanced outer parentheses
-                while raw_val.starts_with('(') && raw_val.ends_with(')') {
-                    let inner = &raw_val[1..raw_val.len() - 1].trim();
-                    let mut depth = 0;
-                    let mut balanced = true;
-                    for c in inner.chars() {
-                        if c == '(' {
-                            depth += 1;
-                        } else if c == ')' {
-                            depth -= 1;
-                            if depth < 0 {
-                                balanced = false;
-                                break;
-                            }
-                        }
-                    }
-                    if balanced && depth == 0 {
-                        raw_val = inner;
-                    } else {
-                        break;
-                    }
-                }
-
-                let mut extracted = None;
-
-                // Try to match various patterns
-                if let Some(c) = re_sdl_c_macro.captures(raw_val) {
-                    let is_unsigned = c.get(1).unwrap().as_str() == "U";
-                    let bits = c.get(2).unwrap().as_str();
-                    let val = c
-                        .get(3)
-                        .unwrap()
-                        .as_str()
-                        .trim()
-                        .trim_end_matches(['U', 'u', 'L', 'l']);
-                    let ty = format!("{}{}", if is_unsigned { "u" } else { "i" }, bits);
-                    extracted = Some((ty, val.to_string()));
-                } else if let Some(c) = re_cast.captures(raw_val) {
-                    let c_type = c.get(1).unwrap().as_str();
-                    let mut inner_val = c
-                        .get(2)
-                        .unwrap()
-                        .as_str()
-                        .trim()
-                        .trim_end_matches(['U', 'u', 'L', 'l'])
-                        .to_string();
-
-                    // Final strip and translation
-                    if inner_val.starts_with('(') && inner_val.ends_with(')') {
-                        inner_val = inner_val[1..inner_val.len() - 1].trim().to_string();
-                    }
-                    inner_val = inner_val.replace('~', "!");
-
-                    let ty = map_c_type_to_rust(c_type);
-                    if inner_val.starts_with('-') && ty.starts_with('u') {
-                        // Use parentheses and i32 suffix to ensure negative literal is valid before casting.
-                        extracted = Some((ty.to_string(), format!("({}i32) as {}", inner_val, ty)));
-                    } else {
-                        extracted = Some((ty.to_string(), inner_val));
-                    }
-                } else if let Some(c) = re_bit_shift.captures(raw_val) {
-                    let val = c.get(1).unwrap().as_str().trim_end_matches(['U', 'u']);
-                    let shift = c.get(2).unwrap().as_str();
-                    extracted = Some(("u32".to_string(), format!("{} << {}", val, shift)));
-                } else if re_numeric.is_match(raw_val) {
-                    let val = raw_val.trim_end_matches(['U', 'u', 'L', 'l']);
-                    let ty = if val.starts_with("0x") && val.len() > 10 {
-                        "u64"
-                    } else {
-                        "i32"
-                    };
-                    if val.starts_with('-') {
-                        extracted = Some(("i32".to_string(), val.to_string()));
-                    } else {
-                        extracted = Some((ty.to_string(), val.to_string()));
-                    }
-                }
-
-                if let Some((ty, mut val)) = extracted {
-                    val = val.trim().to_string();
-                    // Final sanity check: if it contains weird things like '(', ')', '[', ']', '{', '}', ';' it's probably not a simple constant we want
-                    if val.is_empty() || val.contains(['[', ']', '{', '}', ';', ',']) {
-                        continue;
-                    }
-                    constants.push(format!("pub const {}: {} = {};", name, ty, val));
-                    seen_names.insert(name.to_string());
-                }
+            let Some(caps) = RE_DEFINE.captures(without_comment) else {
+                continue;
+            };
+            let name = &caps[1];
+            if known.contains(name) {
+                continue;
+            }
+            if let Some((ty, value)) = convert_value(&caps[2], &aliases) {
+                constants.push(format!("pub const {name}: {ty} = {value};"));
+                known.insert(name.to_string());
             }
         }
     }
 
-    // Extract constants that weren't already seen/extracted
-    let mut final_constants = Vec::new();
-    if out_file.exists() {
-        if let Ok(content) = fs::read_to_string(out_file) {
-            for c_line in constants {
-                // Extract the name from "pub const NAME: ..."
-                if let Some(name) = c_line.split_whitespace().nth(2) {
-                    let name_trimmed = name.trim_end_matches(':');
-                    if !content.contains(&format!("pub const {}", name_trimmed)) {
-                        final_constants.push(c_line);
-                    }
-                }
-            }
-        } else {
-            final_constants = constants;
-        }
-    } else {
-        final_constants = constants;
+    if constants.is_empty() {
+        return Ok(());
     }
 
-    if !final_constants.is_empty() {
-        let mut out = fs::OpenOptions::new()
-            .append(true)
-            .open(out_file)
-            .unwrap_or_else(|e| panic!("Failed to open {}: {e}", out_file.display()));
-        writeln!(out, "\n// Extracted macro constants").unwrap();
-        for c in final_constants {
-            writeln!(out, "{}", c).unwrap();
+    let mut out = bindings;
+    out.push_str("\n// Extracted macro constants\n");
+    for constant in constants {
+        out.push_str(&constant);
+        out.push('\n');
+    }
+    fs::write(out_file, out).map_err(|e| format!("Failed to write {}: {e}", out_file.display()))
+}
+
+/// Strips balanced parentheses wrapping the whole expression.
+fn strip_outer_parens(mut value: &str) -> &str {
+    while value.starts_with('(') && value.ends_with(')') {
+        let inner = value[1..value.len() - 1].trim();
+        let mut depth = 0i32;
+        for c in inner.chars() {
+            match c {
+                '(' => depth += 1,
+                ')' => depth -= 1,
+                _ => {}
+            }
+            if depth < 0 {
+                return value;
+            }
         }
+        if depth != 0 {
+            return value;
+        }
+        value = inner;
+    }
+    value
+}
+
+/// Validates a C integer literal and strips its `u`/`l` suffixes.
+fn parse_literal(literal: &str) -> Option<&str> {
+    let literal = literal.trim().trim_end_matches(['U', 'u', 'L', 'l']);
+    RE_LITERAL.is_match(literal).then_some(literal)
+}
+
+fn literal_value(literal: &str) -> Option<u128> {
+    match literal
+        .strip_prefix("0x")
+        .or_else(|| literal.strip_prefix("0X"))
+    {
+        Some(hex) => u128::from_str_radix(hex, 16).ok(),
+        None => literal.parse().ok(),
     }
 }
 
-fn map_c_type_to_rust(c_type: &str) -> &str {
-    match c_type {
+fn primitive_type(c_type: &str) -> Option<&'static str> {
+    Some(match c_type {
         "Uint8" => "u8",
         "Sint8" => "i8",
         "Uint16" => "u16",
@@ -336,9 +283,181 @@ fn map_c_type_to_rust(c_type: &str) -> &str {
         "Sint32" => "i32",
         "Uint64" => "u64",
         "Sint64" => "i64",
-        "SDL_AudioDeviceID" => "u32",
-        "SDL_WindowFlags" => "u64",
         "size_t" => "usize",
-        _ => "u32", // Default for many SDL ID types
+        _ => return None,
+    })
+}
+
+/// Converts the value of a numeric C macro into a Rust `(type, expression)` pair.
+///
+/// Returns `None` for anything that is not a plain integer constant. Casts to
+/// types other than the fixed-width SDL integers are only accepted when the type
+/// is an integer alias in the generated bindings (`aliases`), so the compiler
+/// enforces the real width instead of a guessed one.
+fn convert_value(raw: &str, aliases: &HashSet<String>) -> Option<(String, String)> {
+    let raw = strip_outer_parens(raw.trim());
+
+    if let Some(caps) = RE_SDL_C_MACRO.captures(raw) {
+        let ty = format!("{}{}", if &caps[2] == "U" { 'u' } else { 'i' }, &caps[3]);
+        let literal = parse_literal(&caps[4])?;
+        return Some((ty, format!("{}{literal}", caps[1].replace('~', "!"))));
+    }
+
+    if let Some(caps) = RE_CAST.captures(raw) {
+        let c_type = &caps[1];
+        let rest = strip_outer_parens(caps[2].trim());
+        let (prefix, literal) = if let Some(rest) = rest.strip_prefix('~') {
+            ("!", rest)
+        } else if let Some(rest) = rest.strip_prefix('-') {
+            ("-", rest)
+        } else {
+            ("", rest)
+        };
+        let literal = parse_literal(literal)?;
+        let primitive = primitive_type(c_type);
+        let ty = match primitive {
+            Some(ty) => ty,
+            None if aliases.contains(c_type) => c_type,
+            None => return None,
+        };
+        let signed_primitive = primitive.is_some_and(|ty| ty.starts_with('i'));
+        let value = if prefix == "-" && !signed_primitive {
+            // A negative literal cannot be written in an unsigned (or alias) type.
+            format!("(-{literal}i64) as {ty}")
+        } else {
+            format!("{prefix}{literal}")
+        };
+        return Some((ty.to_string(), value));
+    }
+
+    if let Some(caps) = RE_BIT_SHIFT.captures(raw) {
+        let shift: u32 = caps[1].parse().ok()?;
+        return (shift < 32).then(|| ("u32".to_string(), format!("1 << {shift}")));
+    }
+
+    let caps = RE_NUMERIC.captures(raw)?;
+    let negative = !caps[1].is_empty();
+    let literal = &caps[2];
+    let value = literal_value(literal)?;
+    let ty = if negative {
+        match value {
+            0..=0x7FFF_FFFF => "i32",
+            0x8000_0000..=0x7FFF_FFFF_FFFF_FFFF => "i64",
+            _ => return None,
+        }
+    } else {
+        match value {
+            0..=0x7FFF_FFFF => "i32",
+            0x8000_0000..=0xFFFF_FFFF => "u32",
+            0x1_0000_0000..=0xFFFF_FFFF_FFFF_FFFF => "u64",
+            _ => return None,
+        }
+    };
+    Some((
+        ty.to_string(),
+        format!("{}{literal}", if negative { "-" } else { "" }),
+    ))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::{RE_CONST_NAME, convert_value, property_type};
+    use std::collections::HashSet;
+
+    fn convert(raw: &str) -> Option<(String, String)> {
+        let aliases = HashSet::from(["SDL_TouchID".to_string(), "SDL_MouseID".to_string()]);
+        convert_value(raw, &aliases)
+    }
+
+    fn pair(ty: &str, value: &str) -> Option<(String, String)> {
+        Some((ty.to_string(), value.to_string()))
+    }
+
+    #[test]
+    fn signed_64_bit_limits_are_extracted_with_correct_values() {
+        assert_eq!(
+            convert("SDL_SINT64_C(0x7FFFFFFFFFFFFFFF)"),
+            pair("i64", "0x7FFFFFFFFFFFFFFF")
+        );
+        // `!0x7FFF…` is i64::MIN; dropping the `~` would yield i64::MAX.
+        assert_eq!(
+            convert("~SDL_SINT64_C(0x7FFFFFFFFFFFFFFF)"),
+            pair("i64", "!0x7FFFFFFFFFFFFFFF")
+        );
+    }
+
+    #[test]
+    fn unsigned_64_bit_limits_are_extracted() {
+        assert_eq!(
+            convert("SDL_UINT64_C(0xFFFFFFFFFFFFFFFF)"),
+            pair("u64", "0xFFFFFFFFFFFFFFFF")
+        );
+        assert_eq!(
+            convert("SDL_UINT64_C(0x0000000000000000)"),
+            pair("u64", "0x0000000000000000")
+        );
+    }
+
+    #[test]
+    fn complemented_fixed_width_casts_keep_the_complement() {
+        assert_eq!(convert("((Sint8)(~0x7F))"), pair("i8", "!0x7F"));
+        assert_eq!(
+            convert("((Sint32)(~0x7FFFFFFF))"),
+            pair("i32", "!0x7FFFFFFF")
+        );
+    }
+
+    #[test]
+    fn alias_casts_use_the_alias_type_and_cast_negatives() {
+        assert_eq!(
+            convert("((SDL_TouchID)-1)"),
+            pair("SDL_TouchID", "(-1i64) as SDL_TouchID")
+        );
+        assert_eq!(
+            convert("((SDL_MouseID)0xFFFFFFFFu)"),
+            pair("SDL_MouseID", "0xFFFFFFFF")
+        );
+        assert_eq!(convert("((size_t)-1)"), pair("usize", "(-1i64) as usize"));
+    }
+
+    #[test]
+    fn unknown_cast_types_are_skipped_instead_of_guessed() {
+        assert_eq!(convert("((SDL_Keymod)3)"), None);
+    }
+
+    #[test]
+    fn shifts_are_only_accepted_as_a_whole_expression() {
+        assert_eq!(convert("(1u << 3)"), pair("u32", "1 << 3"));
+        assert_eq!(convert("(1u << 40)"), None);
+        assert_eq!(convert("(1u << 3) | (1u << 4)"), None);
+    }
+
+    #[test]
+    fn plain_literals_are_typed_by_range() {
+        assert_eq!(convert("42"), pair("i32", "42"));
+        assert_eq!(convert("-5"), pair("i32", "-5"));
+        assert_eq!(convert("0x80000000"), pair("u32", "0x80000000"));
+        assert_eq!(convert("0xFFFFFFFFu"), pair("u32", "0xFFFFFFFF"));
+        assert_eq!(convert("0x100000000"), pair("u64", "0x100000000"));
+        assert_eq!(convert("SDL_FOO + 1"), None);
+    }
+
+    #[test]
+    fn existing_constants_are_matched_by_exact_name() {
+        let bindings = "pub const SDL_FOO_BAR: u32 = 1;\npub const SDL_BAZ : i32 = 2;";
+        let names: HashSet<_> = RE_CONST_NAME
+            .captures_iter(bindings)
+            .map(|caps| caps[1].to_string())
+            .collect();
+        assert!(names.contains("SDL_FOO_BAR"));
+        assert!(names.contains("SDL_BAZ"));
+        assert!(!names.contains("SDL_FOO"));
+    }
+
+    #[test]
+    fn property_types_follow_the_name_suffix() {
+        assert_eq!(property_type("SDL_PROP_X_STRING"), "PropertyType::String");
+        assert_eq!(property_type("SDL_PROP_X_BOOLEAN"), "PropertyType::Boolean");
+        assert_eq!(property_type("SDL_PROP_X_POINTER"), "PropertyType::Pointer");
     }
 }

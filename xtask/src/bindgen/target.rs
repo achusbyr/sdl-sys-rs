@@ -1,6 +1,19 @@
 use std::str::FromStr;
 use target_lexicon::Triple;
 
+/// Build the cfg predicate used to select bindings for a target.
+///
+/// Windows targets are matched on the GNU environment, which covers both the
+/// MinGW (`gnu`) and LLVM (`gnullvm`) toolchains that share the Windows GNU ABI.
+pub fn binding_cfg(target: &str) -> String {
+    let (os, arch) = parse_target_triple(target);
+    if os == "windows" {
+        format!("all(target_os = \"{os}\", target_arch = \"{arch}\", target_env = \"gnu\")")
+    } else {
+        format!("all(target_os = \"{os}\", target_arch = \"{arch}\")")
+    }
+}
+
 /// Convert a target triple (e.g. `x86_64-unknown-linux-gnu`) into `(os, arch)` cfg strings.
 pub fn parse_target_triple(target: &str) -> (String, String) {
     let triple = Triple::from_str(target).unwrap_or_else(|e| {
@@ -64,4 +77,38 @@ pub fn parse_target_triple(target: &str) -> (String, String) {
     };
 
     (os.to_string(), arch.to_string())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::binding_cfg;
+
+    #[test]
+    fn windows_bindings_require_gnu_environment() {
+        assert_eq!(
+            binding_cfg("x86_64-pc-windows-gnu"),
+            "all(target_os = \"windows\", target_arch = \"x86_64\", target_env = \"gnu\")"
+        );
+    }
+
+    #[test]
+    fn windows_gnu_and_gnullvm_share_a_predicate() {
+        // Both toolchains report target_env = "gnu", so one predicate selects
+        // the same generated module for each.
+        let gnu = binding_cfg("x86_64-pc-windows-gnu");
+        let gnullvm = binding_cfg("x86_64-pc-windows-gnullvm");
+        assert_eq!(gnu, gnullvm);
+        assert_eq!(
+            gnu,
+            "all(target_os = \"windows\", target_arch = \"x86_64\", target_env = \"gnu\")"
+        );
+    }
+
+    #[test]
+    fn linux_selection_is_unchanged() {
+        assert_eq!(
+            binding_cfg("x86_64-unknown-linux-gnu"),
+            "all(target_os = \"linux\", target_arch = \"x86_64\")"
+        );
+    }
 }
