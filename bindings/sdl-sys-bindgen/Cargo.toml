@@ -2,7 +2,6 @@
 name = "sdl-sys-bindgen"
 version = "0.1.7+3.4.18-829a65d769d935c4852f8159e964312c0957260a"
 edition = "2024"
-rust-version = "1.89"
 description = "Alternative bindings for SDL using bindgen"
 repository = "https://github.com/achusbyr/sdl-sys-rs"
 license = "Zlib"
@@ -17,4 +16,4 @@ use-vcpkg = ["sdl-build-helper/use-vcpkg"]
 link-static = []
 
 [build-dependencies]
-sdl-build-helper = { path = "../../sdl-build-helper", version = "0.1" }
+sdl-build-helper = { path = "../../helpers/sdl-build-helper", version = "0.1" }

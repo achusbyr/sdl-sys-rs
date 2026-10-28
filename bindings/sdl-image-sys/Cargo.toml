@@ -2,7 +2,6 @@
 name = "sdl-image-sys"
 version = "0.1.7+3.4.8-0891fc30428b518e7d018677bd6fa95c1a50f4c6"
 edition = "2024"
-rust-version = "1.89"
 description = "Alternative bindings for SDL3_image using bindgen"
 repository = "https://github.com/achusbyr/sdl-sys-rs"
 license = "Zlib"
@@ -20,4 +19,4 @@ link-static = []
 sdl-sys-bindgen = { path = "../sdl-sys-bindgen", version = "0.1" }
 
 [build-dependencies]
-sdl-build-helper = { path = "../../sdl-build-helper", version = "0.1" }
+sdl-build-helper = { path = "../../helpers/sdl-build-helper", version = "0.1" }

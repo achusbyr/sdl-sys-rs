@@ -67,7 +67,7 @@ pub fn run_app<A: SdlApp>() -> i32 {
                 unsafe {
                     let ptr = allocate_app(app);
                     if ptr.is_null() {
-                        log_error(SDL_GetError());
+                        sdl_log_error(SDL_GetError());
                         return SDL_AppResult::SDL_APP_FAILURE;
                     }
                     *appstate = ptr.cast();
@@ -75,14 +75,31 @@ pub fn run_app<A: SdlApp>() -> i32 {
                 SDL_AppResult::SDL_APP_CONTINUE
             }
             Err(error) => {
+                let err_msg;
                 #[cfg(feature = "alloc")]
-                let err_msg = format!("{:?}\0", error);
+                {
+                    err_msg = format!("SDL app initialization failed: {:?}\0", error);
+                }
                 #[cfg(not(feature = "alloc"))]
-                drop(error);
-                #[cfg(not(feature = "alloc"))]
-                let err_msg = c"SDL app initialization failed";
+                {
+                    drop(error);
 
-                log_error(err_msg.as_ptr() as *const c_char);
+                    const BASE_MSG: &[u8] = b"SDL app initialization failed";
+                    #[cfg(debug_assertions)]
+                    {
+                        err_msg = [
+                            BASE_MSG,
+                            b" (debug: enable the `alloc` feature for detailed error messages)\0",
+                        ]
+                        .concat();
+                    }
+                    #[cfg(not(debug_assertions))]
+                    {
+                        err_msg = [BASE_MSG, b"\0"].concat();
+                    }
+                }
+
+                sdl_log_error(err_msg.as_ptr() as *const c_char);
                 SDL_AppResult::SDL_APP_FAILURE
             }
         }
@@ -169,7 +186,7 @@ fn allocate_app<A>(app: A) -> *mut A {
 }
 
 #[inline]
-fn log_error(msg: *const c_char) {
+fn sdl_log_error(msg: *const c_char) {
     // SAFETY: the `%s` format consumes exactly one NUL-terminated string, so
     // `msg` is never interpreted as a format string.
     unsafe {
@@ -183,7 +200,7 @@ fn log_error(msg: *const c_char) {
 
 #[cfg(test)]
 mod tests {
-    use super::{allocate_app, log_error};
+    use super::{allocate_app, sdl_log_error};
     use core::sync::atomic::{AtomicUsize, Ordering};
     use sdl_sys_bindgen::SDL_aligned_free;
 
@@ -226,6 +243,6 @@ mod tests {
 
     #[test]
     fn error_messages_are_not_interpreted_as_format_strings() {
-        log_error(c"literal %s %n 100%".as_ptr());
+        sdl_log_error(c"literal %s %n 100%".as_ptr());
     }
 }

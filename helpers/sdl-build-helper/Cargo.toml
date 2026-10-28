@@ -2,7 +2,6 @@
 name = "sdl-build-helper"
 version = "0.1.5"
 edition = "2024"
-rust-version = "1.89"
 description = "Internal library for building and linking SDL in use with bindgen"
 repository = "https://github.com/achusbyr/sdl-sys-rs"
 license = "Zlib"

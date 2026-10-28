@@ -3,14 +3,14 @@
 [![License: Zlib](https://img.shields.io/badge/License-Zlib-blue.svg)](https://opensource.org/licenses/Zlib)
 [![Rust: 1.89+](https://img.shields.io/badge/Rust-1.89+-orange.svg)](https://www.rust-lang.org)
 
-Low-level Rust FFI bindings for **SDL3** and its satellite libraries, featuring a robust build system and an idiomatic application wrapper.
+Low-level Rust FFI bindings for **SDL3** and its satellite libraries, featuring an application wrapper.
 
 ## Features
 
-- **Pre-generated Bindings:** LLVM/Clang not required during a standard build. Bindings for common targets (Linux, Windows GNU, macOS, iOS, Emscripten) are bundled.
+- **Pre-generated Bindings:** LLVM/Clang not required during a standard build.
+- **Cross-Platform:** Bindings for common targets (Linux, Windows GNU, macOS) are bundled.
 - **Build Helper:** Shared builder (`sdl-build-helper`) for handling C library linkage and source builds.
 - **Main Loop Wrapper:** `no_std`-friendly trait-based wrapper for SDL3's callback-based application architecture.
-- **Cross-Platform:** Built-in support for cross-compiling to WASM (Emscripten) and mobile platforms.
 
 ## Workspace Crates
 
@@ -20,9 +20,9 @@ Low-level Rust FFI bindings for **SDL3** and its satellite libraries, featuring 
 | [`sdl-image-sys`](./bindings/sdl-image-sys) | Bindings for SDL3_image. |
 | [`sdl-mixer-sys`](./bindings/sdl-mixer-sys) | Bindings for SDL3_mixer. |
 | [`sdl-ttf-sys`](./bindings/sdl-ttf-sys) | Bindings for SDL3_ttf. |
-| [`sdl-main-wrapper`](./sdl-main-wrapper) | High-level `SdlApp` trait and `run_app` infrastructure. |
-| `sdl-build-helper` | Internal build logic (shared by `-sys` crates). |
-| `xtask` | Developer tool for regenerating bindings. |
+| [`sdl-main-wrapper`](./helpers/sdl-main-wrapper) | High-level `SdlApp` trait and `run_app` infrastructure. |
+| [`sdl-build-helper`](./helpers/sdl-build-helper) | Internal build logic (shared by `-sys` crates). |
+| [`xtask`](./helpers/xtask) | Developer tool for regenerating bindings. |
 
 ## Quick Start
 
@@ -59,7 +59,7 @@ impl SdlApp for MyApp {
 fn main() {
     let code = run_app::<MyApp>();
     // On Emscripten `run_app` returns right after scheduling the callbacks,
-    // so exiting here would tear the runtime down before the app ever runs.
+    // so ignore exit code here.
     #[cfg(not(target_os = "emscripten"))]
     std::process::exit(code);
 }
@@ -88,7 +88,7 @@ For a nonstandard installation, set `SDL3_DIR` to the directory containing
 `SDL3Config.cmake` or add the installation prefix to `CMAKE_PREFIX_PATH`.
 
 > [!Important]
-> **Satellite features do not propagate to the core crate (by design).**
+> **Satellite features do not propagate to the core crate by design.**
 > Enabling `build-from-source`, `link-static`, `use-pkg-config` or `use-vcpkg` on
 > `sdl-image-sys`, `sdl-mixer-sys` or `sdl-ttf-sys` only affects *that* library.
 > This lets you, for example, link a system-installed SDL3 while building SDL3_image
@@ -195,15 +195,11 @@ export PATH="/path/to/llvm-mingw/bin:$PATH"
 <details>
 <summary>Using GCC-based MinGW-w64 sysroot instead</summary>
 
-A GCC-based MinGW-w64 sysroot is not enough on its own: it ships no
-`libunwind`, which the Rust standard library for this target requires. If you
-must use one, create an `x86_64-w64-mingw32-clang` wrapper that runs
-`clang --target=x86_64-w64-windows-gnu -fuse-ld=lld` and make `libunwind.a`
-(for example, a copy of the sysroot's `libgcc_eh.a`) discoverable on its search
-path.
+A GCC-based MinGW-w64 sysroot doesn't ship `libunwind`, which the Rust standard library for this target requires.
+If you must use one, create an `x86_64-w64-mingw32-clang` wrapper that runs `clang --target=x86_64-w64-windows-gnu -fuse-ld=lld` and make `libunwind.a` (for example, a copy of the sysroot's `libgcc_eh.a`) discoverable on its search path.
 
 The resulting binaries use the UCRT and dynamically link `libunwind.dll`, so
-ship `libunwind.dll` (from the toolchain's `bin` directory) beside the
+put `libunwind.dll` (from the toolchain's `bin` directory) beside the
 executable. For a `build-from-source` cross build, point CMake at the same
 toolchain via `SDL3_CMAKE_OVERRIDE` (the satellite crates accept the analogous
 `SDL3_IMAGE_CMAKE_OVERRIDE`, etc.):
@@ -273,7 +269,7 @@ cargo test -p sdl-build-helper --features build-from-source \
   checkout_real_remote_initializes_submodules_and_reuses_cache -- --ignored --nocapture
 ```
 
-### Adding Bindings
+### Adding Bindingss
 
 #### Adding A New Platform
 
@@ -282,6 +278,10 @@ Bindings are pre-generated for most platforms. If you need to support a new plat
 1. Clone the repository with submodules: `git clone --recurse-submodules https://github.com/achusbyr/sdl-sys-rs.git`
 2. To add a new target, update the `TARGETS` array in `xtask/src/main.rs`.
 3. Run the generator: `cargo xtask`
+
+## Minimum Supported Rust Version
+
+The current MSRV is Rust 1.89. There is currently no policy for updating the MSRV and it may happen whenever. The crates do not specify `rust-version` so it may or may not work on earlier Rust versions, but no support is offered.
 
 ## License
 
